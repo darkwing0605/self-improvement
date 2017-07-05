@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index2</title>
+</head>
+<body>
+	<form enctype="multipart/form-data" action="" method="post">
+		<label for="txtname">用户名</label>
+		<input type="text" name="login_username" id="txtname" placeholder="用户名">
+		<label for="txtpwd">用户密码</label>
+		<input type="password" name="login_pwd" id="txtpwd">
+		<input type="reset" name="">
+		<input type="submit" name="">
+	</form>
+
+	<h1 align="center">学生信息表</h1>
+	<form action="" method="post">
+		<table>
+			<tr>
+				<td>
+					<fieldset>
+						<legend>基本信息</legend>
+						<label for="user">学生姓名：</label>
+						<input type="text" name="user" id="user">
+						<label for="pwd">设置密码：</label>
+						<input type="password" name="pwd" id="pwd">
+					</fieldset>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<fieldset>
+						<legend>性别</legend>
+						<label for="boy">男生：</label>
+						<input type="radio" name="sex" id="boy">
+						<label for="girl">女生：</label>
+						<input type="radio" name="sex" id="girl">
+						<hr/>
+						<label for="area">籍贯</label>
+						<select name="area" id="area">
+							<option value="1">北京</option>
+							<option value="2">上海</option>
+							<option value="3" selected>广州</option>
+							<option value="4">深圳</option>
+						</select>
+						<hr/>
+						<label for="self">自我介绍</label>
+						<textarea name="self" id="self" cols="60" rows="10" style="resize:none;" placeholder="自我介绍"></textarea>
+					</fieldset>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<fieldset>
+						<legend>兴趣爱好</legend>
+						<label for="football">足球</label><input type="checkbox" name="hobby" id="football" value="">
+						<label for="basketball">篮球</label><input type="checkbox" name="hobby" id="basketball" value="">
+						<label for="anime">动漫</label><input type="checkbox" name="hobby" id="anime" value="">
+						<label for="music">音乐</label><input type="checkbox" name="hobby" id="music" value="">
+						<label for="movie">电影</label><input type="checkbox" name="hobby" id="movie" value="">
+						<label for="study">学习</label><input type="checkbox" name="hobby" id="study" value="" checked>
+						<label for="game">游戏</label><input type="checkbox" name="hobby" id="game" value="" disabled="disabled">
+						<hr/>
+						上传照片：
+						<input type="file" name="photo">
+					</fieldset>
+				</td>
+			</tr>
+			<tr>
+				<td align="center">
+					<input type="submit" value="提交">
+					<input type="reset" value="重置">
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<hr/>
+
+	<form action="" method="post">
+		<table>
+			<tr>
+				<td>
+					<fieldset>
+						<legend>基本信息：</legend>
+						<table>
+							<tr>
+								<td align="right">
+									<label for="keywords">关键字：</label>
+								</td>
+								<td><input type="text" name="keywords" id="keywords" placeholder="关键字" size="30">
+								</td>
+							</tr>
+							<tr>
+								<td align="right"><label for="outKeywords">排除关键字：</label></td>
+								<td><input type="text" name="outKeywords" id="outKeywords"></td>
+							</tr>
+							<tr>
+								<td align="right"><label for="market">市场：</label></td>
+								<td>
+									<select name="market" id="market">
+										<option value="1">所有市场</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+							<td align="right"><label for="userName">卖家昵称：</label></td>
+								<td><input type="text" name="userName" id="userName" placeholder="请输入完整昵称"></td>
+							</tr>
+							<tr>
+								<td align="right">阿里旺旺：</td>
+								<td><input type="checkbox" name="aliwangwang" id="aliwangwang"><label for="aliwangwang">在线</label></td>
+							</tr>
+						</table>
+					</fieldset>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<fieldset>
+						<legend>更多条件：</legend>
+						<table>
+							<tr>
+								<td align="right">价格区间：</td>
+								<td><input type="text" name="min" id="min" size="5">-<input type="text" name="max" id="max" size="5"></td>
+							</tr>
+							<tr>
+								<td align="right">购物保障：</td>
+								<td>
+									<input type="checkbox" name="insurance" id="insurance_1"><label for="insurance_1">消费者保障</label>
+									<input type="checkbox" name="insurance" id="insurance_2"><label for="insurance_2">正品保障</label>
+									<input type="checkbox" name="insurance" id="insurance_3"><label for="insurance_3">品牌授权</label>
+									<input type="checkbox" name="insurance" id="insurance_4"><label for="insurance_4">假一赔三</label>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									商品优惠：
+								</td>
+								<td>
+									<input type="checkbox" name="sale" id="sale_1" checked><label for="sale_1">不限</label>
+									<input type="checkbox" name="sale" id="sale_2"><label for="sale_2">全部促销</label>
+									<input type="checkbox" name="sale" id="sale_3"><label for="sale_3">搭配减价</label>
+									<input type="checkbox" name="sale" id="sale_4"><label for="sale_4">打折秒杀</label>
+									<input type="checkbox" name="sale" id="sale_5"><label for="sale_5">vip优惠</label>
+									<input type="checkbox" name="sale" id="sale_6"><label for="sale_6">聚划算</label>
+									<input type="checkbox" name="sale" id="sale_7"><label for="sale_7">免运费</label>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									物流：
+								</td>
+								<td>
+									<select name="place" id="userPlace" >
+										<option value="1">北京</option>
+										<option value="2">上海</option>
+										<option value="3">广州</option>
+										<option value="0" disabled="disabled" selected hidden>卖家所在地</option>
+									</select>
+								</td>
+							<tr>
+								<td></td>
+								<td>
+									<input type="checkbox" name="transport" id="transport_1"><label for="transport_1">运费险</label>
+									<input type="checkbox" name="transport" id="transport_2"><label for="transport_2">24小时发货</label>
+									<input type="checkbox" name="transport" id="transport_3"><label for="transport_3">闪电发货</label>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									宝贝新旧：
+								</td>
+								<td>
+									<input type="radio" name="old" id="old_1" checked><label for="old_1">全新</label>
+									<input type="radio" name="old" id="old_2"><label for="old_2">二手</label>
+								</td>
+							</tr>
+							<tr>
+								<td align="right">
+									支付方式：
+								</td>
+								<td>
+									<input type="radio" name="pay" id="pay1"><label for="pay1">货到付款</label>
+									<input type="radio" name="pay" id="pay2"><label for="pay2">信用卡</label>
+								</td>
+							</tr>
+							<tr>
+								<td align="rigth">特色商品：</td>
+								<td>
+									<input type="checkbox" name="special" id="special1"><label for="special1">公益宝贝</label>
+									<input type="checkbox" name="special" id="special2"><label for="special2">海外商品</label>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" align="center">
+									<input type="submit" name="search" id="search" value="搜索"><input type="reset" name="reset" id="reset" value="清空搜索条件">
+								</td>
+							</tr>
+						</table>
+					</fieldset>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+<hr/>
+	<form method="post" action="">
+		<fieldset>
+			<table>
+				<thead>
+					教员搜索
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							搜索类型：
+							<select name="type" id="type">
+								<option value="0" selected hidden disabled="disabled">搜索教员信息</option>
+								<option value="1">1</option>	
+								<option value="2">2</option>	
+								<option value="3">3</option>	
+								<option value="4">4</option>	
+							</select>
+						</td>
+						<td>
+							教员身份：
+							<select name="identity" id="identity">
+								<option value="0" selected hidden disabled="disabled">不限</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							所在地区：
+							<select name="location" id="location">
+								<option value="0" selected hidden disabled="disabled">不限</option>
+								<option value="111">111</option>
+								<option value="112">112</option>
+								<option value="113">113</option>
+								<option value="114">114</option>
+							</select>
+						</td>
+						<td>
+							性别：
+							<select name="sex" id="sex">
+								<option value="0" selected hidden disabled="disabled">不限</option>
+								<option value="male">男</option>
+								<option value="female">女</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							学习科目：
+							<select name="subject" id="subject">
+								<option value="0" selected hidden disabled="disabled">请在以下列表中选择</option>	
+								<option value="math">数学</option>
+								<option value="science">科学</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							学校：<input type="text" name="school">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							专业：<input type="text" name="major">
+						</td>
+						<td>
+							<input type="submit" name="submit" value="提交">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</fieldset>
+	</form>
+
+</body>
+</html>

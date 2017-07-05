@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!-- html5当中只是用一种类型的DOCTYPE，现在大部分网站都使用HTML5的DOCTYPE -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3c.org/TR/html4/strict.dtd">
+<!-- 严格：包含所有HTML元素和属性，但不包括展示性的和弃用的元素（font）,不允许框架集（Framesets） -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/html4/loose.dtd"> 
+<!-- 过渡：包含所有HTML元素和属性，包括展示性的和弃用的元素，不允许框架集，现在90%都使用这个 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3c.org/TR/html4/frameset.dtd">
+<!-- 框架：等同于HTML 4.01Transitional，但允许框架集内容 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- 包含所有HTML元素和属性，包括展示性的和弃用的元素，不允许框架集，必须以格式正确的XML来编写标记 -->
+<head><meta charset="utf-8"></head>
+align属性：left、center、right、justify（两端对齐）
+
+<address>联系信息，斜体</address>
+<del>删除信息</del>
+<em>强调信息，斜体</em>
+<pre>格式化文本，保留空格和换行符</pre>
+<small>13号字</small>
+<big>18号字</big>
+<strong>强调信息，加粗</strong>
+<sup>上标</sup>
+<sub>下标</sub>
+
+<html>
+	<body>
+		<a href="#d1">第一章</a>
+		<a href="#d2">第二章</a>
+		<a href="#d3">第三章</a>
+
+		<a name="d1"></a>
+		<p>第一章</p>
+
+		<a name="d2"></a>
+		<p>第二章</p>
+
+		<a name="d3"></a>
+		<p>第三章</p>
+	</body>
+</html>
+<!-- 要用name来定义锚，id一般是用来定义js的 -->
+
+target属性：_blank:新标签中打开；_parent:在父标签中打开；_self:默认就是在自己窗口打开；_top:清楚所有框架，载入到浏览器窗口 "framename":在指定的框架中打开被链接文档
+
+ul type="disc" <!-- 默认黑色远点 --> "circle" <!-- 空心圆点 --> "square" <!-- 方块 -->
+ol type="A" "a" "I" "i" <!-- 默认为数字列表 -->
+
+<dl>
+	<dt>第一章</dt>
+		<dd>1小节</dd>
+		<dd>2小节</dd>
+	<dt>第二章</dt>
+		<dd>1小节</dd>
+		<dd>2小节</dd>
+</dl>
+
+行内元素和块级元素的转换 display:block; display:inline;
+
+<frameset rows="200px,*">
+	<frame src="http://www.baidu.com" />
+	<frame src="http://www.baidu.com" />
+</frameset>
+<em>frameset和body不能共存</em>
+rows="20%,2001*" 以行的方式分割，横着划分
+border="1" 有边框
+bordercolor="red" 框架边颜色
+frameborder="yes" 是否显示框线，也可以写1或0
+noresize="noresize" 框架不可调整尺寸，鼠标无法拖动
+<iframe src="" name="" frameborder="1" width="500px" height="300px">你的浏览器不支持iframe标签</iframe>
+
+<p><a href="frameset框架集.html">frameset框架集</a>、<a href="list.html">list.html</a>+<a href="index1.html">index1.html</a></p>
+
+<table border="1">
+	<caption>标题</caption>
+	<tr><th colspan="5">课程表</th></tr>
+	<tr>
+		<td>星期一</td>
+		<td>星期二</td>
+		<td>星期三</td>
+		<td>星期四</td>
+		<td rowspan="2">星期五</td>
+	</tr>
+	<tr>
+		<td>上课</td>
+		<td>上课</td>
+		<td>上课</td>
+		<td>上课</td>
+	</tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+	<thead>
+		<tr>
+			<th>Month</th>
+			<th>Saving</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>January</td>
+			<td>$100</td>
+		</tr>
+		<tr>
+			<td>February</td>
+			<td>$80</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td>Sum</td>
+			<td>$180</td>
+		</tr>
+	</tfoot>
+</table>
+
+position:absolute绝对定位fixed固定定位relative相对定位static静态定位inherit继承定位<br />
+如果给子元素全部设置了absolute，那么所有的子元素就会堆叠在一起，互相遮盖。如果我们需要在一个元素上堆叠好多层，那怎么给它们排序呢。这就需要用到z-index属性了。z-index属性的属性值是数字。数字越大，那么它就显示的最靠上
+<br />
+
+form表单属性<form action="URL"></form>指定form表单向何处发送信息；<form name="regFrm"></form>起名；<form enctype="string"></form>发送表单数据前，对表单数据进行编码，文件上传时，enctype="multipart/form-data"，以二进制传输；<form method="get/post"></form>将表单中的数据提交给服务器处理程序的方式，最常用的是get和post，get会以URL方式提交，post提交内容不会显示出来，它在请求实体中。安全问题和大小问题
+<br />
+
+<form>
+	<input type="text" />单行文本框
+	<input type="password" />密码框
+	<input type="radio" checked="checked" name="Sex" value="male" />
+	<input type="radio" name="Sex" value="female" />
+	单选按钮
+	<input type="checkbox" name="Car" />
+	<input type="checkbox" name="Car" />
+	复选框
+	<input type="hidden" />隐藏域
+	<select name="area" disabled="disabled" size="2">
+		<option value="1" selected>北京</option>
+		<option value="2">上海</option>
+	</select>下拉框
+	<textarea cols="130" rows="10" maxlength="20" placeholder="多行文本是可以拖动改变大小的，如果不希望你的布局被改变，可以使用css来控制style=”resize: none;”readonly规定文本区为只读;required规定文本区域是必填的，不能和readonly一起用" required></textarea>多行文本
+	<label for="pwd">记住密码</label>
+	<input type="checkbox" name="pwd" id="pwd" />标签<em>通过label的for指向按钮的id来绑定，一般和radio、checkbox类型一起使用</em>
+	<fieldset>
+		<legend>健康信息</legend>
+		身高：<input type="text" name="" />
+		体重：<input type="text" name="" />
+	</fieldset>文件组
+	<input type="submit" />提交按钮
+	<input type="button" />普通按钮
+	<input type="reset" />重置按钮
+</form>
+<br />文件上传↓
+<form action="" method="post" enctype="multipart/form-data">
+	<input type="file" name="file1" />
+</form>
+<a href="index2.html">实例</a>
+<br/>
+HTML5新增input类型：
+<form method="post" action="">
+<input type="email" name="user_email">email类型提交表单时自动验证email域的值；<input type="url" name="user_url">url类型自动验证url域的值；<input type="number" name="points" min="1" max="10" value="最小1最大10">设定对所接受的数字的限定；<input type="range" name="range1" min="1" max="10" value="7">range类型显示为滑动条，规定了范围，value是现在时；<input type="date" name="user_date">date类型可供选取日期输入类型；<input type="search" name="search" placeholder="请输入搜索内容">search类型用于搜索域，比如站点或Google搜索，显示为正常的文本域，输入后会出现清除的按钮；<input type="color" name="color">
+
+<input type="submit" name="testSubmit1">
+</form>
+<hr/>
+meta标签共有两个属性，它们分别是http-equiv属性和name属性，不同的属性又有不同的参数值，这些不同的参数值就实现了不同的网页功能
+<p><strong>
+*http-equiv可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容<br/>	
+*name属性主要用于描述网页
+</strong></p>
+设置文档编码：<meta charset="UTF-8">;旧写法：<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> <br/>
+移动端开发的缩放比例：<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><em>width=device-width意思是页面的宽度等于设备的宽度；initial-scale指首次被显示的可视区域的缩放比例为1:1,2.0则会放大两倍；minimum-scale=1.0和maximum-scale=1.0是最小缩放比和最大缩放比，1.0是指不能放大缩小；user-scalable=no是指用户是否可以对页面进行缩放，no是不可以</em><br/>
+http-equiv属性主要有以下几种参数：<meta http-equiv="Pragma" content="no-cache"> Pragma禁止浏览器从本地计算机缓存中访问页面内容（例如没网之后）；<meta http-equiv="Refresh" content="9999999999999999999999999999999;URL=note.html">Refresh自动更新。分号分开秒数和URL地址；<meta http-equiv="Window-target" content="_top">Window-target显示窗口设定，强制页面在当前窗口以独立页面显示，用来防止别人在框架里调用自己的页面；Content-Type字符集设定，gb2312，简体中文、gbk，简体中文，是gb2312的扩展、big5 ，繁体中文（港台）、iso-2022-jp，日文、ks_c_5601，韩文、ISO-8859-1，英文、Unipre、UTF-8，世界通用的语言编码
+<span><a href="index2.html">作业</a></span>
+<hr />
+CSS引入方式：导入式<style type="text/css">@import url(my.css);</style><br/>
+优先级：行内样式>内部样式>外部样式>导入样式<br/>
+@import可以在CSS中再次引入其他样式表，比如创建一个主样式表，在主样式表中再引入其他的样式表：在html文档中<style type="text/css">@import url(mycss.css);</style>，在mycss.css中@import url(other.css);（这个必须放在第一行）<br/>
+基础选择器：#id名{属性名:属性值;}、.class名{属性名:属性值;}、标签名{属性名:属性值;}<br/>
+ID > CLASS>元素>通配符<br/>
+CSS样式：<br/>
+background-attachment:背景图片是否随内容滚动，默认值scroll滚动条跟着动；fixed背景图像相对于窗体固定，滚动条滚动图像不动，但它的容器会消失。<br/>
+opacity：设置颜色的透明度，1为不透明，0为完全透明<br/>
+font-variant:指定文本是否为小型的大写字母，默认值normal；small-caps小型的大写字母<br/>
+font-style：指定文本的字体样式，默认值normal，italic斜体
+font-weight：指定文字的粗细，默认值normal，lighter细体；bold、bolder粗体，相当于700；以数字表示，范围100-900（600以下为细体，600以上为粗体）
