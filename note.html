@@ -67,7 +67,7 @@ frameborder="yes" 是否显示框线，也可以写1或0
 noresize="noresize" 框架不可调整尺寸，鼠标无法拖动
 <iframe src="" name="" frameborder="1" width="500px" height="300px">你的浏览器不支持iframe标签</iframe>
 
-<p><a href="frameset框架集.html">frameset框架集</a>、<a href="list.html">list.html</a>+<a href="index1.html">index1.html</a></p>
+<p><a href="frameset框架集.html" target="_blank">frameset框架集</a>、<a href="list.html" target="_blank">list.html</a>+<a href="index1.html" target="_blank">index1.html</a></p>
 
 <table border="1">
 	<caption>标题</caption>
@@ -148,7 +148,7 @@ form表单属性<form action="URL"></form>指定form表单向何处发送信息�
 <form action="" method="post" enctype="multipart/form-data">
 	<input type="file" name="file1" />
 </form>
-<a href="index2.html">实例</a>
+<a href="index2.html" target="_blank">实例</a>
 <br/>
 HTML5新增input类型：
 <form method="post" action="">
@@ -165,7 +165,7 @@ meta标签共有两个属性，它们分别是http-equiv属性和name属性，�
 设置文档编码：<meta charset="UTF-8">;旧写法：<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> <br/>
 移动端开发的缩放比例：<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><em>width=device-width意思是页面的宽度等于设备的宽度；initial-scale指首次被显示的可视区域的缩放比例为1:1,2.0则会放大两倍；minimum-scale=1.0和maximum-scale=1.0是最小缩放比和最大缩放比，1.0是指不能放大缩小；user-scalable=no是指用户是否可以对页面进行缩放，no是不可以</em><br/>
 http-equiv属性主要有以下几种参数：<meta http-equiv="Pragma" content="no-cache"> Pragma禁止浏览器从本地计算机缓存中访问页面内容（例如没网之后）；<meta http-equiv="Refresh" content="9999999999999999999999999999999;URL=note.html">Refresh自动更新。分号分开秒数和URL地址；<meta http-equiv="Window-target" content="_top">Window-target显示窗口设定，强制页面在当前窗口以独立页面显示，用来防止别人在框架里调用自己的页面；Content-Type字符集设定，gb2312，简体中文、gbk，简体中文，是gb2312的扩展、big5 ，繁体中文（港台）、iso-2022-jp，日文、ks_c_5601，韩文、ISO-8859-1，英文、Unipre、UTF-8，世界通用的语言编码
-<span><a href="index2.html">作业</a></span>
+<span><a href="index2.html" target="_blank">作业</a></span>
 <hr />
 CSS引入方式：导入式<style type="text/css">@import url(my.css);</style><br/>
 优先级：行内样式>内部样式>外部样式>导入样式<br/>
@@ -177,4 +177,28 @@ background-attachment:背景图片是否随内容滚动，默认值scroll滚动�
 opacity：设置颜色的透明度，1为不透明，0为完全透明<br/>
 font-variant:指定文本是否为小型的大写字母，默认值normal；small-caps小型的大写字母<br/>
 font-style：指定文本的字体样式，默认值normal，italic斜体
-font-weight：指定文字的粗细，默认值normal，lighter细体；bold、bolder粗体，相当于700；以数字表示，范围100-900（600以下为细体，600以上为粗体）
+font-weight：指定文字的粗细，默认值normal，lighter细体；bold、bolder粗体，相当于700；以数字表示，范围100-900（600以下为细体，600以上为粗体）<br/>
+去掉超链接的下划线a {text-decoration: none;}<br/>
+让溢出的文字以省略号显示p {height: 20px; width: 100px; background: #ddd; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;}<br/>
+text-transform：设置对象中的文本的大小写，默认值none;capitalize将每个单词的第一个字母转换为大写；uppercase全部转换为大写；lowercase全部转换成小写<br/>
+text-decoration：指定文字有无装饰，underline下划线；overline上划线；line-through贯穿线，类似于删除标签<br/>
+vertical-align:middle 设置对象内容的垂直对齐方式<a href="index3.html" target="_blank">演示一下</a><br/>
+word-wrap:break-word 可设置过长的文本自动换行<br/>
+list-style-image只有一个属性url，引导一个图片。list-style-position设置列表项标记如何根据文本排序，两个属性outside（放在文本以外，默认）和inside（放在文本以内）。list-style-type设置列表项所使用的预设标记none不使用，disc实心圆，circle空心圆，square实心方块。list-style复合属性
+<pre>
+拓展
+-webkit-是一种浏览器内核，浏览器内核其实是我们浏览器中的渲染引擎，它将我们的代码渲染成一个完整的页面。
+
+浏览器内核一共有四种：
+	webkit  safari 和chrome使用	
+	trident  IE浏览器的渲染引擎
+	gecko  火狐浏览器
+	presto  opera曾经的内核，现在opera使用的是blink，blink是webkit内核的一个分支
+</pre>
+<hr/>
+border-radius圆角，box-shadow阴影，linear-gradient线性渐变，radial-gradient径向渐变，text-shadow文字阴影，word-wrap<a href="index3.html" target="_blank">练习一下</a><br/>
+<strong>Transform2D属性</strong>
+translate()属性、rotate()属性、scale()几倍放大、skew()翻转<br/>
+<strong>Transform3D属性</strong>
+rotateX()、rotateY()、translate3d()<br/>
+<a href="index4.html" target="_blank">举个栗子</a>

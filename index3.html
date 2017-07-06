@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.div1 {
+			background: orange;
+			height: 100px;
+		}
+		.div1 a {
+			display: inline-block;
+			height: 50px;
+			width: 80px;
+			background: red;
+			vertical-align: middle;
+		}
+		.p {
+			background: orange;
+			text-transform: capitalize;
+			text-decoration: overline;
+		}
+		.p img {
+			width: 100px;
+			vertical-align: middle;
+		}
+		.ul-demo1 {
+			background: blue;
+			height: 100px;
+			margin-top: 10px;
+		}
+		.ul-demo1 ul{
+			list-style-image: url("images/icon.png");
+		}
+		.ul-demo2 {
+			background: blue;
+			height: 100px;
+			margin-top: 10px;
+		}
+		.ul-demo2 ul{
+			list-style-position: inside;
+		}
+		.ul-demo3 {
+			background: blue;
+			height: 100px;
+			margin-top: 10px;	
+		}
+		.ul-demo3 ul{
+			list-style-type: none;
+		}
+		.ul-demo4 {
+			background: blue;
+			height: 100px;
+			margin-top: 10px;	
+		}
+		.ul-demo4 ul{
+			list-style: url("images/icon.png" outside disc);
+		}
+		/*这是一条分界线*/
+		.yuanjiao {
+			width: 300px;
+			height: 50px;
+			line-height: 50px;
+			background-color: #ddd;
+			-webkit-border-radius: 25px;            /*但是这里为什么要这样写*/
+			text-align: center;
+		}
+		.shadow {
+			margin-top: 10px;
+			width: 300px;
+			height: 50px;
+			background-color: yellow;
+			-webkit-box-shadow: 10px 10px 5px blue;  /*水平阴影的位置 垂直阴影的位置 模糊距离 颜色*/
+		}
+		.gradient1 {
+			margin-top: 20px;
+			height: 100px;
+			background: -webkit-linear-gradient(red,blue);
+			background: -o-linear-gradient(red,blue);
+			background: -moz-linear-gradient(red,blue);
+			background: linear-gradient(red,blue); /*标准语法一般放到最后*/
+		}
+		.gradient2 {
+			margin-top: 10px;
+			height: 100px;
+			background: -webkit-linear-gradient(left,red,blue);
+			background: -o-linear-gradient(left,red,blue);
+			background: -moz-linear-gradient(left,red,blue);
+			background: linear-gradient(left,red,blue);
+		}
+		.gradient3 {
+			margin-top: 10px;
+			height: 100px;
+			width: 100px;
+			background: -webkit-radial-gradient(red,yellow,green);
+			background: -o-radial-gradient(red,yellow,green);
+			background: -moz-radial-gradient(red,yellow,green);
+			background: radial-gradient(red,yellow,green);
+		}
+		.text-shadow {
+			margin-top: 10px;
+			background-color: white;
+			border: 1px solid #000;
+			text-shadow: 5px 5px 5px #FF0000;
+		}
+		.word-wrap {
+			margin-top: 10px;
+			width: 100px;
+			border: 1px solid #000;
+			word-wrap: break-word;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="div1">这里有内容<a href="#"></a></div>
+	<p class="p">this is paragragh!!!<img src="images/img1.gif" alt="img1"></p>
+	<div class="ul-demo1">
+		<ul>
+			<li>111</li>
+			<li>222</li>
+			<li>333</li>
+		</ul>
+	</div>
+	<div class="ul-demo2">
+		<ul>
+			<li>111</li>
+			<li>222</li>
+			<li>333</li>
+		</ul>
+	</div>
+	<div class="ul-demo3">
+		<ul>
+			<li>111</li>
+			<li>222</li>
+			<li>333</li>
+		</ul>
+	</div>
+	<div class="ul-demo4">
+		<ul>
+			<li>111</li>
+			<li>222</li>
+			<li>333</li>
+		</ul>
+	</div>
+	<hr/>
+	<div class="yuanjiao">border-radius可以快速创建圆角矩形</div>
+	<div class="shadow">box-shadow: 水平阴影的位置 垂直阴影的位置 模糊距离 颜色;</div>
+	<div class="gradient1"></div>
+	<div class="gradient2"></div>
+	<div class="gradient3"></div>
+	<div class="text-shadow">text-shadow: 水平 垂直 模糊距离 颜色;</div>
+	<div class="word-wrap">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+</body>
+</html>

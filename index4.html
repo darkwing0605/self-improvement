@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Transform2D</title>
+	<style type="text/css">
+		div {
+			width: 100px;
+			height: 60px;
+			background-color: orange;
+			border: 1px solid black;
+		}
+		div.div2 {
+			-ms-transform: translate(50px,100px);
+			-webkit-transform: translate(50px,100px);
+			transform: translate(50px,100px);
+		}
+		div.div3 {
+			-ms-transform: translateX(50px);
+			-webkit-transform: translateX(50px);
+			transform: translateX(50px);
+		}
+		div.div4 {
+			-ms-transform: translateY(50px);
+			-webkit-transform: translateY(50px);
+			transform: translateY(50px);
+		}
+		div.div5 {
+			margin-top: 100px;
+			-webkit-transform: rotate(30deg);
+			-ms-transform: rotate(30deg);
+			-moz-transform: rotate(30deg);
+			-o-transform: rotate(30deg);
+			transform: rotate(30deg);
+		}
+		div.div6 {
+			margin-top: 100px;
+			margin-left: 60px;
+			-webkit-transform: scale(2,4);
+			-moz-transform: scale(2,4);
+			-ms-transform: scale(2,4);
+			-o-transform: scale(2,4);
+			transform: scale(2,4);
+		}
+		div.div7 {
+			margin-top: 100px;
+			-webkit-transform: skew(30deg);
+			-moz-transform: skew(30deg);
+			-ms-transform: skew(30deg);
+			-o-transform: skew(30deg);
+			transform: skew(30deg);
+		}
+		div.div8 {
+			margin-top: 100px;
+			-webkit-transform: skew(30deg,30deg);
+			-moz-transform: skew(30deg,30deg);
+			-ms-transform: skew(30deg,30deg);
+			-o-transform: skew(30deg,30deg);
+			transform: skew(30deg,30deg);
+		}
+		div.div9 {
+			-webkit-transform: rotateX(60deg);
+			-moz-transform: rotateX(60deg);
+			-ms-transform: rotateX(60deg);
+			-o-transform: rotateX(60deg);
+			transform: rotateX(60deg);
+		}
+		div.div10 {
+			-webkit-transform: rotateY(60deg);
+			-moz-transform: rotateY(60deg);
+			-ms-transform: rotateY(60deg);
+			-o-transform: rotateY(60deg);
+			transform: rotateY(60deg);
+		}
+		div.div11 {
+			-webkit-transform: translate3d(10px,20px;30px);
+			-ms-transform: translate3d(10px,20px;30px);
+			-o-transform: translate3d(10px,20px;30px);
+			transform: translate3d(10px,20px;30px);
+		}
+	</style>
+</head>
+<body>
+	<div>这是div1</div>
+	<div class="div2">这是div2</div>
+	<div class="div3">这是div3</div>
+	<div class="div4">这是div4</div>
+	<div class="div5">这是div5，顺时针旋转30度，允许负值</div>
+	<div class="div6">这是div6，宽放大2倍，高放大6倍</div>
+	<div class="div7">这是div7，水平翻转30</div>
+	<div class="div8">这是div8，水平翻转30，垂直30</div>
+	<div class="div9">根据X轴水平翻转60，带透视</div>
+	<div class="div10">根据Y轴水平翻转60，带透视</div>
+	<div class="div11">在三维空间的位移，长宽高</div>
+</body>
+</html>
