@@ -78,6 +78,117 @@
 			-o-transform: translate3d(10px,20px;30px);
 			transform: translate3d(10px,20px;30px);
 		}
+		.div12{
+			margin-top: 100px;
+		}
+		.div12:hover {
+			width: 600px;
+		}
+		.div12 {
+			-webkit-transition: width 2s ease-in 3s;
+			-moz-transition: width 2s ease-in 3s;
+			-ms-transition: width 2s ease-in 3s;
+			-o-transition: width 2s ease-in 3s;
+			transition: width 2s ease-in 3s;
+		}
+		.myborder {
+			margin-top: 100px;
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			border: 5px solid green;
+			background-color: #fff;
+		}
+		.myborder:hover {
+			border: 50px solid deeppink;
+		}
+		.myborder {
+			-webkit-transition: border 2s ease;
+			-moz-transition: border 2s ease;
+			-ms-transition: border 2s ease;
+			-o-transition: border 2s ease;
+			transition: border 2s ease;
+		}
+		.myAnimation {
+			width: 100px;
+			height: 100px;
+			background-color: orange;
+		}
+		.myAnimation:hover {
+			-webkit-animation: mydh 5s;  /*mydh引用了keyframes创建的*/
+			-moz-animation: mydh 5s;
+			-ms-animation: mydh 5s;
+			-o-animation: mydh 5s;
+			animation: mydh 5s;
+		}
+		@-webkit-keyframes mydh {
+			from {background: red;}
+			to {background: green;}
+		}
+		@-moz-keyframes mydh {
+			from {background: red;}
+			to {background: green;}
+		}
+		@-ms-keyframes mydh {			/*这里貌似有什么问题的样子*/
+			from {background: red;}
+			to {background: green;}
+		}
+		@-o-keyframes mydh {
+			from {background: red;}
+			to {background: green;}
+		}
+		@keyframes mydh {
+			from {background: red;}
+			to {background: green;}
+		}
+		.div13 {
+			margin-top: 100px;
+			width: 100px;
+			height: 100px;
+			background-color: red;
+		}
+		.div13:hover {
+			-webkit-animation: myfirst 5s;
+			-moz-animation: myfirst 5s;
+			-ms-animation: mifirst 5s;
+			-o-animation: myfirst 5s;
+			animation: myfirst 5s;
+			-webkit-animation-fill-mode: forwards;
+			-moz-animation-fill-mode: forwards;
+			-ms-animation-fill-mode: forwards;
+			-o-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+		}
+		@-webkit-keyframes myfirst {
+			0% {width: 200px;}
+			25% {width: 400px;}
+			50% {width: 300px;}
+			100% {width: 600px;}
+		}
+		@-moz-keyframes myfirst {
+			0% {width: 200px;}
+			25%	{width: 400px;}
+			50% {width: 300px;}
+			100% {width: 600px;}
+		}
+		@-ms-keyframes myfirst {
+			0% {width: 200px;}
+			25% {width: 400px;}
+			50% {width: 300px;}
+			100% {width: 600px;}
+		}
+		@-o-keyframes myfirst {
+			0% {width:200px;}
+			25% {width:400px;}
+			50% {width: 300px;}
+			100% {width: 600px;}
+		}
+		@keyframes myfirst {
+			0% {width: 200px;}
+			25% {width: 400px;}
+			50% {width: 300px;}
+			100% {width:600px;}
+		}
 	</style>
 </head>
 <body>
@@ -89,8 +200,12 @@
 	<div class="div6">这是div6，宽放大2倍，高放大6倍</div>
 	<div class="div7">这是div7，水平翻转30</div>
 	<div class="div8">这是div8，水平翻转30，垂直30</div>
-	<div class="div9">根据X轴水平翻转60，带透视</div>
-	<div class="div10">根据Y轴水平翻转60，带透视</div>
-	<div class="div11">在三维空间的位移，长宽高</div>
+	<div class="div9">这是div9，根据X轴水平翻转60，带透视</div>
+	<div class="div10">这是div10,根据Y轴水平翻转60，带透视</div>
+	<div class="div11">这是div11,在三维空间的位移，长宽高</div>
+	<div class="div12">这是div12</div>
+	<div class="myborder"></div>
+	<div class="myAnimation"></div>
+	<div class="div13"></div>
 </body>
 </html>

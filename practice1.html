@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>practice1</title>
+	<style type="text/css">
+		div {
+			background-color: blue;
+			width: 200px;
+			height: 100px;
+			margin-top: 100px;
+		}
+		div.div1 {
+			-webkit-transform: translate(100px,100px);
+			-moz-transform: translate(100px,100px);
+			-ms-transform: translate(100px,100px);
+			-o-transform: translate(100px,100px);
+			transform: translate(100px,100px);
+		}
+		div.div2 {
+			-webkit-transform: rotate(60deg);
+			-moz-transform: rotate(60deg);
+			-ms-transform: rotate(60deg);
+			-o-transform: rotate(60deg);
+			transform: rotate(60deg);
+		}
+		div.div3 {
+			margin-left: 300px;
+			-webkit-transform: scale(2,3);
+			-moz-transform: scale(2,3);
+			-ms-transform: scale(2,3)
+			-o-transform: scale(2,3);
+			transform: scale(2,3);
+		}
+		div.div4 {
+			-webkit-transform: skew(30deg,30deg);
+			-moz-transform: skew(30deg,30deg);
+			-ms-transform: skew(30deg,30deg);
+			-o-transform: skew(30deg,30deg);
+			transform: skew(30deg,30deg);
+		}
+		div.div5 {
+			-webkit-transform: rotateX(30deg);
+			-moz-transform: rotateX(30deg);
+			-ms-transform: rotateX(30deg);
+			-o-transform: rotateX(30deg);
+			transform: rotateX(30deg);
+		}
+		div.div6 {
+			-webkit-transform: rotateY(30deg);
+			-moz-transform: rotateY(30deg);
+			-ms-transform: rotateY(30deg);
+			-o-transform: rotateY(30deg);
+			transform: rotateY(30deg);
+		}
+		.div7 {
+			width: 100px;
+			height: 100px;
+			border-radius: 50%;
+			background-color: purple;
+			border: 3px solid red;
+		}
+		.div7:hover {
+			border: 30px double black;
+		}
+		.div7{
+			-webkit-transition: border 2s ease 0.5s;
+			-moz-transition: border 2s ease 0.5s;
+			-ms-transition: border 2s ease 0.5s;
+			-o-transition: border 2s ease 0.5s;
+			transition: border 2s ease 0.5s;
+		}
+		.loading{
+			width: 0px;
+			height: 20px;
+			margin-top: 100px;
+			background: lightgreen;
+		}
+		.loadingText:hover .loading{
+			-webkit-animation: myLoading linear 5s;
+			-moz-animation: myLoading linear 5s;
+			-ms-animation: myLoading linear 5s;
+			-o-animation: myLoading linear 5s;
+			animation: myLoading linear 5s;
+			-webkit-animation-fill-mode: forwards;
+			-moz-animation-fill-mode: forwards;
+			-ms-animation-fill-mode: forwards;
+			-o-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+
+		}
+		@-webkit-keyframes myLoading {
+			0%{width:0%; background: lightgreen;}
+			50%{width:50%; background: orange;}
+			100%{width:100% background: red;}
+		}
+		@-moz-keyframes myLoading {
+			0%{width: 0%; background: lightgreen;}
+			50%{width: 50%; background: orange;}
+			100%{width: 100%; background: red;}
+		}
+		@-o-keyframes myLoading {
+			0%{width: 0%; background: lightgreen;}
+			50%{width: 50%; background: orange;}
+			100%{width: 100%; background: red;}
+		}
+		@keyframes myLoading {
+			0%{width: 0%; background: lightgreen;}
+			50%{width: 50%; background: orange;}
+			100%{width:100%; background: red;}
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+	<div class="div1">1</div>
+	<div class="div2">2</div>
+	<div class="div3">3</div>
+	<div class="div4">4</div>
+	<div class="div5">5</div>
+	<div class="div6">6</div>
+	<div class="div7">7</div>
+	<div class="loadingText">0% 100%</div>
+	<div class="loading"></div>
+</body>
+</html>
