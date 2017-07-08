@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Question</title>
+	<style>
+		li.solved{
+			color: lightgreen;
+		}
+		li.halfSolved{
+			color: orange;
+		}
+	</style>
+</head>
+<body>
+	<ol>
+		<li class="halfSolved">写样式的时候那些-webkit-  -moz-  -ms-  -o-  这些是不是为了兼容考虑啊？写CSS3的时候必须都加上么？为什么我用sublime自动补齐的时候不会出现-moz-  ?还有就是写animation动画的时候@-ms-keyframes xxxx{}的时候，我写出来明显颜色不对，这又是为啥？
+			<p>
+				是为了兼容
+			</p>
+		</li>
+		<li class="solved">最后就是用keyframes的时候，用百分比来规定时间那个，最后不应该是稳定在100%么？为什么我的到100%后马上回退到最原始的状态了，鼠标也没移开啊- -
+			<p>
+				添加animation-fill-mode: forwards;
+			</p>
+		</li>
+		<li class="solved">
+			就是.loadingText:hover .loading{}这里，我想的是这里应该是鼠标移到loadingText这个div上，然后触发loading这个div动画
+			<p>
+				空格表示子父级关系，加号平级，应写为.loadingText:hover+loading{}
+			</p>
+		</li>
+		<li class="">
+			html lang:en和head lang:en有啥区别
+			<p>
+				
+			</p>
+		</li>
+	</ol>
+</body>
+</html>
