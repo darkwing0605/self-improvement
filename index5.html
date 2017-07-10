@@ -56,6 +56,54 @@
 		签<rt>qian</rt>
 	</ruby>
 	<hr/>
+	<h3>progress标签</h3>
+	<progress value="22" max="100"></progress>这是22%
+	<hr/>
+	<section>
+		<h1>section标签</h1>
+		<p>定义文档中的节，比如章节、页眉、页脚或文档中的其他部分，一般带有标题</p>
+	</section>
+	<hr/>
+	<h3>video标签</h3>
+	<video src="images/video/17753696-1.mp4" controls="controls">您的浏览器不支持video标签</video>
+	<hr/>
+	<h3>audio标签</h3>
+	<audio src="https://i.y.qq.com/v8/playsong.html?songid=109191643&source=yqq#wechat_redirect" controls="controls">你的浏览器不支持audio标签</audio>
+	<hr/>
+	<h3>source标签</h3>
+	<audio controls>
+		<source src="images/audio/horse.ogg" type="audio/ogg">
+		<source src="images/audio/horse.mp4" type="audio/mpeg">
+		你的浏览器不支持audio标签
+	</audio>
+	<hr/>
+	<h3>datalist标签</h3>
+	<input list="cars" />
+	<datalist id="cars">
+		<option value="BMW">
+		<option value="Ford">
+		<option value="Volvo">
+	</datalist>
+	<hr/>
+	<form method="get">
+		<h3>keygen标签</h3>
+		用户名：<input type="text" name="user_name" />
+		加密：<keygen name="security" />
+		<input type="submit" />
+	</form>
+	<hr/>
+	<h3>embed标签</h3>
+	<embed height="415" width="544" quality="high" allowfullscreen="true" type="application/x-shockwave-flash" src="//static.hdslb.com/miniloader.swf" flashvars="aid=10759577&page=1" pluginspage="//www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash"></embed>
+	<hr/>
+	<h3>canvas标签</h3>
+	<canvas id="myCanvas">你的浏览器不支持canvas标签</canvas>
+	<script type="text/javascript">
+		var canvas = document.getElementByID('myCanvas');
+		var ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#ff0000';
+		ctx.fillRect(0,0,80,100);
+	</script>
+	<hr/>
 	<footer>
 		<p>&copy;footer标签</p>
 	</footer>
