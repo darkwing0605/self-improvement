@@ -210,7 +210,7 @@ transition-timing-function  规定速度效果（匀速linear、慢速开始结�
 transition-delay  定义过渡效果何时开始（会等待几秒）。<br/>
 <strong>动画animation</strong>
 @keyframes规则，animation: 动画名称 动画时长;
-<a href="index4.html" target="_blank">举个栗子</a>
+<a href="index4.html" target="_blank">举个栗子</a>&nbsp;<a href="practice1.html" target="_blank">再练习一下</a>
 <hr/>这是一条回到过去的分割线<hr/>
 <pre>
 <b>常见的html5新增语义化标签</b>
@@ -239,6 +239,35 @@ transition-delay  定义过渡效果何时开始（会等待几秒）。<br/>
 <b><a href="index5.html" target="_blank">这是一个全是问题的范例</a></b>
 <b>HTML实体字符</b>
 大于&gt; 小于&lt; 分号&quot; >>&raquo; <<&laquo; 附：<a href="http://tool.xker.com/htmlchar.php" target="_blank">实体字符对照表</a>
-<b>CDN 内容分发网络</b>比如<a href="http://cdn.code.baidu.com">百度CDN</a>
+<b>CDN 内容分发网络</b>比如<a href="http://cdn.code.baidu.com" target="_blank">百度CDN</a>
 使用全局reset文件，重置浏览器元素的默认样式
+<b>CSS选择器</b>
+1.包含选择符(E F)
+2.子选择符(E>F)
+3.相邻选择符(E+F)
+4.兄弟选择符(E~F) <em>注意的地方，对它后面的元素起作用</em>
+<b>CSS属性选择器</b>
+写法：元素[属性名="属性值"]
+1.E[att] <em>选择带有att属性的E标签</em>
+2.E[att="val"] <em>选择具有att属性且属性值等于val的E元素</em>
+3.E[att~="val"] <em>选择有att属性的元素，且属性值列表中有一个符合val的元素</em>
+4.E[att^="val"] <em>选择E元素中的att属性，且以val开头的元素</em>
+5.E[att$="val"] <em>选择E元素中的att属性，且以val结尾的元素</em>
+6.E[att*="val"] <em>选择具有att属性且属性值包含val的字符串的E标签</em>
+7.E[att|="val"] <em>选择具有att属性，且属性值用链接符隔开，val为链接符前完整的前缀</em>
+<b><a href="index6.html" target="_blank">再换一个试验场吧</a></b>
+<h1>伪类选择器</h1>
+1.E:link <em>a标签未被访问前的样式</em>
+2.E:visited <em>已经被访问过了</em>
+3.E:hover <em>鼠标悬停在元素上时的样式</em>
+4.E:active <em>鼠标按下时的样式</em>
+5.E:not(s) <em>匹配不含有s选择器的元素E，括号中不加引号</em>
+6.E:first-child <em>父元素的第一个子元素E</em>
+7.E:last-child <em>父元素的最后一个子元素E</em>
+8.E:only-child <em>E元素是唯一的子元素是被匹配</em>
+9.E:empty <em>匹配没有任何子元素（并且不包括text节电）的元素</em>
+10.E:checked <em>匹配用户界面上处于选中状态的元素E（用于input type为radio与checkbox时）</em>
+<h1>伪对象选择器</h1>
+1.E:before/E::before 
+2.E:after/E::after <em>选择器在被选元素的“内容”前、后插入内容。用来和content属性一起使用</em>
 </pre>

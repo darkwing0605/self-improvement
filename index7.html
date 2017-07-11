@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index7</title>
+	<style type="text/css">
+		p::before{
+			content: "在p标签元素内容前加了内容";
+			color: red;
+		}
+		p::after{
+			content: "在p标签元素内容后面加了内容";
+			color: red;
+		}
+		input:checked+span::after {
+			content: url(images/icon.png)"这个被选中了";
+		}
+		input:checked+span::before {
+			content: url(images/icon.png);
+		}
+	</style>
+</head>
+<body>
+	<p></p>
+	<form method="post" action="">
+		<fieldset>
+			<legend>选个颜色-其实是伪对象选择器</legend>
+			<ul>
+				<li>
+					<label>
+						<input type="radio" name="favoriteColor" value="red">
+						<span>red</span>
+					</label>
+				</li>
+				<li>
+					<label>
+						<input type="radio" name="favoriteColor" value="green">
+						<span>green</span>
+					</label>
+				</li>
+				<li>
+					<label>
+						<input type="radio" name="favoriteColor" value="yellow">
+						<span>yellow</span>
+					</label>
+				</li>
+				<li>
+					<label>
+						<input type="radio" name="favoriteColor" value="skyblue">
+						<span>skyblue</span>
+					</label>
+				</li>
+			</ul>
+		</fieldset>
+		<input type="submit" name="submit" value="submit">
+		<input type="reset" name="reset" value="reset">
+	</form>
+</body>
+</html>

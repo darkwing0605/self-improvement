@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index6</title>
+	<style type="text/css">
+		ul li {
+			color: red;
+		}
+		div>a {
+			color: orange;
+		}
+		p+span {
+			color: yellow;
+		}
+		h3~b {
+			color: green;
+		}
+		/********************这是一条分界线****************/
+		p[class]{
+			color: red;
+		}
+		p[class="p5"]{
+			color: orange;
+		}
+		p[class~="p6"]{
+			color: yellow;
+		}
+		p[class^="p7"]{
+			color: green;
+		}
+		p[class$="p8"]{
+			color: lightblue;
+		}
+		p[class*="p9"]{
+			color: blue;
+		}
+		p[class|="p10"]{
+			color: purple;
+		}
+		/********************这是一条分界线****************/
+	</style>
+</head>
+<body>
+	<ul>
+		<li>苹果</li>
+		<li>橙子</li>
+		<li>西瓜</li>
+	</ul>
+	<hr/>
+	<div>
+		<a href="javascript:;">这是子元素</a>
+		<p><a href="javascript:;">这是孙子元素</a></p>
+	</div>
+	<hr/>
+	<p>这是p元素</p>
+	<span>这是紧挨着p元素的第一个span</span>
+	<span>这是第二个</span>
+	<hr/>
+	<b>这是h3之前的b元素不会被选中</b>
+	<h3>这是h3元素</h3>
+	<b>这是紧挨着h3元素的第一个b</b>
+	<b>这是第二个b</b>
+	<b>这是第三个b，他和h3是兄弟关系</b>
+	<hr/>
+	<!-- ************************这也是一条分界线************************ -->
+	<p class="p1">这是p1标签</p>
+	<p class="p2">这是p2标签</p>
+	<p class="p3">这是p3标签</p>
+	<p class="p4">这是p4标签</p>
+	<p class="p5">这是p5标签</p>
+	<p class="p6 paragraph p11">包含p6，会被选中</p>
+	<p class="p6paragraph p11">不会被选中，p6paragraph被看作一个整体</p>
+	<p class="p6">只有p6，会被选中</p>
+	<p class="paragraph p6 p11">与位置无关，这个也会被选中</p>
+	<p class="p7 paragraph p11">p7开头，会被选中</p>
+	<p class="p7paragraph p11">p7开头，会被选中</p>
+	<p class="p7">p7开头，会被选中</p>
+	<p class="paragraph p11">没有p7开头，不会被选中</p>
+	<p class="p8 paragraph p11">p8开头，不会被选中</p>
+	<p class="paragraph p8">p8结尾，会被选中</p>
+	<p class="paragraphp8">虽然连起来了，但还是p8结尾，会被选中</p>
+	<p class="p8">只是一个p8，会被选中</p>
+	<p class="paragraph8p">paragraph8p，不会被选中</p>
+	<p class="dafp9fafdadf">只要有p9会被选中，这个不多试了</p>
+	<p class="p10-paragraph">p10为前缀，会被选中</p>
+	<p class="p101-paragraph">p101为前缀，不会被选中</p>
+	<p class="p10paragraph">没有链接符，不会被选中</p>
+	<hr/>
+	<!-- ************************这也是一条分界线************************ -->
+</body>
+</html>
