@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index8</title>
+	<style type="text/css">
+	/**************************使用伪元素清除浮动**************************/
+		.box1::after{
+			content: "";
+			clear: both;
+			display: block;
+		}
+		.left1,.right1{
+			width: 100px;
+			height: 100px;
+			background: red;
+			float: left;
+		}
+	/**********************使用overflow:hidden清除浮动**********************/
+	.box2{
+		overflow: hidden;
+	}
+	.left2,.right2{
+		width: 100px;
+		height: 100px;
+		background: orange;
+		float: left;
+	}
+	/***************************使用空div清除浮动***************************/
+	.clear{
+		clear: both;
+	}
+	/*浮动定位*/
+	.d1{
+		width: 200px;
+		height: 200px;
+		background: yellow;
+		float: left;
+	}
+	.d2{
+		width: 300px;
+		height: 300px;
+		background: green;
+		float: left;
+	}
+	.d3{
+		width: 500px;
+		height: 500px;
+		background: lightblue;
+		float: left;
+		clear: both;
+	}
+	</style>
+</head>
+<body>
+	<h3>使用伪元素清除浮动</h3>
+	<div class="box1">
+		<div class="left"></div>
+		<div class="right"></div>
+	</div>
+	<hr/>
+	<h3>使用overflow:hidden清除浮动</h3>
+	<div class="box2">
+		<div class="left2"></div>
+		<div class="right2"></div>
+	</div>
+	<hr/>
+	<h3>使用空div清除浮动</h3>
+	<div class="clear"></div>
+	<hr/>
+	<h3>浮动</h3>
+	<div class="d1"></div>
+	<div class="d2"></div>
+	<div class="d3"></div>
+</body>
+</html>
