@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index12</title>
+	<style type="text/css">
+		body {
+			background-color: gray;
+		}
+		@media screen and (max-width: 960px) {
+			body {background-color: red;}
+		}
+		@media screen and (max-width: 768px) {
+			body {background-color: orange;}
+		}
+		@media screen and (max-width: 550px) {
+			body {background-color: yellow;}
+		}
+		.column {
+			-webkit-column-count: 3;
+			-moz-column-count: 3;
+			column-count: 3;
+			-webkit-column-gap: 50px;
+			-moz-column-gap: 50px;
+			column-gap: 50px;
+			-webkit-column-rule: 3px dotted red;
+			-moz-column-rule: 3px dotted red;
+			column-rule: 3px dotted red;
+		}
+		/*分割线*/
+		.content-box{
+			-webkit-box-sizing: content-box;
+			-moz-box-sizing:content-box;
+			box-sizing:content-box;
+			width: 100px;
+			height: 100px;
+			padding: 20px;
+			border: 5px solid #E6A43F;
+			background: blue;
+		}
+		.padding-box{
+			-webkit-box-sizing: padding-box;
+			-moz-box-sizing:padding-box;
+			box-sizing:padding-box;
+			width: 100px;
+			height: 100px;
+			padding: 20px;
+			border: 5px solid #186645;
+			background: red;                
+		}
+		.border-box{
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing:border-box;
+			box-sizing:border-box;
+			width: 100px;
+			height: 100px;
+			padding: 20px;
+			border: 5px solid #3DA3EF;
+			background: yellow;
+		}
+		span.triangle {
+			display: inline-block;
+			width: 0px;
+			height: 0px;
+			border-top: 50px solid green;
+			border-right: 50px solid lightblue;
+			border-bottom: 50px solid blue;
+			border-left: 50px solid purple;
+		}
+		ul li {
+			list-style: none;
+		}
+		span.order {
+			display: inline-block;
+			width: 0px;
+			height: 0px;
+			border-left: 5px solid pink;
+			border-top: 5px solid transparent;
+			border-bottom: 5px solid transparent;
+		}
+		span.trapezoid {
+			display: inline-block;
+			width: 100px;
+			height: 0px;
+			border-top: 80px solid green;
+			border-right: 50px solid lightblue;
+			border-left: 50px solid blue;
+			border-bottom: 80px solid purple;
+		}
+		.circle {
+			width: 100px;
+			height: 100px;
+			background: skyblue;
+			-webkit-border-radius: 50%;
+			-moz-border-radius: 50%;
+			-ms-border-radius: 50%;
+			border-radius: 50%;
+		}
+	</style>
+</head>
+<body>
+	<div class="column">
+		这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字这是一堆文字
+	</div>
+	<div class="content-box">content-box（标准）</div>
+	<div class="padding-box">padding-box</div>
+	<div class="border-box">border-box（怪异）</div>
+	<span class="triangle"></span>使用transparent将某条边变透明
+	<ul>
+		<li><span class="order"></span><a href="javascript:;">首页</a></li>
+		<li><span class="order"></span><a href="javascript:;">文章</a></li>
+		<li><span class="order"></span><a href="javascript:;">科技</a></li>
+		<li><span class="order"></span><a href="javascript:;">运动</a></li>
+		<li><span class="order"></span><a href="javascript:;">新闻</a></li>
+	</ul>
+	<span class="trapezoid"></span>
+	<div class="circle"></div>
+</body>
+</html>

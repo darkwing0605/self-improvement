@@ -283,4 +283,42 @@ transition-delay  定义过渡效果何时开始（会等待几秒）。<br/>
 <a href="index9.html" target="_blank">z-index完整实例</a>
 <b>border-style: dotted点状 solid实线 double双线 dashed 虚线 none无边框</b>
 <h1>伸缩盒模型flexbox</h1>
+display: flex; 定义一个flex容器
+flex-flow 决定了主轴方向和如何换行 -webkit-flex-flow: row<em>子元素从左端开始，水平方向排列</em> nowrap;
+justify-content: flex-end; 设置项目的对齐方式，flex-end代表内容右对齐，space-around代表每个项目两侧的间隔相等。
+flex-grow: 1; 属性定义项目的放大比例。
+<a href="index10.html" target="_blank">举几个栗子</a>
+<h1>CSS继承</h1>
+color,<a href="index11.html" target="_blank">cursor</a>,font-family,font-size,font-weight,font,<a href="index11.html" target="_blank">letter-spacing</a>,line-height,list-style,text-align,<a href="index11.html" target="_blank">text-indent</a>
+<h1>常用web开发分辨率</h1>
+<dl>
+	<dt>iPhone</dt>
+		<dd>iphone 4/4s	960*640</dd>
+		<dd>iphone 5s	1136*640</dd>
+		<dd>iphone 6s	1334*750</dd>
+	<dt>Android</dt>
+		<dd>主流	1920*1080</dd>
+		<dd>远古	960*640</dd>
+	<dt>PC</dt>
+		<dd>14寸	1024*768</dd>
+		<dd>15寸	1280*720</dd>
+		<dd>15.4宽屏	1440*900</dd>
+		<dd>23寸	1920*1080</dd>
+</dl>
 </pre>
+<hr/>这条分割线再次回到CSS3<hr/>
+<h3>响应式布局-媒体查询</h3>
+<a href="index12.html" target="_blank">Media Query媒体查询</a>
+基本语法@meida mediatype and|not|only (media feature) { CSS-Code; }<br/>
+媒体类型 all所有设备 print打印机和打印预览 screen电脑屏幕平板电脑智能手机等 speech 用于屏幕阅读器等发声设备<br/>
+阻止移动浏览器调整页面大小<br/>
+&lt;meta name="viewport" content="initial-scale=2.0, width=device-width;" /&gt; 页面放大两倍，浏览器页面的宽度等于设备的宽度<br/>
+&lt;meta name="viewport" content=" width=device-width, maximum-scale=3, minimum-scale=0.5 /" &gt;页面最大放大至设备宽度3倍，最小压缩至设备宽度一半<br/>
+&lt;meta name="viewport" content=" initial-scale=1.0, user-scalable=no" /&gt;禁止缩放<br/>
+<h3>多列</h3>
+column-count: 3; 列的总数为3<br/>
+column-gap: 50px; 列之间的差距<br/>
+column-rule: 宽度 样式 颜色; 设置列之间的宽度样式颜色<br/>
+&nbsp;&nbsp;宽度可选值 thin medium thick 指定数值<br/>
+&nbsp;&nbsp;样式可选值 hidden dotted dashed solid double<br/>
+<a href="index12.html" target="_blank">多列实例、box-sizing和一堆CSS3绘制的简单图形</a>

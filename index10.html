@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index10</title>
+	<style type="text/css">
+		*{
+			padding: 0; margin: 0;
+		}
+		ul li{
+			list-style: none;
+		}
+		.flex-cont1 {
+			display: -webkit-flex;
+			display: flex;
+			-webkit-flex-flow: row nowrap;
+			justify-content: space-around;
+		}
+		.flex-item1 {
+			background: #388bff;
+			padding: 5px;
+			width: 200px;
+			height: 50px;
+			margin-top: 10px;
+			color: white;
+			flex-grow: 2;
+			font-size: 3em;
+			text-align: center;
+			margin: 5px;
+		}
+		.flex-item2 {
+			background: #388bff;
+			padding: 5px;
+			width: 200px;
+			height: 50px;
+			margin-top: 10px;
+			color: white;
+			margin: 5px;
+			float: left;
+			font-size: 3em;
+			text-align: center;
+		}
+		.navigation {
+			list-style: none;
+			margin: 0;
+			background: deepskyblue;
+			display: -webkit-box;
+			display: -moz-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-flex-flow: row nowrap;
+			justify-content: flex-end;
+			clear: both;
+		}
+		.navigation a {
+			text-decoration: none;
+			display: block;
+			padding: 1em;
+			color: white;
+		}
+		.navigation a:hover {
+			background: #00AEE8;
+		}
+		/*这是一条分割线*/
+		.top {
+			height: 40px;
+			line-height: 40px;
+			display: flex;
+		}
+		.top a:not(.self) {
+			flex-grow: 1;
+			background: #D1DCEF;
+			text-align: center;
+		}
+		.self {
+			width: 40px;
+			text-align: center;
+		}
+		.cont {
+			display: flex;
+		}
+		.item {
+			flex-grow: 1;
+			text-align: center;
+		}
+		.item a {
+			background: url("images/icon.png") no-repeat center top;
+			display: block;
+			height: 60px;
+			padding-top: 60px;
+			background-size: 60px auto;
+		}
+	</style>
+</head>
+<body>
+	<ul class="flex-cont1">
+		<li class="flex-item1">1</li>
+		<li class="flex-item1">2</li>
+		<li class="flex-item1">3</li>
+		<li class="flex-item1">4</li>
+		<li class="flex-item1">5</li>
+		<li class="flex-item1">6</li>
+	</ul>
+	<hr/>
+	<ul class="flex-cont2">
+		<li class="flex-item2">1</li>
+		<li class="flex-item2">2</li>
+		<li class="flex-item2">3</li>
+		<li class="flex-item2">4</li>
+		<li class="flex-item2">5</li>
+		<li class="flex-item2">6</li>
+	</ul>
+	<hr/>
+	<ul class="navigation">
+		<li><a href="javascript:;">Home</a></li>
+		<li><a href="javascript:;">About</a></li>
+		<li><a href="javascript:;">Products</a></li>
+		<li><a href="javascript:;">Contact</a></li>
+	</ul>
+
+	<div class="top">
+		<a href="javascript:;">地图</a>
+		<a href="javascript:;">地图</a>
+		<a href="javascript:;">地图</a>
+		<a class="self" href="javascript:;">地图</a>
+	</div>
+	<div class="cont">
+		<div class="item"><a href="javascript:;">找美食</a></div>
+		<div class="item"><a href="javascript:;">找美食</a></div>
+		<div class="item"><a href="javascript:;">找美食</a></div>
+		<div class="item"><a href="javascript:;">找美食</a></div>
+	</div>
+	<div class="cont">
+		<div class="item"><a href="javascript:;">找美食</a></div>
+		<div class="item"><a href="javascript:;">找美食</a></div>
+		<div class="item"><a href="javascript:;">找美食</a></div>
+		<div class="item"><a href="javascript:;">找美食</a></div>
+	</div>
+</body>
+</html>
