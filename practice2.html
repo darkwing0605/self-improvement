@@ -4,10 +4,96 @@
 	<meta charset="UTF-8">
 	<title>百度一下，你就知道-practice2</title>
 	<style type="text/css">
-		
+		*{
+			margin: 0;
+		}
+		ul li {
+			list-style: none;
+		}
+		nav{
+			float: right;
+		}
+		nav a{
+			float: left;
+			font-family: arial;
+			line-height: 24px;
+			font-size: 13px;
+			display: inline-block;
+			margin-left: 17px;
+			margin-top: 20px;
+		}
+		a.nav{
+			font-weight: 700;
+		}
+		a.nav,a.login,a.setting:link{
+			color: black;
+		}
+		a.nav,a.login:hover{
+			color: blue;
+		}
+		a.nav,a.login,a.setting:visited{
+			color: black;
+		}
+		ul.setting {
+			display: none;
+			font-family: arial;
+			line-height: 24px;
+			font-size: 13px;
+		}
+		ul.setting a{
+			text-decoration: none;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+		a.setting:hover {
+			color: blue;
+		}
+		a.setting:hover+ul.setting {
+			display: block;
+			position: absolute;
+			margin-top: 40px;
+			margin-left: 280px;
+		}
+		span.more{
+			width: 66px;
+			text-align: center;
+			display: block;
+			background-color: blue;
+			color: white;
+		}
 	</style>
 </head>
 <body>
-	<
+	<header>
+		<nav>
+			<a href="http://news.baidu.com/" class="nav">新闻</a>
+			<a href="http://www.hao123.com/" class="nav">hao123</a>
+			<a href="http://map.baidu.com/" class="nav">地图</a>
+			<a href="http://v.baidu.com/" class="nav">视频</a>
+			<a href="http://tieba.baidu.com/" class="nav">贴吧</a>
+			<a href="http://xueshu.baidu.com/" class="nav">学术</a>
+			<a href="javascript:;" class="login">登录</a>
+			<a href="javascript:;" class="setting">设置</a>
+			<ul class="setting">
+				<li><a href="">搜索设置</a></li>
+				<li><a href="">高级搜索</a></li>
+				<li><a href="">关闭预测</a></li>
+				<li><a href="">搜索历史</a></li>
+			</ul>
+			<a href="javascript:;"><span class="more">更多服务</span></a>
+		</nav>
+	</header>
+	<content>
+		<div class="content">
+			<div class="logo"></div>
+			<div class="input">
+				<input type="text" name="input"><input type="submit" name="submit" value="百度一下">
+			</div>
+		</div>
+	</content>
+	<footer>
+		
+	</footer>
 </body>
 </html>
