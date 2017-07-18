@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>index13</title>
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
 </head>
 <body>
 	<div class="container">
@@ -18,30 +18,340 @@
 				<p>md代表了中等设备</p>
 			</div>
 		</div>
-	<hr/>
-	<h2>引导主体副本</h2>
-	<p class="lead">闭包，是 javascript 中重要的一个概念，对于初学者来讲，闭包是一个特别抽象的概念，特别是ECMA规范给的定义，如果没有实战经验，你很难从定义去理解它。因此，本文不会对闭包的概念进行大篇幅描述，直接上干货，让你分分钟学会闭包！</p>
-	<p>在接触一个新技术的时候，我首先会做的一件事就是：找它的demo code。对于码农们来说，代码有时候比自然语言更能理解一个事物。 其实，闭包无处不在，比如：jQuery、zepto的主要代码都包含在一个大的闭包中，所以下面我先写一个最简单最原始的闭包demo，好让你在大脑里产生闭包的画面</p>
-	<hr/>
-	<h3>强调标签</h3>
-	<small>对于不需要强调的文本用small，字号缩小到85%</small>
-	<strong>这是一段加粗的文本</strong>
-	<em>rendered as italicized text</em>
-	<hr/>
-	<h3>对齐类</h3>
-	<p class="text-left">文字左对齐，一般使用在p标签上</p>
-	<p class="text-center">文字居中对齐，用在div上不符合规范</p>
-	<p class="text-right">文字右对齐，用在span上不起作用</p>
-	<hr/>
-	<h3>强调类</h3>
-	<p class="text-muted">减弱的，text-muted的强调色</p>
-	<p class="text-primary">text-primary的强调色</p>
-	<p class="text-info">这只是信息text-info的强调色</p>
-	<p class="text-success">这是正确的强调信息text-success的强调色</p>
-	<p class="text-warning">警告，text-warning的强调色</p>
-	<p class="text-danger">这是错误提示text-danger的强调色</p>
+		<hr/>
+		<h2>引导主体副本</h2>
+		<p class="lead">闭包，是 javascript 中重要的一个概念，对于初学者来讲，闭包是一个特别抽象的概念，特别是ECMA规范给的定义，如果没有实战经验，你很难从定义去理解它。因此，本文不会对闭包的概念进行大篇幅描述，直接上干货，让你分分钟学会闭包！</p>
+		<p>在接触一个新技术的时候，我首先会做的一件事就是：找它的demo code。对于码农们来说，代码有时候比自然语言更能理解一个事物。 其实，闭包无处不在，比如：jQuery、zepto的主要代码都包含在一个大的闭包中，所以下面我先写一个最简单最原始的闭包demo，好让你在大脑里产生闭包的画面</p>
+		<hr/>
+		<h3>强调标签</h3>
+		<small>对于不需要强调的文本用small，字号缩小到85%</small>
+		<strong>这是一段加粗的文本</strong>
+		<em>rendered as italicized text</em>
+		<hr/>
+		<h3>对齐类</h3>
+		<p class="text-left">文字左对齐，一般使用在p标签上</p>
+		<p class="text-center">文字居中对齐，用在div上不符合规范</p>
+		<p class="text-right">文字右对齐，用在span上不起作用</p>
+		<hr/>
+		<h3>强调类</h3>
+		<p class="text-muted">减弱的，text-muted的强调色</p>
+		<p class="text-primary">text-primary的强调色</p>
+		<p class="text-info">这只是信息text-info的强调色</p>
+		<p class="text-success">这是正确的强调信息text-success的强调色</p>
+		<p class="text-warning">警告，text-warning的强调色</p>
+		<p class="text-danger">危险，text-danger的强调色</p>
+		<hr/>
+		<h3>缩略语</h3>
+		<abbr title="鼠标放上后显示完整文字">这是缩写</abbr>
+		<abbr title="使用initialism类，显示为更小一号字体" class="initialism">这又是个缩写</abbr>
+		<hr/>
+		<h3>地址</h3>
+		<address>
+			<strong>Twitter, Inc.</strong><br>
+			795 Folsom Ave, Suite 600<br>
+			San Francisco, CA 94107<br>
+			<abbr title="Phone">P:</abbr> (123) 456-7890
+		</address>
+
+		<address>
+			<strong>Full Name</strong><br>
+			<a href="mailto:#">first.last@example.com</a>
+		</address>
+		<hr/>
+		<h3>引用</h3>
+		<blockquote>
+			<p>你不是没有毅力，只是没有使用它，每个人都有毅力，如果你认为你没有毅力，为什么玩游戏坚持了那么久？</p>
+			<small>引自北京尚学堂<cite title="bjsxt2016">培训日记</cite></small>
+		</blockquote>
+		<h3>列表</h3>
+		<ul>
+			<li>Bootstrap无序列表</li>
+			<li>margin-top: 0;</li>
+			<li>margin-bottom: 10px;</li>
+		</ul>
+		<ol>
+			<li>Bootstrap有序列表</li>
+			<li>有序列表</li>
+			<li>列表</li>
+		</ol>
+		<ul class="list-unstyled">
+			<li>无序列表</li>
+			<li>使用了list-unstyled类</li>
+			<li>移除了默认的list-style</li>
+		</ul>
+		<ul class="list-inline">
+			<li>无序列表</li>
+			<li>使用了list-inline类</li>
+			<li>水平排成一行</li>
+			<li>每项都有少量的padding</li>
+		</ul>
+		<hr>
+		<h3>描述</h3>
+		<dl>
+			<dt>还是定义列表</dt>
+			<dd>列表1</dd>
+		</dl>
+		<dl class="dl-horizontal">
+			<dt>添加dl-horizontal</dt>
+			<dd>每个条目与其描述一对一水平显示</dd>
+		</dl>
+		<hr>
+		<h3>代码</h3>
+		<p><code>&lt;header&gt;</code>作为内联元素被包围</p>
+		<pre>
+			&lt;article&gt;
+			&lt;h1&gt;Article Heading&lt;/h1&gt;
+			&lt;/article&gt;
+		</pre>
+		<hr>
+		<h3>表格</h3>
+		<table class="table">
+			<tr>
+				<td>table</td>
+				<td>这是表格1</td>
+				<td>这是表格1</td>
+			</tr>
+			<tr>
+				<td>这是表格1</td>
+				<td>这是表格1</td>
+				<td>这是表格1</td>
+			</tr>
+			<tr>
+				<td>这是表格1</td>
+				<td>这是表格1</td>
+				<td>这是表格1</td>
+			</tr>
+		</table>
+		<table class="table table-striped">
+			<tr>
+				<td>table</td>
+				<td>table-striped</td>
+				<td>这是表格2</td>
+			</tr>
+			<tr>
+				<td>这是表格2</td>
+				<td>这是表格2</td>
+				<td>这是表格2</td>
+			</tr>
+			<tr>
+				<td>这是表格2</td>
+				<td>这是表格2</td>
+				<td>这是表格2</td>
+			</tr>
+		</table>
+		<table class="table table-striped table-bordered">
+			<tr>
+				<td>table</td>
+				<td>table-striped</td>
+				<td>table-bordered</td>
+			</tr>
+			<tr>
+				<td>这是表格3</td>
+				<td>这是表格3</td>
+				<td>这是表格3</td>
+			</tr>
+			<tr>
+				<td>这是表格3</td>
+				<td>这是表格3</td>
+				<td>这是表格3</td>
+			</tr>
+		</table>
+		<table class="table table-striped table-bordered table-hover">
+			<tr>
+				<td>table</td>
+				<td>table-striped</td>
+				<td>table-bordered</td>
+			</tr>
+			<tr>
+				<td>table-hover</td>
+				<td>这是表格4</td>
+				<td>这是表格4</td>
+			</tr>
+			<tr>
+				<td>这是表格4</td>
+				<td>这是表格4</td>
+				<td>这是表格4</td>
+			</tr>
+		</table>
+		<table class="table table-condensed">
+			<tr>
+				<td>table</td>
+				<td>table-condensed</td>
+				<td>这是表格5</td>
+			</tr>
+			<tr>
+				<td>这是表格5</td>
+				<td>这是表格5</td>
+				<td>这是表格5</td>
+			</tr>
+			<tr>
+				<td>这是表格5</td>
+				<td>这是表格5</td>
+				<td>这是表格5</td>
+			</tr>
+		</table>
+		<table class="table">
+			<tr class="active">
+				<td>active</td>
+				<td>悬停</td>
+				<td>这是表格6</td>
+			</tr>
+			<tr class="success">
+				<td>success</td>
+				<td>成功</td>
+				<td>这是表格6</td>
+			</tr>
+			<tr class="warning">
+				<td>warning</td>
+				<td>警告</td>
+				<td>这是表格6</td>
+			</tr>
+			<tr class="danger">
+				<td>danger</td>
+				<td>危险</td>
+				<td>这是表格6</td>
+			</tr>
+			<tr class="info">
+				<td>info</td>
+				<td>普通</td>
+				<td>这是表格6</td>
+			</tr>
+		</table>
+		<table class="table">
+			<tr>
+				<td class="active">active</td>
+				<td class="success">success</td>
+				<td class="warning">warning</td>
+				<td class="danger">danger</td>
+				<td class="info">info</td>
+			</tr>
+			<tr>
+				<td class="active">悬停</td>
+				<td class="success">成功</td>
+				<td class="warning">警告</td>
+				<td class="danger">危险</td>
+				<td class="info">普通</td>
+			</tr>
+			<tr>
+				<td class="active">这是表格7</td>
+				<td class="success">这是表格7</td>
+				<td class="warning">这是表格7</td>
+				<td class="danger">这是表格7</td>
+				<td class="info">这是表格7</td>
+			</tr>
+		</table>
+		<div class="table-responsive">
+			<table class="table">
+				<tr>
+					<td>div.table-responsive</td>
+					<td>table.table必须有</td>
+					<td>这是表格8</td>
+				</tr>
+				<tr>
+					<td>这是表格8</td>
+					<td>这是表格8</td>
+					<td>这是表格8</td>
+				</tr>
+				<tr>
+					<td>这是表格8</td>
+					<td>这是表格8</td>
+					<td>这是表格8</td>
+				</tr>
+			</table>
+		</div>
+		<hr>
+		<h3>表单</h3>
+		<form action="">
+			<div class="form-group">
+				<label for="email">Email address</label>
+				<input type="email" class="form-control" id="email" placeholder="email">
+				<label for="pwd">Password</label>
+				<input type="password" class="form-control" id="pwd" placeholder="Password">
+			</div>
+		</form>
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label for="inputEmail" class="col-sm-2 control-label">Email</label> 
+				<div class="col-sm-10">
+					<input type="email" class="form-control" id="inputEmail" placeholder="这里是col-sm-10，前面是col-sm-2">
+				</div>
+			</div>
+		</form>
+		输入框<input type="text" name="textinput" class="form-control" placeholder="Text input">
+		文本域<textarea class="form-control" rows="3"></textarea>
+		内联的多选框<label class="checkbox-inline">
+			<input type="checkbox" id="inlineCheckbox1" value="option1">1
+		</label>
+		内联的单选框<label class="radio-inline">
+			<input type="radio" id="inlineRadio1" value="option1">1
+		</label>
+		<h3><small>块级多选</small></h3>
+		<div class="checkbox">
+			<label for="">
+				<input type="checkbox" value="">可选多选
+			</label>
+		</div>
+		<div class="checkbox">
+			<label for="">
+				<input type="checkbox" value="" disabled>不可选多选
+			</label>
+		</div>
+		<h3><small>块级单选</small></h3>
+		<div class="radio">
+			<label for="">
+				<input type="radio" value="">可选单选
+			</label>
+		</div>
+		<div class="radio">
+			<label for="">
+				<input type="radio" value="" disabled>不可选单选
+			</label>
+		</div>
+		<h3><small>块级单选</small></h3>
+		<select class="form-control">
+			<option value="">1</option>
+			<option value="">2</option>
+			<option value="">3</option>
+			<option value="">4</option>
+			<option value="">5</option>
+			<option value="" selected hidden disabled>默认width: 100%;</option>
+		</select>
+		<select multiple class="form-control">
+			<option value="">1</option>
+			<option value="">2</option>
+			<option value="">3</option>
+			<option value="">4</option>
+			<option value="">5</option>
+			<option value="" disabled>添加了multiple属性</option>
+		</select>
+		<h3><small>静态表单控件</small></h3>
+		<form action="" class="form-horizontal">
+			<div class="form-group">
+				<label for="" class="col-sm-2 control-label">Email</label>
+				<div class="col-sm-10">
+					<p class="form-control-static">email@example.com，只用到了p.form-control-static，当然也是col-sm-10</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="" class="col-sm-2 control-label">Password</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+				</div>
+			</div>
+		</form>
+		<h3><small>禁用状态</small></h3>
+		<input class="form-control" id="disabledInput" type="text" placeholder="Disabled input here..." disabled>
+		<form action="">
+			<fieldset disabled>
+				<div class="form-group">
+					<label for="disabledTextInput">Disabled Input</label>
+					<input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled Input">
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</fieldset>
+		</form>
 	</div>
-	<script type="text/javascript" src="bootstrap/js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </body>
 </html>
