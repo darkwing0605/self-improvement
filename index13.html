@@ -350,6 +350,205 @@
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</fieldset>
 		</form>
+		<h3><small>只读状态</small></h3>
+		<label for="inputReadonly"></label>
+		输入框<input type="text" id="inputReadonly" class="form-control" placeholder="使用了readonly属性" readonly>
+		<h3><small>校验状态</small></h3>
+		<div class="has-success">
+			<label class="control-label" for="inputSuccess">Input with success</label>
+			<input type="text" class="form-control" id="inputSuccess" placeholder="使用了.has-success">
+			<div class="checkbox">
+				<label for="checkboxSuccess">
+					<input type="checkbox" id="checkboxSuccess" value="">
+					Checkbox with success
+				</label>
+			</div>
+		</div>
+		<div class="has-warning">
+			<label class="control-label" for="inputWarning">Input with warning</label>
+			<input type="text" class="form-control" id="inputWarning" placeholder="使用了.has-warning">
+			<div class="checkbox">
+				<label for="checkboxWarning">
+					<input type="checkbox" id="checkboxWarning" value="">
+					Checkbox with warning
+				</label>
+			</div>
+		</div>
+		<div class="has-error">
+			<label class="control-label" for="inputError">Input with error</label>
+			<input type="text" class="form-control" id="inputError"  placeholder="使用了.has-error">
+			<div class="checkbox">
+				<label for="checkboxError">
+					<input type="checkbox" id="checkboxError" value="">
+					Checkbox with error
+				</label>
+			</div>
+		</div>
+		<h3><small>控件尺寸</small></h3>
+		<input type="text" class="form-control input-lg" placeholder="input.input-lg">
+		<input type="text" class="form-control" placeholder="Default">
+		<input type="text" class="form-control input-sm" placeholder="input.input-sm">
+		<select class="form-control input-lg">
+			<option value="">ipnut.input-lg</option>
+			<option value="">ipnut.input-lg</option>
+			<option value="">ipnut.input-lg</option>
+		</select>
+		<select class="form-control">
+			<option value="">Default</option>
+			<option value="">Default</option>
+			<option value="">Default</option>
+		</select>
+		<select class="form-control input-sm">
+			<option value="">ipnut.input-sm</option>
+			<option value="">ipnut.input-sm</option>
+			<option value="">ipnut.input-sm</option>
+		</select>
+		<h3><small>水平排列的表单组的尺寸</small></h3>
+		<form action="" class="form-horizontal">
+			<div class="form-group form-group-lg">
+				<label class="col-sm-2 control-label" for="formGroupInputLarge">Large input</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="formGroupInputLarge" placeholder="使用了.form-group-lg">
+				</div>
+			</div>
+		</form>
+		<form action="" class="form-horizontal">
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="formGroupInputDefault">Default label</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="formGroupInputDefault" placeholder="Default input">
+				</div>
+			</div>
+		</form>
+		<form action="" class="form-horizontal">
+			<div class="form-group form-group-sm">
+				<label class="control-label col-sm-2" for="formGroupInputSmall">Small input</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="formGroupInputSmall" placeholder="使用了.form-group-sm
+					">
+				</div>
+			</div>
+		</form>
+		<h3><small>调整列column尺寸</small></h3>
+		<div class="row">
+			<div class="col-xs-2">
+				<input type="text" class="form-control" placeholder=".col-xs-2">
+			</div>
+			<div class="col-xs-4">
+				<input type="text" class="form-control" placeholder=".col-xs-4">
+			</div>
+			<div class="col-xs-6">
+				<input type="text" class="form-control" placeholder=".col-xs-6">
+			</div>
+		</div>
+		<hr>
+		<h3>按钮，图片</h3>
+		<a class="btn btn-default" href="javascript:;" role="button">Link使用了a.btn btn-default</a>
+		<button class="btn btn-default" type="submit">Button</button>
+		<input type="button" class="btn btn-default" value="Input">
+		<input type="submit" value="Submit">
+		<h3><small>预定义样式按钮</small></h3>
+		<button type="button" class="btn btn-default">Default</button>
+		<button type="button" class="btn btn-primary">Primary</button>
+		<button type="button" class="btn btn-success">Success</button>
+		<button type="button" class="btn btn-info">Info</button>
+		<button type="button" class="btn btn-warning">Warning</button>
+		<button type="button" class="btn btn-danger">Danger</button>
+		<button type="button" class="btn btn-link">Link</button>
+		<h3><small>按钮的尺寸</small></h3>
+		<button type="button" class="btn btn-primary btn-lg">.btn-lg</button>
+		<button type="button" class="btn btn-primary">Default</button>
+		<button type="button" class="btn btn-primary btn-sm">.btn-sm</button>
+		<button type="button" class="btn btn-primary btn-xs">.btn-xs</button>
+		<h3><small>变成块级元素</small></h3>
+		<button type="button" class="btn btn-primary btn-block">.btn-block</button>
+		<h3><small>激活状态</small></h3>
+		<button type="button" class="btn btn-primary btn-lg active">.active</button>
+		<button type="button" class="btn btn-default btn-lg active">.active</button>
+		<a href="javascript:;" class="btn btn-primary btn-lg active" role="button">Link a.active</a>
+		<a href="javascript:;" class="btn btn-default btn-lg active" role="button">Link a.active</a>
+		<h3><small>禁用状态</small></h3>
+		<button type="button" class="btn btn-primary btn-lg" disabled="disabled">Disabled</button>
+		<button type="button" class="btn btn-default btn-lg" disabled="disabled">Disabled</button>
+		<a href="javascript:;" class="btn btn-primary btn-lg" role="button" disabled="disabled">Link disabled</a>
+		<a href="javascript:;" class="btn btn-default btn-lg disabled" role="button">Link .disabled</a>
+		<h3><small>图片</small></h3>
+		<img src="images/img1.gif" class="img-responsive" alt="图片未能显示" width="100px">↑.img-responsive响应式
+		<img src="images/img1.gif" class="img-rounded" alt="图片未能显示" width="100px">.img-rounded圆角
+		<img src="images/img1.gif" class="img-circle" alt="图片未能显示" width="100px">.img-circle圆
+		<img src="images/img1.gif" class="img-thumbnail" alt="图片未能显示" width="100px">.img-thumbnail双线
+		<h3>辅助类</h3>
+		<h3><small>文本颜色</small></h3>
+		<p class="text-muted">p.text-muted</p>
+		<p class="text-primary">p.text-primary</p>
+		<p class="text-success">p.text-success</p>
+		<p class="text-info">p.text-info</p>
+		<p class="text-warning">p.textwarning</p>
+		<p class="text-danger">p.text-danger</p>
+		<h3><small>背景色</small></h3>
+		<p class="bg-primary">p.bg-primary</p>
+		<p class="bg-success">p.bg-success</p>
+		<p class="bg-info">p.bg-info</p>
+		<p class="bg-warning">p.bg-warning</p>
+		<p class="bg-danger">p.bg-danger</p>
+		<h3><small>关闭按钮</small></h3>
+		<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h3><small>三角符号</small></h3>
+		<span class="caret"></span>
+		<h3><small>快速浮动</small></h3>
+		<div class="pull-left">.pull-left</div>
+		<div class="pull-right">.pull-right</div>
+		<br>
+		<h3><small>内容块居中</small></h3>
+		<span class="center-block" style="width: 200px;">span.center-block</span>
+		<div class="center-block" style="width: 200px;">.center-block</div>
+		<h3><small>清除浮动</small></h3>
+		<div class="clearfix">.clearfix</div>
+		<h3><small>显示或隐藏内容</small></h3>
+		<div class="show">.show</div>
+		<div class="hidden">.hidden</div>
+		<div class="invisible">.invisible仅仅影响元素的可见性，这个元素仍然在文档流中</div>
+		<h3>字体图标、下拉菜单、按钮组</h3>
+		<span class="glyphicon glyphicon-search"></span>
+		<button type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-align-left"></span>
+		</button>
+		<button type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-align-center"></span>
+		</button>
+		<button type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-align-right"></span>
+		</button>
+		<button type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-align-justify"></span>
+		</button>
+		<button type="button" class="btn btn-default btn-lg">
+			<span class="glyphicon glyphicon-star"></span>Star
+		</button>
+		<button type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-star"></span>Star
+		</button>
+		<button type="button" class="btn btn-default btn-sm">
+			<span class="glyphicon glyphicon-star"></span>Star
+		</button>
+		<button type="button" class="btn btn-default btn-xs">
+			<span class="glyphicon glyphicon-star"></span>Star
+		</button>
+		<h3>下拉菜单</h3>
+		<div class="dropdown">
+			<button type="button" class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"> <!-- 点击后显示隐藏列表 -->
+				点击触发下拉列表
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+				<li><a href="javascript:;">Action</a></li>
+				<li><a href="javascript:;">Another action</a></li>
+				<li><a href="javascript:;">Something else here</a></li>
+				<li class="divider"></li> <!-- 定义分割线 -->
+				<li><a href="javascript:;">Separated link</a></li>
+				<li class="disabled"><a href="javascript:;">Disabled link</a></li>
+			</ul>
+		</div>
 	</div>
 	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
