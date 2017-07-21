@@ -572,6 +572,159 @@
 				</div>
 			</div>
 		</nav>
+		<h3>分页</h3>
+		<div class="text-center">
+			<ul class="pagination">
+				<li><a href="javascript:;">&laquo;</a></li>
+				<li><a href="javascript:;">1</a></li>
+				<li><a href="javascript:;">2</a></li>
+				<li class="active"><a href="javascript:;">3</a></li>
+				<li><a href="javascript:;">4</a></li>
+				<li><a href="javascript:;">5</a></li>
+				<li><a href="javascript:;">&raquo;</a></li>
+			</ul>
+		</div>
+		<h3>面包屑导航/路径导航</h3>
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="breadcrumb">
+					<li><a href="javascript:;">前端学习</a></li>
+					<li><a href="javascript:;" class="text-muted">第一阶段</a></li>
+					<li><a href="javascript:;" class="text-muted">ul.breadcrumb</a></li>
+				</ul>
+			</div>
+		</div>
+		<h3>徽章</h3>
+		<a href="javascript:;">Inbox <span class="badge">42</span></a>
+		<button class="btn btn-primary" type="button">
+			未读消息 <span class="badge">99+</span>
+		</button>
+		<button type="button" class="btn btn-success">
+			span.badge徽章 <span class="badge">999+</span>
+		</button>
+		<h3>缩略图</h3>
+		<div class="col-md-4">
+			<div class="thumbnail">
+				<img src="images/img1.gif" alt="" width="100px">
+				<div class="caption">
+					<h3><a href="javascript:;">Bootstrap课程</a></h3>
+					<p>共12课</p>
+					<p>.thunmbnail</p>
+				</div>
+			</div>
+		</div>
+		<h3 style="clear: both;">文章列表</h3>
+		<div class="list-group">
+			<div class="list-group-item">
+				<h4><a href="javascript:;">前端学习笔记-Bootstrap教程</a></h4>
+				<p class="text-muted">这里是文章内容文章内容，使用了.list-group  .list-group-item</p>
+			</div>
+		</div>
+		<div class="list-group">
+			<div class="list-group-item" style="border:0; border-bottom:1px dashed #ddd">
+			<h4><a href="javascript:;">前端学习笔记-Bootstrap教程</a></h4>
+			<p class="text-muted">
+				<small>发布时间：2017-7-21</small>
+				<small class="pull-right">点击量：<span class="badge" style="background-color: red;">20</span></small>
+			</p>
+			<p class="text-muted">这是文章内容这是文章内容这是文章内容，没有边框是.list-group-item另外加的style</p>
+			<p>
+				<span class="badge">前端</span>
+				<span class="badge">web前端</span>
+				<span class="badge">前端教程</span>
+			</p>
+			</div>
+		</div>
+		<h3>选项卡</h3>
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#xw1" data-toggle="tab">新闻1</a></li>
+			<li><a href="#xw2" data-toggle="tab">新闻2</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="xw1">
+				<a href="javascript:;">tab-pane定义了每个选项卡面板，会将面板默认为隐藏的，点击后显示in将元素显示出来；avtive设置当前的显示状态；fade是切换时的效果</a>
+			</div>
+			<div class="tab-pane fade" id="xw2">
+				<a href="javascript:;">每个tab-pane要设置id，并且，id被选项卡头部的a标签href所指向，需要加#</a>
+			</div>
+		</div>
+		<h3>按钮组</h3>
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-default">按钮一</button>
+			<button type="button" class="btn btn-default">按钮二</button>
+			<button type="button" class="btn btn-default">按钮三</button>
+		</div>
+		<h3><small>按钮工具栏</small></h3>
+		<div class="btn-toolbar" role="toolbar" aria-label="">
+			<div class="btn-group" role="group" aria-label="">
+				<button type="button" class="btn btn-default">按钮工具栏一</button>
+				<button type="button" class="btn btn-default">按钮工具栏一</button>
+				<button type="button" class="btn btn-default">按钮工具栏一</button>
+			</div>
+			<div class="btn-group" role="group" aria-label="">
+				<button type="button" class="btn btn-default">按钮工具栏二</button>
+				<button type="button" class="btn btn-default">按钮工具栏二</button>
+				<button type="button" class="btn btn-default">按钮工具栏二</button>
+			</div>
+			<div class="btn-group" role="group" aria-label="">
+				<button type="button" class="btn btn-default">按钮工具栏三</button>
+				<button type="button" class="btn btn-default">按钮工具栏三</button>
+				<button type="button" class="btn btn-default">按钮工具栏三</button>
+			</div>
+		</div>
+		<h3><small>按钮尺寸</small></h3>
+		<div class="btn-group btn-group-lg" role="group">
+			<button type="button" class="btn btn-default">按钮尺寸一</button>
+			<button type="button" class="btn btn-default">按钮尺寸一</button>
+			<button type="button" class="btn btn-default">按钮尺寸一</button>
+		</div>
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-default">按钮尺寸二</button>
+			<button type="button" class="btn btn-default">按钮尺寸二</button>
+			<button type="button" class="btn btn-default">按钮尺寸二</button>
+		</div>
+		<div class="btn-group btn-group-sm" role="group">
+			<button type="button" class="btn btn-default">按钮尺寸三</button>
+			<button type="button" class="btn btn-default">按钮尺寸三</button>
+			<button type="button" class="btn btn-default">按钮尺寸三</button>
+		</div>
+		<div class="btn-group btn-group-xs" role="group">
+			<button type="button" class="btn btn-default">按钮尺寸四</button>
+			<button type="button" class="btn btn-default">按钮尺寸四</button>
+			<button type="button" class="btn btn-default">按钮尺寸四</button>
+		</div>
+		<h3><small>嵌套</small></h3>
+		<div class="btn-group" role="group">
+			<button type="button" class="btn btn-default">1</button>
+			<button type="button" class="btn btn-default">2</button>
+
+			<div class="btn-group" role="group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+					Dropdown
+					<span class="carel"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="javascript:;">Dropdown link1</a></li>
+					<li><a href="javascript:;">Dropdown link2</a></li>
+				</ul>
+			</div>
+		</div>
+		<h3><small>垂直排列</small></h3>
+		<div class="btn-group-vertical" role="group">
+			<button type="button" class="btn btn-default">1</button>
+			<button type="button" class="btn btn-default">2</button>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					Dropdown
+					<span class="carel"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li><a href="javascript">Dropdown link1</a></li>
+					<li><a href="javascript">Dropdown link2</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
 	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
