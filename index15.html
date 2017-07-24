@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index15</title>
+</head>
+<body>
+	Input1:<input type="text" id="input1"><br>
+	Input2:<input type="text" id="input2"><br>
+	Result:<span style="background-color: red;" id="showSpan"></span><br>
+	<button id="add" value="">Input1 + Input2</button>
+	<button id="multiplication">Input1 x Input2</button>
+	<button id="subtraction">Input1 - Input2</button>
+	<script>
+		//1.能够在脚本中获取到页面的某个元素
+		var aInput = document.getElementById('input1');
+		var bInput = document.getElementById('input2');
+		var addBtn = document.getElementById('add');
+		var multiplicationBtn = document.getElementById('multiplication');
+		var subtractionBtn = document.getElementById('subtraction');
+		var span = document.getElementById('showSpan');
+		//2.给按钮添加一个“点击事件”
+		addBtn.onclick = function(){
+		//3.获取输入框的内容
+			var aValue = aInput.value;
+			var bValue = bInput.value;
+			//文本转换为数字
+			var a = parseInt(aValue);
+			var b = parseInt(bValue);
+		//4.计算
+			var showResult = a + b;
+			span.innerText = showResult;
+		}
+		//练习
+		multiplicationBtn.onclick = function(){
+			var aValue = aInput.value;
+			var bValue = bInput.value;
+			var a = parseInt(aValue);
+			var b = parseInt(bValue);
+			var showResult = a * b;
+			span.innerText = showResult;
+		}
+		subtraction.onclick = function(){
+			var aValue = aInput.value;
+			var bValue = bInput.value;
+			var a = parseInt(aValue);
+			var b = parseInt(bValue);
+			var showResult = a - b;
+			span.innerText = showResult;
+		}
+	</script>
+</body>
+</html>
