@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>note_JavaScript: The Definitive Guide, 6th Edition</title>
+	<style>
+		p.example {
+			background-color: lightblue;
+		}
+	</style>
+</head>
+<body>
+	<h1>第三章 类型、值和变量</h1>
+	<h2>数字</h2>
+	<p>
+		按照JavaScript中的数字格式，能够表示的整数范围是从-2<sup>53</sup>~2<sup>53</sup>，包含边界值。
+	</p>
+	<h3>整型直接量</h3>
+	<p>
+		十进制、十六进制（0x或0X开头）、八进制（0开头），对于八进某些JavaScript支持有些不支持，最后必要用，ES6严格模式下，八进制是明令禁止的。
+	</p>
+	<h3>浮点型直接量</h3>
+	<p>
+		[digits][.digits][(E|e)[(+|-)]degits] <br>
+		例如  <br>
+		6.02e23 <br>
+		1.47E-32 <br>
+	</p>
+	<h3>JavaScript中的算术运算</h3>
+	<p class="example">这里是example1-17</p>
+	<p>
+		溢出（overflow）结果为Infinity或-Infinity <br>
+		下溢（underflow）结果为0或-0 <br>
+		在ES3中，Infinity和NaN是可读/写的，ES5中将它们定义为只读的 <br>
+	</p>
+	<h3>二进制浮点数和四舍五入错误</h3>
+	<p class="example">example18为0.3-0.2，example19为0.2-0.1，比较大小</p>
+	<p>
+		0.3-0.2=0.099 999 999 999 999 98
+	</p>
+	<h3>日期和时间</h3>
+	<p class="example">
+		这里是example20-23 <br>
+			getFullYear()
+			getMonth()
+			getDate()
+			getDay() 星期几
+			getHours()
+			getUTCHours() 使用UTC表示小时的时间，基于时区
+	</p>
+	<h2>文本</h2>
+	<!-- 下面是示例的js文件 -->
+	<script type="text/javascript" src="js/demo1.js"></script>
+</body>
+</html>
