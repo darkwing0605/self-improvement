@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index16</title>
+</head>
+<body>
+	
+
+	<script type="text/javascript">
+///////////////////////////////////// 打印出1，1，2，3，5，8，13
+		var a = 0;
+		var a1 = 0;
+		var a2 = 1;
+		var a3 = 0;
+		for(a = 0; a < 7; a++){
+			a3 = a1 + a2;
+			a1 = a2;
+			a2 = a3;
+			document.write(a1 + "&nbsp;");
+		}
+		document.write("<br>");
+		//////////////////////////////////////////
+		var b = 0;
+		var b1 = 0;
+		var b2 = 1;
+		var b3 = 0;
+ 		while(b < 7){
+ 			b3 = b1 + b2;
+ 			b1 = b2;
+ 			b2 = b3;
+			document.write(b1 + "&nbsp;");
+			b++;
+		}
+		document.write("<br>");
+		////////////////////////////////////////
+		var c = 0; 
+		var c1 = 0;
+		var c2 = 1;
+		var c3 = 0;
+		do{
+			c3 = c1 + c2;
+			c1 = c2;
+			c2 = c3;
+			c++;
+			document.write(c1 + "&nbsp;");
+		}while(c < 7);
+		document.write("<br>");
+	////////////////////////////////////////打印出0，0，0，0，0，0，0，0 
+	var d = 0;
+	var d1 = 0;
+	for(d = 0; d < 8; d++){
+		document.write(d1 + "&nbsp;");
+	}
+	document.write("<br>");
+	/////////////////////////////////////////////////////
+	var e = 0;
+	var e1 = 0;
+	while(e < 8){
+		document.write(e1 + "&nbsp;");
+		e++;
+	}
+	document.write("<br>");
+	//////////////////////////////////////////////
+	var f = 0;
+	var f1 = 0;
+	do{
+		document.write(f1 + "&nbsp;");
+		f++;
+	}while(f < 8);
+	document.write("<br>");
+//////////////////////////////////////////////打印九九乘法表
+	for(g = 1; g < 10; g++){
+		for(h = 1; h < 10; h++){
+			document.write(g + "x" + h +"=" + g * h + "&nbsp;");
+		}
+		document.write("<br>");
+	}
+	//////////////////////////////////////////////////
+	var i = 1;
+	while(i < 10){
+		var j = 1;
+		while(j < 10){
+			document.write(i + "x" + j +"=" + i * j + "&nbsp;");
+			j++;
+		}
+		document.write("<br>");
+		i++;
+	}
+	//////////////////////////////////////////////////
+	var k = 1;
+	do{
+		l = 1;
+		do{
+			document.write(k + "x" + l +"=" + k * l + "&nbsp;");
+			l++;
+		}while(l < 10);
+		document.write("<br>")
+		k++;
+	}while(k < 10);
+/////////////////////////////////////打印以下图案
+	var l = 1;
+	for(l = 1; l < 5; l++){
+		if (l == 1) {
+			document.write("*" + "<br>");
+		}else if(l == 2){
+			document.write("* *" + "<br>");
+		}else if(l == 3){
+			document.write("* * *" + "<br>");
+		}else{
+			document.write("* * * *" + "<br>");
+		}
+	}
+	////////////////////////////////////////////
+	var m = 1;
+	while(m < 5){
+		if (m == 1) {
+			document.write("*" + "<br>");
+		}else if (m == 2) {
+			document.write("* *" + "<br>");
+		}else if (m == 3) {
+			document.write("* * *" + "<br>");
+		}else{
+			document.write("* * * *" + "<br>");
+		}
+		m++;
+	}
+	//////////////////////////////////////////////
+	var n = 1;
+	do{
+		if (n == 1) {
+			document.write("*" + "<br>");
+		}else if (n == 2) {
+			document.write("* *" + "<br>");
+		}else if (n == 3) {
+			document.write("* * *" + "<br>");
+		}else{
+			document.write("* * * *" + "<br>");
+		}
+		n++;
+	}while(n < 5);
+////////////////数组arr=[1,9,2,8,3,7,4,6,5,0];内部元素是乱序的。要求对数组进行排序，从小到大排列并打印数组。
+	var arr1 = [1,9,2,8,3,7,4,6,5,0];
+	var o = 0;
+	var arr2 = [];
+	var p = 0;
+	var q = 0;
+	for(o = 0; o < 10; o++){
+		for(p = 0; p < 10; p++){
+			if (o == p) {
+				continue;
+			}else if(arr1[o] > arr1[p]){
+				q++;
+			}
+		}
+		arr2[q] = arr1[o];
+		var q = 0;
+	}
+	document.write(arr2 + "<br>")
+	///////////////////////////////////////////
+	</script>
+</body>
+</html>
