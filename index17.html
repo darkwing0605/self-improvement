@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index17</title>
+	Input1: <input type="text" id="input1"> <br>
+	Input2: <input type="text" id="input2"> <br>
+	Input3: <input type="text" id="input3"> <br>
+	<button id="btn1">拼接</button> <br>
+	<hr>
+	Input4: <textarea type="text" id="input4" rows="10" cols="30"></textarea> <br>
+	<button id="btn2">输出</button> <br>
+	<hr>
+	Input5: <input type="text" id="input5"> <br>
+	Input6: <input type="text" id="input6"> <br>
+	<button id="btn3">搜索</button> <br>
+	<span id="showSpan" style="background-color: yellow;"></span>
+</head>
+<body>
+	
+
+
+
+
+	<script type="text/javascript">
+	var input1 = document.getElementById('input1');
+	var input2 = document.getElementById('input2');
+	var input3 = document.getElementById('input3');
+	var btn = document.getElementById('btn1');
+	var span = document.getElementById('showSpan');
+	btn.onclick = function(){
+		var input1Value = input1.value;
+		var input2Value = input2.value;
+		var input3Value = input3.value;
+		var str1 = input1Value + input2Value +input3Value;
+		span.innerText = str1;
+	};
+	//////////////////////////////////////////////////////////
+	var str2 = 'hello world!';
+	for (a = str2.length - 1; a > -1; a--) {
+		console.log(str2[a]);
+	}
+	//////////////////////////////////////////////////////////
+	var str3 = 'hello,baby';
+	var str4 = str3.replace(',','');
+	console.log(str4);
+	/////////////////////////////////////////////////////////
+	var str5 = "abcdefg1234567";
+	var str6 = str5.substring(0,4);
+	var str7 = str5.substr(5, 4);
+	var str8 = str5.slice(10, 14);
+	var str9 = str5[0] + str5[5] + str5[3] + str5[13]
+	console.log(str6);
+	console.log(str7);
+	console.log(str8);
+	console.log(str9);
+	/////////////////////////////////////////////////////////
+	var input4 = document.getElementById('input4');
+	var btn2 = document.getElementById('btn2');
+	btn2.onclick = function() {
+		var input4Value = input4.value;
+		var output = input4Value.substr(0,5);
+		span.innerText = output;
+	};
+	/////////////////////////////////////////////////////////
+	var input5 = document.getElementById('input5');
+	var input6 = document.getElementById('input6');
+	var btn3 = document.getElementById('btn3');
+	btn3.onclick = function(){
+		var input5Value = input5.value;
+		var input6Value = input6.value;
+		var a = input5Value.indexOf(input6Value);
+		var b = input5Value.lastIndexOf(input6Value);
+		if (a == -1) {
+			span.innerText = '未能搜索到指定字符串';
+		}else{
+		span.innerText = (a + 1) + ',' + (b + 1);
+		}
+	};
+	</script>
+</body>
+</html>

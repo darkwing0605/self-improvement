@@ -3,9 +3,25 @@
 <head>
 	<meta charset="UTF-8">
 	<title>index16</title>
+	<style>
+		body{margin: 0px;padding: 0px;}
+	</style>
 </head>
 <body>
-	
+	a:<input type="text" id="practiceInput1"><br>
+	b:<input type="text" id="practiceInput2"><br>
+	<button id="practiceBtn1">计算</button><br>
+	<!-- ************************ -->
+	year:<input type="text" id="years"><br>
+	<button id="practiceBtn2">是否为闰年</button><br>
+	<!-- ****************************** -->
+	性别：<input type="text" id="sex"><br>
+	身高：<input type="text" id="height"><br>
+	体重：<input type="text" id="weight"><br>
+	<button id="practiceBtn3">判断</button>
+	<!-- ****************************** -->
+	<span id="showSpan" style="background-color: yellow;"></span>
+	<hr>
 
 	<script type="text/javascript">
 ///////////////////////////////////// 打印出1，1，2，3，5，8，13
@@ -140,7 +156,7 @@
 		n++;
 	}while(n < 5);
 ////////////////数组arr=[1,9,2,8,3,7,4,6,5,0];内部元素是乱序的。要求对数组进行排序，从小到大排列并打印数组。
-	var arr1 = [1,9,2,8,3,7,4,6,5,0];
+	var arr1 = [1, 9, 2, 8, 3, 7, 4, 6, 5, 0];
 	var o = 0;
 	var arr2 = [];
 	var p = 0;
@@ -158,6 +174,79 @@
 	}
 	document.write(arr2 + "<br>")
 	///////////////////////////////////////////
+
+
+	///////////////////////////////////////////
+	var practiceInput1 = document.getElementById('practiceInput1');
+	var practiceInput2 = document.getElementById('practiceInput2');
+	var practiceBtn1 = document.getElementById('practiceBtn1');
+	var span = document.getElementById('showSpan');
+	practiceBtn1.onclick = function(){
+		var practiceInputValue1 = practiceInput1.value;
+		var practiceInputValue2 = practiceInput2.value;
+		var practice1 = parseInt(practiceInputValue1);
+		var practice2 = parseInt(practiceInputValue2);
+		if (practice1 + practice2 > 100) {
+			var showResult = practice1 + practice2;
+			span.innerText = showResult;
+		}else {
+			var showResult = practice1 > practice2 ? practice1 - practice2 : practice2 - practice1;
+			span.innerText = showResult; 
+		}
+	}
+	//////////////////////////////////////////
+	var years = document.getElementById('years');
+	var practiceBtn2 = document.getElementById('practiceBtn2');
+	practiceBtn2.onclick = function(){
+		var yearsValue = years.value;
+		var year = parseInt(yearsValue);
+		if (year % 4 == 0 && year % 100 !== 0) {
+			var showResult = "闰年";
+			span.innerText = showResult;
+		}else if (year % 400 == 0) {
+			var showResult = "闰年";
+			span.innerText = showResult;
+		}else {
+			var showResult = "不是闰年";
+			span.innerText = showResult;
+		}
+	}
+	//////////////////////////////////////////
+	var getSex = document.getElementById('sex');
+	var getHeight = document.getElementById('height');
+	var getWeight = document.getElementById('weight');
+	var practiceBtn3 = document.getElementById('practiceBtn3');
+	practiceBtn3.onclick = function(){
+		var sex = getSex.value;
+		var heightValue = getHeight.value;
+		var weightValue = getWeight.value;
+		var height = parseInt(heightValue);
+		var weight = parseInt(weightValue);
+		if (sex == "男" || sex =="male" || sex == "man") {
+			if (weight >= height - 100 - 3 || weight <= height - 100 + 3) {
+				var showResult = "标准体重";
+				span.innerText = showResult;
+			}else{
+				var showResult = "不标准体重";
+				span.innerText = showResult;
+			}
+		}else if(sex == "女" || sex == "female" || sex == "woman"){
+			if (weight >= height - 110 - 3 || weight <= height - 110 + 3) {
+				var showResult = "标准体重";
+				span.innerText = showResult;
+
+			}else{
+				var showResult = "不标准体重";
+				span.innerText = showResult;
+			}
+		}else if (sex == "" || sex == " ") {
+			var showResult = "请输入性别";
+			span.innerText = showResult;
+		}else {
+			var showResult = "请正确输入性别";
+			span.innerText = showResult;
+		}
+	}
 	</script>
 </body>
 </html>
