@@ -14,6 +14,17 @@
 	Input5: <input type="text" id="input5"> <br>
 	Input6: <input type="text" id="input6"> <br>
 	<button id="btn3">搜索</button> <br>
+	<hr>
+	Input7: <input type="text" id="input7"> <br>
+	Input8: <input type="text" id="input8"> <br>
+	Input9: <input type="text" id="input9"> <br>
+	<button id="btn4">替换1</button><button id="btn5">替换2</button><button id="btn6">替换3</button> <br>
+	<hr>
+	Input10: <input type="text" id="input10"> <br>
+	Output1: <input type="text" id="output1"> <br>
+	Output2: <input type="text" id="output2"> <br>
+	Output3: <input type="text" id="output3"> <br>
+	<button id="btn8">分割</button> <br>
 	<span id="showSpan" style="background-color: yellow;"></span>
 </head>
 <body>
@@ -76,6 +87,83 @@
 		}else{
 		span.innerText = (a + 1) + ',' + (b + 1);
 		}
+	};
+	//////////////////////////////////////////////////////////
+	var input7 = document.getElementById('input7');
+	var input8 = document.getElementById('input8');
+	var input9 = document.getElementById('input9');
+	var btn4 = document.getElementById('btn4');
+	var btn5 = document.getElementById('btn5');
+	var btn6 = document.getElementById('btn6');
+	var btn7 = document.getElementById('btn7');
+	btn4.onclick = function(){
+		var input7Value = input7.value;
+		var input8Value = input8.value;
+		var input9Value = input9.value;
+		if (input7Value.indexOf(input8Value) == -1) {
+			span.innerText = '替换失败';
+		}else{
+			var input7New = input7Value.replace(input8Value,input9Value);
+			span.innerText = input7New;
+		}
+	};
+	btn5.onclick = function(){
+		var input7Value = input7.value;
+		var input8Value = input8.value;
+		var input9Value = input9.value;
+		if (input7Value.indexOf(input8Value) == -1) {
+			span.innerText = '替换失败';
+		}else{
+			var c = input7Value.lastIndexOf(input8Value);
+			var str10 = input7Value.substr(0, c);
+			var str11 = input7Value.substr((c + input8Value.length), input7Value.length);
+			var input8New = str10 + input9Value + str11;
+			console.log(c);
+			console.log(str10);
+			console.log(str11);
+			span.innerText = input8New;
+		}
+	};
+	btn6.onclick = function(){
+		var input7Value = input7.value;
+		var input8Value = input8.value;
+		var input9Value = input9.value;
+		if (input7Value.indexOf(input8Value) == -1) {
+			span.innerText = '替换失败';
+		}else{
+			var arr1 = input7Value.split(input8Value);
+			console.log(arr1);
+			if (input7Value.indexOf(input8Value) !== 0) {
+				for (d = 0; d < arr1.length; d++) {
+					if (d == 0) {
+						var input9New = arr1[d];
+					} else {
+						input9New = input9New + input9Value + arr1[d];
+					}
+				}
+			}else{
+				for (d = 0; d < arr1.length; d++){
+					if (d == 0) {
+						var input9New = '';
+						console.log(input9New);
+					}else{
+						input9New = input9New + input9Value + arr1[d];
+						console.log(input9New);
+					}
+				}
+			}
+			span.innerText = input9New;
+		}
+	};
+	/////////////////////////////////////////////////////////////////////
+	var input10 = document.getElementById('input10');
+	var btn8 = document.getElementById('btn8');
+	btn8.onclick = function(){
+		var input10Value = input10.value;
+		var arr2 = input10Value.split('，');
+		document.getElementById('output1').value = arr2[0];
+		document.getElementById('output2').value = arr2[1];
+		document.getElementById('output3').value = arr2[2];
 	};
 	</script>
 </body>

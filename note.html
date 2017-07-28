@@ -22,20 +22,20 @@ align属性：left、center、right、justify（两端对齐）
 <sub>下标</sub>
 
 <html>
-	<body>
-		<a href="#d1">第一章</a>
-		<a href="#d2">第二章</a>
-		<a href="#d3">第三章</a>
+<body>
+	<a href="#d1">第一章</a>
+	<a href="#d2">第二章</a>
+	<a href="#d3">第三章</a>
 
-		<a name="d1"></a>
-		<p>第一章</p>
+	<a name="d1"></a>
+	<p>第一章</p>
 
-		<a name="d2"></a>
-		<p>第二章</p>
+	<a name="d2"></a>
+	<p>第二章</p>
 
-		<a name="d3"></a>
-		<p>第三章</p>
-	</body>
+	<a name="d3"></a>
+	<p>第三章</p>
+</body>
 </html>
 <!-- 要用name来定义锚，id一般是用来定义js的 -->
 
@@ -46,18 +46,18 @@ ol type="A" "a" "I" "i" <!-- 默认为数字列表 -->
 
 <dl>
 	<dt>第一章</dt>
-		<dd>1小节</dd>
-		<dd>2小节</dd>
+	<dd>1小节</dd>
+	<dd>2小节</dd>
 	<dt>第二章</dt>
-		<dd>1小节</dd>
-		<dd>2小节</dd>
+	<dd>1小节</dd>
+	<dd>2小节</dd>
 </dl>
 
 行内元素和块级元素的转换 display:block; display:inline;
 
 <frameset rows="200px,*">
-	<frame src="http://www.baidu.com" />
-	<frame src="http://www.baidu.com" />
+<frame src="http://www.baidu.com" />
+<frame src="http://www.baidu.com" />
 </frameset>
 <em>frameset和body不能共存</em>
 rows="20%,2001*" 以行的方式分割，横着划分
@@ -152,15 +152,15 @@ form表单属性<form action="URL"></form>指定form表单向何处发送信息�
 <br/>
 HTML5新增input类型：
 <form method="post" action="">
-<input type="email" name="user_email">email类型提交表单时自动验证email域的值；<input type="url" name="user_url">url类型自动验证url域的值；<input type="number" name="points" min="1" max="10" value="最小1最大10">设定对所接受的数字的限定；<input type="range" name="range1" min="1" max="10" value="7">range类型显示为滑动条，规定了范围，value是现在时；<input type="date" name="user_date">date类型可供选取日期输入类型；<input type="search" name="search" placeholder="请输入搜索内容">search类型用于搜索域，比如站点或Google搜索，显示为正常的文本域，输入后会出现清除的按钮；<input type="color" name="color">
+	<input type="email" name="user_email">email类型提交表单时自动验证email域的值；<input type="url" name="user_url">url类型自动验证url域的值；<input type="number" name="points" min="1" max="10" value="最小1最大10">设定对所接受的数字的限定；<input type="range" name="range1" min="1" max="10" value="7">range类型显示为滑动条，规定了范围，value是现在时；<input type="date" name="user_date">date类型可供选取日期输入类型；<input type="search" name="search" placeholder="请输入搜索内容">search类型用于搜索域，比如站点或Google搜索，显示为正常的文本域，输入后会出现清除的按钮；<input type="color" name="color">
 
-<input type="submit" name="testSubmit1">
+	<input type="submit" name="testSubmit1">
 </form>
 <hr/>
 meta标签共有两个属性，它们分别是http-equiv属性和name属性，不同的属性又有不同的参数值，这些不同的参数值就实现了不同的网页功能
 <p><strong>
-*http-equiv可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容<br/>	
-*name属性主要用于描述网页
+	*http-equiv可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容<br/>	
+	*name属性主要用于描述网页
 </strong></p>
 设置文档编码：<meta charset="UTF-8">;旧写法：<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> <br/>
 移动端开发的缩放比例：<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><em>width=device-width意思是页面的宽度等于设备的宽度；initial-scale指首次被显示的可视区域的缩放比例为1:1,2.0则会放大两倍；minimum-scale=1.0和maximum-scale=1.0是最小缩放比和最大缩放比，1.0是指不能放大缩小；user-scalable=no是指用户是否可以对页面进行缩放，no是不可以</em><br/>
@@ -186,10 +186,10 @@ vertical-align:middle 设置对象内容的垂直对齐方式<a href="index3.htm
 word-wrap:break-word 可设置过长的文本自动换行<br/>
 list-style-image只有一个属性url，引导一个图片。list-style-position设置列表项标记如何根据文本排序，两个属性outside（放在文本以外，默认）和inside（放在文本以内）。list-style-type设置列表项所使用的预设标记none不使用，disc实心圆，circle空心圆，square实心方块。list-style复合属性
 <pre>
-拓展
--webkit-是一种浏览器内核，浏览器内核其实是我们浏览器中的渲染引擎，它将我们的代码渲染成一个完整的页面。
+	拓展
+	-webkit-是一种浏览器内核，浏览器内核其实是我们浏览器中的渲染引擎，它将我们的代码渲染成一个完整的页面。
 
-浏览器内核一共有四种：
+	浏览器内核一共有四种：
 	webkit  safari 和chrome使用	
 	trident  IE浏览器的渲染引擎
 	gecko  火狐浏览器
@@ -213,98 +213,98 @@ transition-delay  定义过渡效果何时开始（会等待几秒）。<br/>
 <a href="index4.html" target="_blank">举个栗子</a>&nbsp;<a href="practice1.html" target="_blank">再练习一下</a>
 <hr/>这是一条回到过去的分割线<hr/>
 <pre>
-<b>常见的html5新增语义化标签</b>
-1.header 页面头部
-2.footer 页脚
-3.article 定义页面独立的内容区域 <em>每一个评论都可用一个article来包裹</em>
-4.aside 定义页面的侧边栏内容
-5.details 文档某个部分的细节 <em>点击三角会打开详细信息</em>
-6.summary 是details中的标题 <em>目前Chrome支持</em>
-7.figure 规定独立的流内容 <em>相当于课文下边的关于本章的知识点提示</em>
-8.figcaption 是figure的标题
-9.mark  标记 <em>颜色改变</em>
-10.nav 导航链接
-11.meter 用来表示范围已知且可度量的内容。 <em>不能代替进度条，只是一个值，meter中间的文字不会被显示，value可以直接写小数</em>
-12.ruby 加注释;rt定义拼音;rp ruby元素不能正常显示时显示rp内容
-13.time 定义日期或时间 <em>编码成机器可读，方便创建提醒、SEO等</em>
-14.progress 下载进度标签 <em>定义任何类型的任务进度，定义最大值max和value</em>
-15.section 定义文档中的章节 <em>一般带有标题</em>
-16.video 定义视频 <em>不添加controls会不显示这个音频的控制界面</em>
-17.audio 定义声音 <em>不添加controls会不显示这个音频的控制界面</em>
-18.source 定义多媒体资源 <em>一个媒体下定义多个资源，一个不能打开打开另一个，用type类型区分资源类型：video/ogg mp4 webm、audio/ogg mpeg</em>
-19.datalist 提示了可能的值 <em>不会被显示，仅仅是合法的输入值列表，使用input元素的list来绑定datalist</em>
-20.keygen 生成公钥和私钥，私钥存放在用户本地，公钥则会发送至服务器
-21.embed 定义嵌入内容 <em>插件、flash</em>
-22.canvas 容器
-<b><a href="index5.html" target="_blank">这是一个全是问题的范例</a></b>
-<b>HTML实体字符</b>
-大于&gt; 小于&lt; 分号&quot; >>&raquo; <<&laquo; 附：<a href="http://tool.xker.com/htmlchar.php" target="_blank">实体字符对照表</a>
-<b>CDN 内容分发网络</b>比如<a href="http://cdn.code.baidu.com" target="_blank">百度CDN</a>
-使用全局reset文件，重置浏览器元素的默认样式
-<b>CSS选择器</b>
-1.包含选择符(E F)
-2.子选择符(E>F)
-3.相邻选择符(E+F)
-4.兄弟选择符(E~F) <em>注意的地方，对它后面的元素起作用</em>
-<b>CSS属性选择器</b>
-写法：元素[属性名="属性值"]
-1.E[att] <em>选择带有att属性的E标签</em>
-2.E[att="val"] <em>选择具有att属性且属性值等于val的E元素</em>
-3.E[att~="val"] <em>选择有att属性的元素，且属性值列表中有一个符合val的元素</em>
-4.E[att^="val"] <em>选择E元素中的att属性，且以val开头的元素</em>
-5.E[att$="val"] <em>选择E元素中的att属性，且以val结尾的元素</em>
-6.E[att*="val"] <em>选择具有att属性且属性值包含val的字符串的E标签</em>
-7.E[att|="val"] <em>选择具有att属性，且属性值用链接符隔开，val为链接符前完整的前缀</em>
-<b><a href="index6.html" target="_blank">再换一个试验场吧</a></b>
-<h1>伪类选择器</h1>
-1.E:link <em>a标签未被访问前的样式</em>
-2.E:visited <em>已经被访问过了</em>
-3.E:hover <em>鼠标悬停在元素上时的样式</em>
-4.E:active <em>鼠标按下时的样式</em>
-5.E:not(s) <em>匹配不含有s选择器的元素E，括号中不加引号</em>
-6.E:first-child <em>父元素的第一个子元素E</em>
-7.E:last-child <em>父元素的最后一个子元素E</em>
-8.E:only-child <em>E元素是唯一的子元素是被匹配</em>
-9.E:empty <em>匹配没有任何子元素（并且不包括text节电）的元素</em>
-10.E:checked <em>匹配用户界面上处于选中状态的元素E（用于input type为radio与checkbox时）</em>
-<h1>伪对象选择器</h1>
-1.E:before/E::before 
-2.E:after/E::after <em>选择器在被选元素的“内容”前、后插入内容。用来和content属性一起使用</em>
-<a href="index7.html" target="_blank">使用了伪对象的提交表单</a>
-<b><a href="index8.html" target="_blank">清除浮动</a></b>
-<a href="practice2.html" target="_blank">浮动练习，这是一个百度首页（未完成）</a>
-<h1>display属性</h1>
-1.display: none; 隐藏对象。<em>visibility: hidden; opacity: 0;会将元素隐藏，但是物理空间实际存在。而display: none;不保留物理空间</em>
-2.display: inline;指定对象为内联元素。
-3.display: block;指定对象为块元素
-4.display: inline-block;指定对象为内联块元素。<em>使用块元素可以同行显示，使用内联元素可以设置宽高和上下的margin值</em>
-5.display: table-cell;指定对象作为表格单元格 <a href="index8.html">试一下</a> <em>配合verical-align: middle; text-align: center;使大小不一样的图片可以居中显示，如果只用div而非table-cell，图片无法竖向居中</em>
-<h1>position定位</h1>
-<a href="index9.html" target="_blank">z-index完整实例</a>
-<b>border-style: dotted点状 solid实线 double双线 dashed 虚线 none无边框</b>
-<h1>伸缩盒模型flexbox</h1>
-display: flex; 定义一个flex容器
-flex-flow 决定了主轴方向和如何换行 -webkit-flex-flow: row<em>子元素从左端开始，水平方向排列</em> nowrap;
-justify-content: flex-end; 设置项目的对齐方式，flex-end代表内容右对齐，space-around代表每个项目两侧的间隔相等。
-flex-grow: 1; 属性定义项目的放大比例。
-<a href="index10.html" target="_blank">举几个栗子</a>
-<h1>CSS继承</h1>
-color,<a href="index11.html" target="_blank">cursor</a>,font-family,font-size,font-weight,font,<a href="index11.html" target="_blank">letter-spacing</a>,line-height,list-style,text-align,<a href="index11.html" target="_blank">text-indent</a>
-<h1>常用web开发分辨率</h1>
-<dl>
-	<dt>iPhone</dt>
-<dd>iphone 4/4s	960*640</dd>
+	<b>常见的html5新增语义化标签</b>
+	1.header 页面头部
+	2.footer 页脚
+	3.article 定义页面独立的内容区域 <em>每一个评论都可用一个article来包裹</em>
+	4.aside 定义页面的侧边栏内容
+	5.details 文档某个部分的细节 <em>点击三角会打开详细信息</em>
+	6.summary 是details中的标题 <em>目前Chrome支持</em>
+	7.figure 规定独立的流内容 <em>相当于课文下边的关于本章的知识点提示</em>
+	8.figcaption 是figure的标题
+	9.mark  标记 <em>颜色改变</em>
+	10.nav 导航链接
+	11.meter 用来表示范围已知且可度量的内容。 <em>不能代替进度条，只是一个值，meter中间的文字不会被显示，value可以直接写小数</em>
+	12.ruby 加注释;rt定义拼音;rp ruby元素不能正常显示时显示rp内容
+	13.time 定义日期或时间 <em>编码成机器可读，方便创建提醒、SEO等</em>
+	14.progress 下载进度标签 <em>定义任何类型的任务进度，定义最大值max和value</em>
+	15.section 定义文档中的章节 <em>一般带有标题</em>
+	16.video 定义视频 <em>不添加controls会不显示这个音频的控制界面</em>
+	17.audio 定义声音 <em>不添加controls会不显示这个音频的控制界面</em>
+	18.source 定义多媒体资源 <em>一个媒体下定义多个资源，一个不能打开打开另一个，用type类型区分资源类型：video/ogg mp4 webm、audio/ogg mpeg</em>
+	19.datalist 提示了可能的值 <em>不会被显示，仅仅是合法的输入值列表，使用input元素的list来绑定datalist</em>
+	20.keygen 生成公钥和私钥，私钥存放在用户本地，公钥则会发送至服务器
+	21.embed 定义嵌入内容 <em>插件、flash</em>
+	22.canvas 容器
+	<b><a href="index5.html" target="_blank">这是一个全是问题的范例</a></b>
+	<b>HTML实体字符</b>
+	大于&gt; 小于&lt; 分号&quot; >>&raquo; <<&laquo; 附：<a href="http://tool.xker.com/htmlchar.php" target="_blank">实体字符对照表</a>
+	<b>CDN 内容分发网络</b>比如<a href="http://cdn.code.baidu.com" target="_blank">百度CDN</a>
+	使用全局reset文件，重置浏览器元素的默认样式
+	<b>CSS选择器</b>
+	1.包含选择符(E F)
+	2.子选择符(E>F)
+	3.相邻选择符(E+F)
+	4.兄弟选择符(E~F) <em>注意的地方，对它后面的元素起作用</em>
+	<b>CSS属性选择器</b>
+	写法：元素[属性名="属性值"]
+	1.E[att] <em>选择带有att属性的E标签</em>
+	2.E[att="val"] <em>选择具有att属性且属性值等于val的E元素</em>
+	3.E[att~="val"] <em>选择有att属性的元素，且属性值列表中有一个符合val的元素</em>
+	4.E[att^="val"] <em>选择E元素中的att属性，且以val开头的元素</em>
+	5.E[att$="val"] <em>选择E元素中的att属性，且以val结尾的元素</em>
+	6.E[att*="val"] <em>选择具有att属性且属性值包含val的字符串的E标签</em>
+	7.E[att|="val"] <em>选择具有att属性，且属性值用链接符隔开，val为链接符前完整的前缀</em>
+	<b><a href="index6.html" target="_blank">再换一个试验场吧</a></b>
+	<h1>伪类选择器</h1>
+	1.E:link <em>a标签未被访问前的样式</em>
+	2.E:visited <em>已经被访问过了</em>
+	3.E:hover <em>鼠标悬停在元素上时的样式</em>
+	4.E:active <em>鼠标按下时的样式</em>
+	5.E:not(s) <em>匹配不含有s选择器的元素E，括号中不加引号</em>
+	6.E:first-child <em>父元素的第一个子元素E</em>
+	7.E:last-child <em>父元素的最后一个子元素E</em>
+	8.E:only-child <em>E元素是唯一的子元素是被匹配</em>
+	9.E:empty <em>匹配没有任何子元素（并且不包括text节电）的元素</em>
+	10.E:checked <em>匹配用户界面上处于选中状态的元素E（用于input type为radio与checkbox时）</em>
+	<h1>伪对象选择器</h1>
+	1.E:before/E::before 
+	2.E:after/E::after <em>选择器在被选元素的“内容”前、后插入内容。用来和content属性一起使用</em>
+	<a href="index7.html" target="_blank">使用了伪对象的提交表单</a>
+	<b><a href="index8.html" target="_blank">清除浮动</a></b>
+	<a href="practice2.html" target="_blank">浮动练习，这是一个百度首页（未完成）</a>
+	<h1>display属性</h1>
+	1.display: none; 隐藏对象。<em>visibility: hidden; opacity: 0;会将元素隐藏，但是物理空间实际存在。而display: none;不保留物理空间</em>
+	2.display: inline;指定对象为内联元素。
+	3.display: block;指定对象为块元素
+	4.display: inline-block;指定对象为内联块元素。<em>使用块元素可以同行显示，使用内联元素可以设置宽高和上下的margin值</em>
+	5.display: table-cell;指定对象作为表格单元格 <a href="index8.html">试一下</a> <em>配合verical-align: middle; text-align: center;使大小不一样的图片可以居中显示，如果只用div而非table-cell，图片无法竖向居中</em>
+	<h1>position定位</h1>
+	<a href="index9.html" target="_blank">z-index完整实例</a>
+	<b>border-style: dotted点状 solid实线 double双线 dashed 虚线 none无边框</b>
+	<h1>伸缩盒模型flexbox</h1>
+	display: flex; 定义一个flex容器
+	flex-flow 决定了主轴方向和如何换行 -webkit-flex-flow: row<em>子元素从左端开始，水平方向排列</em> nowrap;
+	justify-content: flex-end; 设置项目的对齐方式，flex-end代表内容右对齐，space-around代表每个项目两侧的间隔相等。
+	flex-grow: 1; 属性定义项目的放大比例。
+	<a href="index10.html" target="_blank">举几个栗子</a>
+	<h1>CSS继承</h1>
+	color,<a href="index11.html" target="_blank">cursor</a>,font-family,font-size,font-weight,font,<a href="index11.html" target="_blank">letter-spacing</a>,line-height,list-style,text-align,<a href="index11.html" target="_blank">text-indent</a>
+	<h1>常用web开发分辨率</h1>
+	<dl>
+		<dt>iPhone</dt>
+		<dd>iphone 4/4s	960*640</dd>
 		<dd>iphone 5s	1136*640</dd>
 		<dd>iphone 6s	1334*750</dd>
-	<dt>Android</dt>
+		<dt>Android</dt>
 		<dd>主流	1920*1080</dd>
 		<dd>远古	960*640</dd>
-	<dt>PC</dt>
+		<dt>PC</dt>
 		<dd>14寸	1024*768</dd>
 		<dd>15寸	1280*720</dd>
 		<dd>15.4宽屏	1440*900</dd>
 		<dd>23寸	1920*1080</dd>
-</dl>
+	</dl>
 </pre>
 <hr/>这条分割线再次回到CSS3<hr/>
 <h3>响应式布局-媒体查询</h3>
@@ -329,24 +329,24 @@ column-rule: 宽度 样式 颜色; 设置列之间的宽度样式颜色<br/>
 <h3>移动端</h3>
 雅虎CSS初始化代码
 <pre>
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; }
-body { background:#fff; color:#555; font-size:14px; font-family: Verdana, Arial, Helvetica, sans-serif; }
-td,th,caption { font-size:14px; }
-h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
-address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal;}
-a { color:#555; text-decoration:none; }
-a:hover { text-decoration:underline; }
-img { border:none; }
-ol,ul,li { list-style:none; }
-input, textarea, select, button { font:14px Verdana,Helvetica,Arial,sans-serif; }
-table { border-collapse:collapse; }   
-html {overflow-y: scroll;}   //超出页面高度出滚动条  div{ height: 200px; width:20px; border:1px solid #ddd; overflow-y:scroll;}
-.clearfix::after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
-.clearfix { *zoom:1; }  //为ie6清除浮动
+	body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; }
+	body { background:#fff; color:#555; font-size:14px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+	td,th,caption { font-size:14px; }
+	h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
+	address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal;}
+	a { color:#555; text-decoration:none; }
+	a:hover { text-decoration:underline; }
+	img { border:none; }
+	ol,ul,li { list-style:none; }
+	input, textarea, select, button { font:14px Verdana,Helvetica,Arial,sans-serif; }
+	table { border-collapse:collapse; }   
+	html {overflow-y: scroll;}   //超出页面高度出滚动条  div{ height: 200px; width:20px; border:1px solid #ddd; overflow-y:scroll;}
+	.clearfix::after {content: "."; display: block; height:0; clear:both; visibility: hidden;}
+	.clearfix { *zoom:1; }  //为ie6清除浮动
 
 
-*code计算机源代码  legend为fieldset的标题   blockquote指引用   caption表格的标题  cite斜体，代表参考文字    dfn特殊短语
-var斜体   border-collapse:collapse可将表格边框变为一条  
+	*code计算机源代码  legend为fieldset的标题   blockquote指引用   caption表格的标题  cite斜体，代表参考文字    dfn特殊短语
+	var斜体   border-collapse:collapse可将表格边框变为一条  
 </pre>
 <hr />
 <h3><a href="index.14.html" target="_blank">字体图标iconfont</a></h3>
@@ -377,4 +377,40 @@ var斜体   border-collapse:collapse可将表格边框变为一条
 </ol>
 <a href="index16.html" target="_blank">练习</a>
 <h3>字符串</h3>
+<pre>
+	(1).length:返回字符串长度
+	(2).charAt（number）：返回当前指定位置的字符
+	(3).charCodeAt：
+	(4).concat:连接字符串
+	(5).substring:截取字符串
+	(6).substr:截取字符串（长度）
+	(7).slice:截取字符串。
+	(8).indexOf：返回当前查找字符串的位置，如果没有返回-1
+	(9).lastIndexOf:倒过来查找
+	(10).trim:去掉字符串两端的空格
+	(11).toUpperCase和toLowerCase:大小写转换
+	(12).localeCompare:比较两个字符串大小
+	(13).match:返回一个指定字符串的数组
+	(14).search:返回位置
+	(15).replace:替换字符串
+	(16).split:字符串切割，返回数组
+</pre>
 <a href="index17.html" target="_blank">练习</a>
+<h3>数组</h3>
+<pre>
+	(1)isArray:判断是否为数组
+	(2)valueOf:返回数组本身
+	(3)toString:将数组以字符串的形式返回
+	(4)push:向数组末尾追加数据,返回当前数组的长度
+	(5)pop:删除数组最后一个元素
+	(6)join:将数组转换为字符串，默认按逗号隔开
+	(7)shift(): 在数组头部删除一个元素
+	(8)unshift():在数组头部添加一个元素
+	(9)reverse():数组反转
+	(10)slice:数组截取
+	(11)splice:数组截取，并且可以插入新的元素(改变原数组)
+	(12)sort：排序
+	(13)indexOf:索引
+	(14)lastIndexOf:反序索引
+</pre>
+<a href="index18.html" target="_blank">练习</a>

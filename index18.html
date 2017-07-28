@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index18</title>
+	Input1: <input type="text" id="input1"> <br>
+	Btn1: <button id="btn1">装填</button> <br>
+	Btn2: <button id="btn2">射击</button> <br>
+	<hr>
+	<span id="showSpan" style="background-color: yellow;"></span>
+</head>
+<body>
+	
+
+
+	<script type="text/javascript">
+		var arr1 = [1,'a',true,2,null];
+		for( a in arr1){
+			console.log(arr1[a]);
+		}
+		/////////////////////////////////////////////////////////
+		var arr2 = [1, 1, 2, 3, 5, 9, 4, 7, 5];
+		var arr3 = [8, 9];
+		var arr4 = ['a', 0, 8];
+		var arr5 = 'a';
+		for (b = 2; b < 6; b++) {
+			if (Array.isArray(eval('arr' + b))) {
+				if (eval('arr' + b).length <= 3) {
+					console.log(eval('arr' + b));
+				} else {
+					console.log(eval('arr' + b).join('-'));
+				}
+			} else {
+				console.log('传送数据类型错误');
+			}
+		}
+		////////////////////////////////////////////////////////
+		var input1 = document.getElementById('input1');
+		var btn1 = document.getElementById('btn1');
+		var btn2 = document.getElementById('btn2');
+		var span = document.getElementById('showSpan');
+		input1.value = 0
+		btn1.onclick = function() {
+			if (input1.value > 5) {
+				alert('弹夹已满');
+			} else {
+				input1.value++;
+			}
+		};
+		btn2.onclick = function() {
+			if (input1.value < 1) {
+				alert('弹夹已空');
+			} else {
+				input1.value--;
+			}
+		};
+		/////////////////////////////////////////////////////////
+	</script>
+</body>
+</html>
