@@ -7,7 +7,16 @@
 	Btn1: <button id="btn1">装填</button> <br>
 	Btn2: <button id="btn2">射击</button> <br>
 	<hr>
-	<span id="showSpan" style="background-color: yellow;"></span>
+	Input2: <input type="text" id="input2"> <br>
+	Btn3: <button id="btn3">分班按钮</button> <br>
+	Btn4: <button id="btn4">名单按钮</button> <br>
+	Btn5: <button id="btn5">反序按钮</button> <br>
+	btn6: <button id="btn6">VIP分班按钮</button> <br>
+	Btn7: <button id="btn7">超级VIP分班按钮</button> <br>
+	Btn8: <button id="btn8">查找小明按钮</button> <br>
+	<hr>
+	<span id="showSpan" style="background-color: yellow;"></span><br>
+	<span id="showSpan2" style="background-color: pink"></span><br>
 </head>
 <body>
 	
@@ -55,6 +64,72 @@
 			}
 		};
 		/////////////////////////////////////////////////////////
+		var input2 = document.getElementById('input2');
+		var btn3 = document.getElementById('btn3');
+		var arr6 = [];
+		var btn4 = document.getElementById('btn4');
+		var span2 = document.getElementById('showSpan2');
+		var btn5 = document.getElementById('btn5');
+		var btn6 = document.getElementById('btn6');
+		var btn7 = document.getElementById('btn7');
+		btn3.onclick = function(){
+			var input2Value = input2.value;
+			if (arr6.length > 4) {
+				alert('班级人数已满');
+				input2.value = '';
+			} else {
+				arr6.push(input2Value);
+				span.innerText = arr6;
+				input2.value = '';
+			}
+		};
+		btn4.onclick = function(){
+			if (arr6.length < 5) {
+				alert('人还没满不能开始点名')
+			}else{
+				span2.innerText = arr6;
+			}
+		};
+		btn5.onclick = function(){
+			if (arr6.length == 5) {
+				span2.innerText = arr6.reverse();
+			}
+		};
+		btn6.onclick = function(){
+			var input2Value = input2.value;
+			if (arr6.length == 5) {
+				arr6.pop();
+				arr6.push(input2Value);
+				input2.value = '';
+				span.innerText = arr6;
+			}
+		};
+		btn7.onclick = function(){
+			var input2Value = input2.value;
+			if (arr6.length == 5) {
+				arr6.shift();
+				arr6.unshift(input2Value);
+				input2.value = '';
+				span.innerText = arr6;
+			}
+		};
+		btn8.onclick = function(){
+			var c = '小明';
+			if (arr6.indexOf(c) !== -1) {
+				alert((arr6.indexOf(c) + 1));
+				console.log(arr6);
+				console.log(arr6.indexOf(c));
+				arr6.splice((arr6.indexOf()),1);
+				console.log(arr6);
+				arr6.unshift(c);
+				console.log(arr6);
+				var arr7 = arr6.splice(1);
+				console.log(arr6);
+				console.log(arr7);;
+			}else{
+				alert('小明不在这个班级');
+			}
+		};
 	</script>
 </body>
 </html>

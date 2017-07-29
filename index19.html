@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index19</title>
+	<style>
+		body{
+		margin:0; padding: 0;
+		}
+		a{
+			text-decoration: none;
+		}
+		.contant{
+			width: 800px;
+			height: 305px;
+			float: left;
+		}
+		.nav{
+			width: 800px;
+			height: 55px;
+			background-color: lightgray;
+			text-align: left;
+			color: green;
+			float:left;
+		}
+		.nav ul li{
+			list-style: none;
+			display: block;
+			width: 80px;
+			height: 55px;
+			float: left;
+			line-height: 25px;
+		}
+		.nav ul li a:link {
+			color: green;
+		}
+		.data{
+			width: 800px;
+			height: 50px;
+			border: 1px solid gray;
+			float: left;
+		}
+		.icon{
+			width: 40px;
+			height: 40px;
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div class="contant">
+		<div class="nav">
+			<ul>
+				<li><a href="javascript:;">全部</a></li>
+				<li><a href="javascript:;">精华</a></li>
+				<li><a href="javascript:;">分享</a></li>
+				<li><a href="javascript:;">问答</a></li>
+				<li><a href="javascript:;">招聘</a></li>
+			</ul>
+		</div>
+		<div class="data">
+			<div class="icon" id="icon1"></div>
+			<div class="zhiding" id="zhiding1"></div>
+			<div class="title" id="title1"><a href="" id="url1"></a></div>
+			<div class="time" id="time1"></div>
+		</div>
+	</div>
+
+
+
+	<script type="text/javascript">
+		var dataObj = {
+			icon: ["images/1.jpg", "pic/2.jpg", "pic/3.jpg", "pic/4.jpg", "pic/5.jpg"],
+			zhiding: ["置顶", "精华", "分享", "问答", "招聘"],
+			title: [
+				"[深圳]NodeParty 2016.04.09 总结",
+				"cnode 社区也切换到 Let's encrypt 了",
+				"国内Nodejs 2015汇总",
+				"展望Nodejs 2016和新年祝福",
+				"展望Nodejs 2016和新年祝福"
+			],
+			time: ["4小时以前", "3小时以前", "4小时以前", "9小时以前", "4小时以前"],
+			url: [
+				"https://cnodejs.org/topic/5696e43e6272216e51bff67e",
+				"https://cnodejs.org/topic/574453cd754d17df1e44d9a4",
+				"https://cnodejs.org/topic/572afb6b15c24e592c16e1e6",
+				"https://cnodejs.org/topic/574e4b7479caf4c12f99e9db",
+				"https://cnodejs.org/topic/574e4b7479caf4c12f99e9db"
+			]
+		}; 
+		// var icon = document.getElementById('icon1');
+		// document.getElementById('icon1').innerHtml = '<img src="' + dataObj.icon[0] + '">';
+		for (i = 0; i < 5; i++) {
+			document.getElementById('zhiding' + i).innerText = dataObj.zhiding[i];
+			document.getElementById('title' + i).innerText = dataObj.title[i];
+			document.getElementById()
+		}
+	</script>
+</body>
+</html>
