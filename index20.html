@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index20</title>
+</head>
+<body>
+距离2018年生日还有<span id="time"></span><br>
+现在是<span id="now"></span>
+	<script type="text/javascript">
+		var allCharater = 'abcdefghijklmnopqrstwvuxyzABCDEFGHIJKLMNOPQRSTWUVXYZ1234567890';
+
+		function getNum(min, max) {
+			return Math.floor(Math.random() * (max - min) + min);
+		}
+
+		function createString(num) {
+			var newStr = '';
+			for (a = 0; a < num; a++) {
+				var b = getNum(0, 62);
+				newStr += allCharater.charAt(b);
+			}
+			return newStr;
+		}
+		console.log(createString(10));
+		///////////////////////////////////////////////////////////
+		var timer = setInterval(function() {
+			var aDate = new Date(2018, 5, 5, 0, 0, 0);
+			var nowDate = new Date();
+			var jiange = (aDate - nowDate) / 1000;
+			var day = Math.floor(jiange / 60 / 60 / 24);
+			var hour = Math.floor(jiange / 60 / 60 % 24);
+			var minute = Math.floor(jiange / 60 % 60);
+			var second = Math.floor(jiange % 60 + 1);
+			document.getElementById('time').innerText = day + '天' + hour + '小时' + minute + '分钟' + second + '秒';
+			document.getElementById('now').innerText = nowDate;
+		}, 1000);
+		/////////////////////////////////////////////////////////
+		setInterval(function(){
+			var title = document.title;
+			var titleArr = title.split('');
+			titleArr.push(titleArr.shift());
+			var newTitle = titleArr.join('');
+			document.title = newTitle;
+		},1000);
+		/////////////////////////////////////////////////////////
+		
+	</script>
+</body>
+</html>
