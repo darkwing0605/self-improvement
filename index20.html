@@ -44,7 +44,105 @@
 			document.title = newTitle;
 		},1000);
 		/////////////////////////////////////////////////////////
-		
+		/////////////////////////////////////////////////////////
+		/*
+		变量的作用域
+
+		if (true) {
+			var aa = "bb";
+		}
+		console.log(aa);
+
+
+		for (var i = 0; i < 100; i++) {
+
+		}
+		console.log(i);
+		//////////////////////////////////////
+		var bb = '11111';
+
+		function aaa() {
+			alert(bb);
+			var bb = 'test';
+			alert(bb);
+			var cc = "test1";
+			alert(age);
+		}
+		aaa();
+		/////////////////////////////////////
+		var test = '1111111';
+
+		function aa1() {
+			alert(test);
+		}
+
+		function bb1() {
+			var test = '22222222';
+			aa1();
+		}
+
+		bb1();
+		////////////////////////////////////
+		function aa3() {
+			var bb = "test";
+			cc = "测试";
+			alert(bb);
+		}
+
+		aa3();
+		alert(cc);
+		alert(bb);
+		///////////////////////////////////
+		alert(typeof a2);
+		alert(typeof b2);
+
+		function a2() {
+			alert('I am 111111111');
+		}
+		var b2 = function() {};
+
+		alert(typeof b2);
+		///////////////////////////////////
+		var a = 1;
+		test();
+
+		function test() {
+			console.log(a);
+			var a = 2;
+			console.log(a);
+		}
+		///////////////////////////////////
+		var x1 = 10;
+
+		function f1(num) {
+			return ++num;
+		}
+		var y1 = f1(x1);
+		console.log(x1);
+		console.log(y1);
+		///////////////////////////////////
+		var x2 = 10;
+
+		function f2(num) {
+			return num++;
+		}
+		var y2 = f2(x2);
+		console.log(x2);
+		console.log(y2);
+		//////////////////////////////////
+		var arr = [10, 20, 30];
+
+		function add(arrayObj) {
+			for (var i in arr) {
+				arrayObj[i]++;
+			}
+			console.log(arrayObj);
+		}
+
+		add(arr);
+
+		console.log(arr);
+		*/
 	</script>
 </body>
 </html>
