@@ -3,8 +3,56 @@
 <head>
 	<meta charset="UTF-8">
 	<title>index21</title>
+	<style>
+		table{
+			width: 800px;
+			text-align: center;
+			margin: 0 auto;
+		}
+	</style>
 </head>
 <body>
-	
+	<div align="center" style="margin: 50px auto;">
+		图书名：<input type="text" id="book"> 作者：<input type="text" id="author"> 价格：<input type="text" id="price"> <button id="add">添加</button>
+	</div>
+	<table border="1" cellspacing="0" align="center">
+		<tr>
+			<td>图书名</td>
+			<td>作者</td>
+			<td>价格</td>
+		</tr>
+	</table>
+
+
+
+	<script type="text/javascript">
+		var book = document.getElementById('book');
+		var author = document.getElementById('author');
+		var price = document.getElementById('price');
+		var btn1 = document.getElementById('add')
+		var table = document.querySelector('table');
+		btn1.onclick = function(){
+			var bookValue = book.value;
+			var authorValue = author.value;
+			var priceValue = price.value;
+			var tr = document.createElement('tr');
+			var bookTd = document.createElement('td');
+			var addBook = document.createTextNode(bookValue);
+			bookTd.appendChild(addBook);
+			tr.appendChild(bookTd);
+			var authorTd = document.createElement('td');
+			var addAuthor = document.createTextNode(authorValue);
+			authorTd.appendChild(addAuthor);
+			tr.appendChild(authorTd);
+			var priceTd = document.createElement('td');
+			priceTd.innerText = priceValue;
+			tr.appendChild(priceTd);
+			table.appendChild(tr);
+
+			book.value = '';
+			author.value = '';
+			price.value = '';
+		}
+	</script>
 </body>
 </html>
