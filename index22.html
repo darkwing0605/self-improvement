@@ -3,8 +3,122 @@
 <head>
 	<meta charset="UTF-8">
 	<title>index22</title>
+	<link rel="stylesheet" href="style/initialize.css">
+	<style>
+		.box{
+			background-color: rgb(215, 211, 195);
+			margin: 0 auto;
+			padding-top: 10px;
+		}
+		.wrap{
+			width: 800px;
+			position: relative;
+			margin: 0 auto;
+		}
+		.nav{
+			width: 100%;
+			height: 55px;
+			background-color:  rgb(246,246,246);
+			border-radius: 5px;
+		}
+		.nav ul li{
+			float: left;
+			list-style: none;
+			line-height: 55px;
+		}
+		.nav ul li a{
+			color: rgb(124,190,0);
+			padding: 5px 25px;
+		}
+		.content{
+			width: 100%;
+			min-height: 800px;
+			border-radius: 5px;
+		}
+		.list{
+			border-bottom:1px solid rgb(245,245,245);
+			height: 48px;
+			background-color: #fff;
+		}
+		.list a:hover{
+			background:rgb(245,245,245);
+		}
+		.list .icon{
+			width: 40px;
+			height: 40px;
+			border-radius: 5px;
+			float: left;
+			vertical-align: middle;
+			margin: 6px 9px 2px 9px;
+		}
+		.list .icon img{
+			width: 40px;
+			height: 40px;
+		}
+		.list .zhiding{
+			position: absolute;
+			left: 159px;
+			background: rgb(255, 119, 56);
+			color:#fff;
+			border-radius: 4px;
+		}
+		.list .title{
+			position: absolute;
+			left: 223px;
+		}
+		.list .time{
+			position: absolute;
+			right: 10px;
+		}
+	</style>
 </head>
 <body>
-	
+	<div class="box">
+		<div class="wrap">
+			<div class="nav">
+				<ul>
+					<li><a href="javascript:;">全部</a></li>
+					<li><a href="javascript:;">精华</a></li>
+					<li><a href="javascript:;">分享</a></li>
+					<li><a href="javascript:;">回答</a></li>
+					<li><a href="javascript:;">招聘</a></li>
+				</ul>
+			</div>
+			<div class="content"></div>
+		</div>
+	</div>
+
+
+
+	<script type="text/javascript">
+		var content = document.querySelector('.content');
+		var contentData = {
+			icon:["images/pic1/1.jpg","images/pic1/2.jpg","images/pic1/3.jpg","images/pic1/4.jpg","images/pic1/5.jpg","images/pic1/6.jpg","images/pic1/7.jpg","images/pic1/8.jpg","images/pic1/9.jpg","images/pic1/10.jpg","images/pic1/b1.jpg","images/pic1/b2.jpg","images/pic1/b3.jpg","images/pic1/b4.jpg","images/pic1/b5.jpg","images/pic1/b6.jpg","images/pic1/b7.jpg","images/pic1/b8.jpg","images/pic1/b9.jpg","images/pic1/b10.jpg"],
+			zhiding:["置顶","精华","分享","问答","招聘","置顶","精华","分享","问答","招聘","置顶","精华","分享","问答","招聘","置顶","精华","分享","问答","招聘"],
+			title:["[深圳]NodeParty 2016.04.09 总结", "cnode 社区也切换到 Let's encrypt 了", "国内Nodejs 2015汇总", "展望Nodejs 2016和新年祝福", "展望Nodejs 2016和新年祝福", " 2016和新年祝福", "展望Nodejs 2016和新年祝福", " 2016和新年祝福", "展望Nodejs 2016和新年祝福", "展望Nodejs 2016和新年祝福","[深圳]NodeParty 2016.04.09 总结", "cnode 社区也切换到 Let's encrypt 了", "国内Nodejs 2015汇总", "展望Nodejs 2016和新年祝福", "展望Nodejs 2016和新年祝福", " 2016和新年祝福", "展望Nodejs 2016和新年祝福", " 2016和新年祝福", "展望Nodejs 2016和新年祝福", "展望Nodejs 2016和新年祝福"],
+			time:["4小时以前","3小时以前","4小时以前","9小时以前","4小时以前","6小时以前","2小时以前","4小时以前","4小时以前","4小时以前","4小时以前","3小时以前","4小时以前","9小时以前","4小时以前","6小时以前","2小时以前","4小时以前","4小时以前","4小时以前"],
+			url:["https://cnodejs.org/topic/5696e43e6272216e51bff67e","https://cnodejs.org/topic/574453cd754d17df1e44d9a4","https://cnodejs.org/topic/572afb6b15c24e592c16e1e6","https://cnodejs.org/topic/574e4b7479caf4c12f99e9db","https://cnodejs.org/topic/574e4b7479caf4c12f99e9db","https://cnodejs.org/topic/572afb6b15c24e592c16e1e6","https://cnodejs.org/topic/572afb6b15c24e592c16e1e6","https://cnodejs.org/topic/574453cd754d17df1e44d9a4","https://cnodejs.org/topic/574453cd754d17df1e44d9a4","https://cnodejs.org/topic/574453cd754d17df1e44d9a4","https://cnodejs.org/topic/5696e43e6272216e51bff67e","https://cnodejs.org/topic/5696e43e6272216e51bff67e","https://cnodejs.org/topic/5696e43e6272216e51bff67e","https://cnodejs.org/topic/5696e43e6272216e51bff67e","https://cnodejs.org/topic/574eb1e01176fe255bb8d79c","https://cnodejs.org/topic/574eb1e01176fe255bb8d79c","https://cnodejs.org/topic/574eb1e01176fe255bb8d79c","https://cnodejs.org/topic/574eb1e01176fe255bb8d79c","https://cnodejs.org/topic/574eb1e01176fe255bb8d79c",'#']
+		};
+		for(i = 0;i < contentData.icon.length; i++){
+			//icon
+			var icon = contentData.icon[i];
+			var list = document.createElement('div');
+			list.className = 'list';
+			var icon = document.createElement('div');
+			icon.className = 'icon';
+			var img = document.createElement('img');
+			img.setAttribute('src',contentData.icon[i]);
+			icon.appendChild(img);
+			list.appendChild(icon);
+			content.appendChild(list);
+			//in
+			var inNum = Math.floor(Math.random()*100) + '/' + Math.floor(Math.random()*10000);
+			var inSpan = document.createElement('span');
+			inSpan.setAttribute('style','display: inline-block;line-height: 50px;');
+			inSpan.innerText = inNum;
+			list.appendChild(inSpan);
+			content.appendChild(list);
+		}
+	</script>
 </body>
 </html>
