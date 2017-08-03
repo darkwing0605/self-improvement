@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index24</title>
+</head>
+<body style="height: 2000px; background: linear-gradient(cyan,orange) ">
+<form action="post" style="margin: 0 auto;">
+	用户名：<input type="text" id="userName">
+	<span style="display: none; color: red;" id="span1"></span><br>
+	密码：<input type="password" id="pwd">
+	<span style="display: none; color: red;" id="span2"></span><br>
+	确认密码：<input type="password" id="pwd2">
+	<span style="display: none; color: red;" id="span3"></span><br>
+	验证码：<input type="text" id="captcha">
+	<span style='width: 40px; background-color: lightgreen;' id="span4"></span>
+	<span style='display: none; color: red;' id="span5"></span><br>
+	<input type="submit" id="submit" value="提交" disabled>
+</form>
+<!-- ****************************************************************** -->
+<div id="div1" style="width:50px; height:50px; position: fixed; right: 20px; bottom: 100px; background-color: red"></div>
+<!-- ****************************************************************** -->
+<div id="div2" style="position: absolute; display: none; color: red">大写锁定已打开</div>
+<!-- ****************************************************************** -->
+<div id="div3" style="width: 102px; height: 119px; background-image: url(images/plane.png); position: absolute;"></div>
+<!-- ****************************************************************** -->
+	<script type="text/javascript">
+		var userName = document.querySelector('#userName');
+		var span1 = document.querySelector('#span1');
+		var pwd = document.querySelector('#pwd');
+		var span2 = document.querySelector('#span2');
+		var pwd2 = document.querySelector('#pwd2');
+		var span3 = document.querySelector('#span3');
+		var captcha = document.querySelector('#captcha');
+		var span4 = document.querySelector('#span4');
+		var span5 = document.querySelector('#span5');
+		var submit = document.querySelector('#submit');
+		var captchaStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+		function showCaptcha() {
+			captchaNum = '';
+			for (i = 0; i < 4; i++) {
+				captchaNum = captchaNum + captchaStr.substr((Math.floor(Math.random() * 62)), 1);
+			}
+			span4.innerText = captchaNum;
+		}
+		showCaptcha();
+
+		function dataSubmit() {
+			if (span1.innerText == '√' && span2.innerText == '√' && span3.innerText == '√' && span5.innerText == '√') {
+				submit.removeAttribute('disabled');
+			}
+		}
+
+		userName.onfocus = function() {
+			span1.style.display = 'inline-block';
+			span1.innerText = '请输入11位手机号';
+			span1.style.color = 'gray';
+		};
+		userName.onblur = function() {
+			var length1 = userName.value.length;
+			if (length1 == 11) {
+				span1.innerText = '√';
+				span1.style.color = 'green';
+			} else if (length1 == 0) {
+				span1.innerText = '×请输入手机号';
+				span1.style.color = 'red';
+			} else {
+				span1.innerText = '×请正确输入手机号';
+				span1.style.color = 'red';
+			}
+		};
+		pwd.onfocus = function() {
+			span2.style.display = 'inline-block';
+			span2.innerText = '请输入6-12位密码';
+			span2.style.color = 'gray';
+		}
+		pwd.onblur = function() {
+			var length2 = pwd.value.length;
+			if (length2 >= 6 && length2 <= 12) {
+				span2.innerText = '√';
+				span2.style.color = 'green';
+			} else if (length2 == 0) {
+				span2.innerText = '×请输入密码';
+				span2.style.color = 'red';
+			} else {
+				span2.innerText = '×密码长度错误';
+				span2.style.color = 'red';
+			}
+		}
+		pwd2.onfocus = function() {
+			span3.style.display = 'inline-block';
+			span3.innerText = '请重新输入密码';
+			span3.style.color = 'gray';
+		}
+		pwd2.onblur = function() {
+			if (pwd2.value.length == 0) {
+				span3.style.color = 'red';
+				span3.innerText = '×请重新输入密码';
+			} else if (pwd2.value != pwd.value) {
+				span3.style.color = 'red';
+				span3.innerText = '×密码不一致';
+			} else if (pwd2.value == pwd.value) {
+				span3.style.color = 'green';
+				span3.innerText = '√';
+			}
+		}
+		span4.addEventListener('click', showCaptcha);
+		captcha.onfocus = function() {
+			span5.style.display = 'inline-block';
+			span5.innerText = '请输入验证码';
+			span5.style.color = 'gray';
+		}
+		captcha.onblur = function() {
+			if (captcha.value.length == 0) {
+				span5.style.color = 'red';
+				span5.innerText = '×验证码不能为空';
+			} else if (captcha.value == captchaNum) {
+				span5.style.color = 'green';
+				span5.innerText = '√';
+				dataSubmit();
+			} else {
+				span5.style.color = 'red';
+				span5.innerText = '×验证码错误';
+			}
+		}
+		////////////////////////////////////////////////////////////////
+		var div = document.querySelector('#div1');
+		var timer = null;
+
+		div.onclick = function() {
+			timer = setInterval(function() {
+				var scrollDistance = document.body.scrollTop || document.documentElement.scrollTop;
+				scrollDistance = scrollDistance * 0.8;
+				document.body.scrollTop = scrollDistance;
+				document.documentElement.scrollTop = scrollDistance;
+				if (scrollDistance == 0) {
+					clearInterval(timer);
+				}
+			}, 40);
+		};
+		//////////////////////////////////////////////////////////////////
+		var div2 = document.querySelector('#div2');
+		var capsNum = 0;
+		document.onkeydown = function() {
+			if (event.keyCode == 39) {
+				document.location.href = 'https://www.baidu.com/'
+			} else if (event.keyCode == 37) {
+				document.location.assign('http://www.dark-wing.com/')
+			}
+			if (event.keyCode == 20) {
+				capsNum = capsNum + 1;
+				console.log(capsNum)
+				if (capsNum % 2 == 1) {
+					div2.style.display = 'block';
+				} else {
+					div2.style.display = 'none';
+				}
+			}
+		}
+		///////////////////////////////////////////////////////////////////
+		var div3 = document.querySelector('#div3');
+		div3.addEventListener('touchmove',function(event){
+			planeX = event.touches[0].clientX;
+			planeY = event.touches[0].clientY;
+			div3.style.left = (planeX-51) + 'px';
+			div3.style.top = (planeY-60) + 'px';
+		});
+	</script>
+</body>
+</html>

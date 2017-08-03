@@ -5,6 +5,122 @@
 	<title>index23</title>
 </head>
 <body>
-	
+	<div style="width: 150px; height:150px; position: absolute; left: 0px;top: 0px; background-color: cyan;" id="div">下面有东西</div>
+	<!-- *************************************************************** -->
+	<input type="range" min="0" max="100" value="0" id="range1">
+	<div class ="show1" style="width: 30px; background-color: pink; display:none; position: absolute; text-align: center;"></div>
+	<br>
+	<!-- *************************************************************** -->
+	<input type="range" min="0" max="100" value="50" id="range2">
+	<div class="show2" style="display: none; width: 20px; height: 30px; background: orange; position: absolute; top: 60px; left: 65px;"></div>
+	<!-- *************************************************************** -->
+	<button style="display: block; position: absolute; top: 200px" id="btnLeft">向左移动</button>
+	<button style="display: block; position: absolute; left: 100px; top: 200px" id="btnRight">向右移动</button>
+	<button style="display: block; position: absolute; top: 230px" id="btnUp">向上移动</button>
+	<button style="display: block; position: absolute; left: 100px; top: 230px" id="btnDown">向下移动</button>
+
+
+	<script type="text/javascript">
+		var div = document.querySelector('#div');
+		var flag1 = false;
+		div.onmousedown = function() {
+			flag1 = true;
+		}
+		div.onmouseup = function() {
+			flag1 = false;
+		}
+		document.onmousemove = function() {
+			if (flag1) {
+				div.style.left = (event.clientX - 50) + 'px';
+				div.style.top = (event.clientY - 50) + 'px';
+			}
+		}
+		//////////////////////////////////////////////////////////////
+		var range1 = document.querySelector('#range1');
+		var showDiv1 = document.querySelector('.show1');
+		var flag2 = false;
+		range1.addEventListener('mousedown', function() {
+			flag2 = true;
+			showDiv1.innerText = range1.value;
+			showDiv1.style.display = 'block';
+		});
+		range1.addEventListener('mouseup', function() {
+			flag2 = false;
+			showDiv1.style.display = 'none';
+		});
+		range1.addEventListener('mousemove', function() {
+			if (flag2) {
+				showDiv1.style.left = (event.clientX + 10) + 'px';
+				showDiv1.style.top = (event.clientY + 15) + 'px';
+				showDiv1.innerText = range1.value;
+			}
+		});
+		/////////////////////////////////////////////////////////////
+		var flag2 = false;
+		var range2 = document.querySelector('#range2');
+		var showDiv2 = document.querySelector('.show2');
+
+		range2.onmousedown = function() {
+			flag2 = true;
+			showDiv2.innerText = range2.value;
+			showDiv2.style.display = 'block';
+		};
+		range2.onmouseup = function() {
+			flag2 = false;
+			showDiv2.style.display = 'none';
+		};
+		range2.onmousemove = function() {
+			if (flag2) {
+				var left = event.clientX;
+				//设置边界
+				if (left > 135) {
+					left = 135;
+				}
+				if (left < 10) {
+					left = 10;
+				}
+				//赋值
+				showDiv2.style.left = (left - 10) + 'px';
+				showDiv2.innerText = range2.value;
+			}
+		};
+		///////////////////////////////////////////////////////////////
+		//创建一个定时器
+		var timer = null;
+
+		document.onmousedown = function() {
+			timer = setInterval(function() {
+				console.log('1111');
+			}, 1000);
+		};
+		document.onmouseup = function() {
+			clearInterval(timer);
+		};
+		///////////////////////////////////////////////////////////////
+		var btnLeft = document.querySelector('#btnLeft');
+		var btnRight = document.querySelector('#btnRight');
+		var btnUp = document.querySelector('#btnUp');
+		var btnDown = document.querySelector('#btnDown');
+		btnLeft.onclick = function() {
+			var left = parseInt(div.style.left.substr(0, (div.style.left.length - 2)));
+			left -= 50;
+			div.style.left = left + 'px';
+		}
+		btnRight.onclick = function() {
+			var left = parseInt(div.style.left.substr(0, (div.style.left.length - 2)));
+			left += 50;
+			div.style.left = left + 'px';
+		}
+		btnUp.onclick = function() {
+			var top = parseInt(div.style.top.substr(0, (div.style.top.length - 2)));
+			top -= 50;
+			div.style.top = top + 'px';
+		}
+		btnDown.onclick = function() {
+			var top = parseInt(div.style.top.substr(0, (div.style.top.length - 2)));
+			top += 50;
+			div.style.top = top + 'px';
+		}
+	</script>
 </body>
 </html>
