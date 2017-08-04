@@ -45,13 +45,6 @@
 			span4.innerText = captchaNum;
 		}
 		showCaptcha();
-
-		function dataSubmit() {
-			if (span1.innerText == '√' && span2.innerText == '√' && span3.innerText == '√' && span5.innerText == '√') {
-				submit.removeAttribute('disabled');
-			}
-		}
-
 		userName.onfocus = function() {
 			span1.style.display = 'inline-block';
 			span1.innerText = '请输入11位手机号';
@@ -118,10 +111,15 @@
 			} else if (captcha.value == captchaNum) {
 				span5.style.color = 'green';
 				span5.innerText = '√';
-				dataSubmit();
 			} else {
 				span5.style.color = 'red';
 				span5.innerText = '×验证码错误';
+			}
+		}
+		document.onmousemove = function(){
+			console.log('111');
+			if (span1.innerText == '√' && span2.innerText == '√' && span3.innerText == '√' && span5.innerText == '√') {
+				submit.removeAttribute('disabled');
 			}
 		}
 		////////////////////////////////////////////////////////////////
@@ -129,6 +127,8 @@
 		var timer = null;
 
 		div.onclick = function() {
+						console.log(event);
+
 			timer = setInterval(function() {
 				var scrollDistance = document.body.scrollTop || document.documentElement.scrollTop;
 				scrollDistance = scrollDistance * 0.8;

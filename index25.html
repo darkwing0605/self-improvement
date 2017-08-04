@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index25</title>
+	<style>
+		body{
+			margin:0;padding:0;
+		}
+		#small{
+			background: url(images/map.jpg);
+			width: 400px;
+			height: 400px;
+			float: left;
+			position: relative;
+		}
+		#big{
+			position: relative;
+			width: 400px;
+			height: 400px;
+			float: left;
+			overflow: hidden;
+			display: none;
+			border: 3px solid red;
+		}
+		img{
+			position: absolute;
+		}
+		#fangDaJing{
+			position: absolute;
+			width: 100px;
+			height: 100px;
+			background: rgba(195,94,75,0.6);
+			left: 10px;
+			top: 10px;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="small">
+		<div id="fangDaJing"></div>
+	</div>
+	<div id="big">
+		<img src="images/small.png" width="2000" height="2000" alt="">
+	</div>
+<!-- ************************************************************** -->
+
+
+	<script type="text/javascript">
+		var small = document.querySelector('#small');
+		var big = document.querySelector('#big');
+		var fangDaJing = document.querySelector('#fangDaJing');
+		var img = document.querySelector('img');
+
+		small.onmousemove = function(eve){
+			var left = eve.clientX-50;
+			var top = eve.clientY-50;
+
+			//设置边界
+			if (left > 300) {left = 300;}
+			if (left < 0) {left = 0;}
+			if (top > 300) {top = 300;}
+			if (top < 0) {top = 0;}
+
+			fangDaJing.style.left = left + 'px';
+			fangDaJing.style.top = top + 'px';
+
+			img.style.left = left*(-5) + 'px';
+			img.style.top = top*(-5) + 'px';
+		}
+
+		small.onmouseenter = function(eve){
+			fangDaJing.style.display = 'block';
+			big.style.display = 'block';
+		}
+		small.onmouseleave = function(eve){
+			fangDaJing.style.display = 'none';
+			big.style.display = 'none';
+		}
+
+	//////////////////////////////////////////////////////////////////
+
+	//////////////////////////////////////////////////////////////////
+	</script>
+</body>
+</html>
