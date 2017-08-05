@@ -8,7 +8,7 @@
 			margin:0;padding:0;
 		}
 		#small{
-			background: url(images/map.jpg);
+			background: url(images/small.png);
 			width: 400px;
 			height: 400px;
 			float: left;
@@ -35,6 +35,9 @@
 			top: 10px;
 			display: none;
 		}
+		select{
+			width: 100px;
+		}
 	</style>
 </head>
 <body>
@@ -44,7 +47,15 @@
 	<div id="big">
 		<img src="images/small.png" width="2000" height="2000" alt="">
 	</div>
-<!-- ************************************************************** -->
+	<!-- ************************************************************** -->
+	<div style="position: relative;">
+		省：<select id="province"><option value="-1">请选择</option></select>
+		市：<select id="city"></select>
+		区：<select id="district"></select>
+	</div>	
+	<!-- ************************************************************** -->
+
+
 
 
 	<script type="text/javascript">
@@ -81,7 +92,75 @@
 
 	//////////////////////////////////////////////////////////////////
 
+	/*
+    前置知识点
+    1.如何向一个select元素中添加一个option元素
+        创建一个option
+            var option = new Option(option显示内容,option的Value值);
+        添加option进入select
+            select.options.add(要添加进去的option)
+
+    2.如何获取select元素中用户选中的内容
+        selectedIndex 属性表示【用户选中的】【下拉列表中的】option序号
+
+    3.当select内容发生改变时，发生了什么事件
+        change事件：当节点的value发生改变的时候自动被触发
+    */
+
+	var province = document.querySelector('#province');
+	var city = document.querySelector('#city');
+	var district = document.querySelector('#district');
+	var provinceIndex = 0;
+	var cityIndex = 0;
+	var provinceData = ['河北省', '吉林省'];
+	var cityData = [
+		['石家庄市', '张家口市', '唐山市'],
+		['长春市', '吉林市', '四平市']
+	];
+	var districtData = [
+		[
+			['石家庄1区', '石家庄2区', '石家庄3区'],
+			['张家口1区', '张家口2区', '张家口3区'],
+			['唐山1区', '唐山2区', '唐山3区']
+		],
+		[
+			['长春1区', '长春2区', '长春3区'],
+			['吉林1区', '吉林2区', '吉林3区'],
+			['四平1区', '四平2区', '四平3区']
+		]
+	];
+
+	for (i = 0; i < provinceData.length; i++) {
+		var option = new Option(provinceData[i], i);
+		province.options.add(option);
+	}
+	province.onchange = function(eve) {
+		provinceIndex = eve.target.selectedIndex - 1;
+		city.options.length = 0;
+		district.options.length = 0;
+		if (eve.target.selectedIndex != 0) {
+			// console.log(eve.target);
+			// console.log(eve.target.selectedIndex);
+			for (j = 0; j < cityData[provinceIndex].length; j++) {
+				var option = new Option(cityData[provinceIndex][j], j);
+				city.options.add(option);
+			}
+			for (k = 0; k < districtData[provinceIndex][0].length; k++) {
+				var option = new Option(districtData[provinceIndex][0][k],k);
+				district.options.add(option);
+			}
+		}
+	}
+	city.onchange = function(eve) {
+		cityIndex = eve.target.selectedIndex;
+		district.options.length = 0;
+		for (m = 0; m < districtData[provinceIndex][cityIndex].length; m++) {
+			var option = new Option(districtData[provinceIndex][cityIndex][m], m);
+			district.options.add(option);
+		}
+	}
 	//////////////////////////////////////////////////////////////////
+	
 	</script>
 </body>
 </html>
