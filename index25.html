@@ -54,7 +54,13 @@
 		区：<select id="district"></select>
 	</div>	
 	<!-- ************************************************************** -->
-
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+	</ul>
+	<button>点我</button>
 
 
 
@@ -160,7 +166,35 @@
 		}
 	}
 	//////////////////////////////////////////////////////////////////
-	
+
+
+
+	//人类思考模式
+	var temp = 0;
+	var lis = document.getElementsByTagName('li');
+	for(i = 0; i< lis.length; i++){
+		lis[i].onclick = function(eve){
+			console.log(eve.target.innerText);
+		}
+	}
+	document.querySelector('button').onclick = function(){
+		temp++;
+		var li = document.createElement('li');
+		li.innerText = '添加'+temp;
+		li.onclick = function(eve){
+			console.log(this.innerText);
+		}
+		document.querySelector('ul').appendChild(li);
+	}
+
+
+	//事件委托
+	//1.事件冒泡
+	//2.event.target 事件真正的触发者
+	var ul = document.querySelector('ul');
+	ul.onclick = function(eve){
+		console.log(eve.target.innerText);
+	}
 	</script>
 </body>
 </html>

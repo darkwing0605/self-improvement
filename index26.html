@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index26</title>
+	<style>
+		body{
+			margin:0;padding:0;
+		}
+		.canvas{
+			width: 400px;
+			height: 400px;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<!-- 贪吃蛇****************************************************** -->
+	<div class="canvas"></div>
+
+
+
+	<script type="text/javascript">
+		var arr1 = [1, 3, 8, 4, 3, 1, 5, 6];
+		var noRepeatArr1 = [];
+		for (i = 0; i < arr1.length; i++) {
+			if (noRepeatArr1.indexOf(arr1[i]) == -1) {
+				noRepeatArr1.push(arr1[i]);
+			}
+		}
+		console.log(arr1);
+		console.log(noRepeatArr1);
+		//时间长
+		///////////////////////////////////////////////
+		var noRepeatArr2 = [];
+		var hashObject = {};
+		for (i = 0; arr1[i] != undefined; i++) {
+			if (!hashObject[arr1[i]]) {
+				noRepeatArr2.push(arr1[i]);
+				hashObject[arr1[i]] = true;
+			}
+		}
+		console.log(arr1);
+		console.log(noRepeatArr2);
+		console.log(hashObject);
+		//空间换时间，占用内存大，时间短
+		//////////////////////////////////////////////
+		//冒泡排序_升序
+		var arr2 = [3,8,9,5,6,7,4,2,1];
+		function bubbleSort(arr){
+			for (i = 0; i < (arr.length - 1); i++){
+				for (j = 0; j < (arr.length-1-i); j++){
+					if (arr[j]>arr[j+1]) {
+						var temp=arr[j];
+						arr[j]=arr[j+1];
+						arr[j+1] = temp;
+					}
+				}
+			}
+			console.log(arr);
+			return arr;
+		}
+		bubbleSort(arr2);
+		/////////////////////////////////////////////////
+		//数组排序sort方法
+		var sortArr = arr2.sort(function(a,b) {
+			if (a > b) {
+				return 1;
+			}else if (a < b) {
+				return -1;
+			}else{
+				return 0;
+			}
+		});
+		console.log(sortArr);
+		/////////////////////////////////////////////////
+		var sortArr2 = arr2.sort(function(a, b) {
+			return b - a;
+		})
+		console.log(sortArr2);
+		/////////////////////////////////////////////////
+		//阶乘
+		function jieCheng(n){
+			if (n === 1) {
+				return n;
+			}
+			return n*jieCheng(n-1);
+		}
+		console.log(jieCheng(10));
+		/////////////////////////////////////////////////
+		//快速排序
+		//执行速度最快
+		function quickSort(arr) {
+			if (arr.length <= 1) {
+				return arr
+			}
+			var baseIndex = Math.floor(arr.length / 2);
+			var baseValue = arr.splice(baseIndex, 1)[0];
+			var left = [];
+			var right = [];
+			for (i = 0; i < arr.length; i++){
+				if (arr[i]<baseValue) {
+					left.push(arr[i]);
+				}else{
+					right.push(arr[i]);
+				}
+			}
+			return quickSort(left).concat(baseValue,quickSort(right));
+		}
+		console.log(quickSort(arr2));
+
+
+
+		////////////////////////////////////////////////////////////////
+		//贪吃蛇
+		var tcsArr = [];
+		var frag = document.createDocumentFragment();
+		for (i = 0; i < 20; i++) {
+			var tcsArr1 = [];
+			for (j = 0; j < 20; j++) {
+				var div = document.createElement('div');
+				div.style.position = 'absolute';
+				div.style.width = '20px';
+				div.style.height = '20px';
+				div.style.background = 'black';
+				div.style.marginLeft = j*20 + 'px';
+				div.style.marginTop = i*20 + 'px';
+				frag.appendChild(div);
+				tcsArr1.push(div);
+			}
+			tcsArr.push(tcsArr1);
+		}
+		document.querySelector('.canvas').appendChild(frag);
+		console.log(tcsArr);
+	</script>
+</body>
+</html>
