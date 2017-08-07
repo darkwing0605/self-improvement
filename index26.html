@@ -17,6 +17,7 @@
 <body>
 	<!-- 贪吃蛇****************************************************** -->
 	<div class="canvas"></div>
+	<button id="start" style="margin-top: 410px;">开始</button>
 
 
 
@@ -114,6 +115,7 @@
 		////////////////////////////////////////////////////////////////
 		//贪吃蛇
 		var tcsArr = [];
+		var start = document.querySelector('#start');
 		var frag = document.createDocumentFragment();
 		for (i = 0; i < 20; i++) {
 			var tcsArr1 = [];
@@ -123,8 +125,8 @@
 				div.style.width = '20px';
 				div.style.height = '20px';
 				div.style.background = 'black';
-				div.style.marginLeft = j*20 + 'px';
-				div.style.marginTop = i*20 + 'px';
+				div.style.marginLeft = j * 20 + 'px';
+				div.style.marginTop = i * 20 + 'px';
 				frag.appendChild(div);
 				tcsArr1.push(div);
 			}
@@ -132,6 +134,31 @@
 		}
 		document.querySelector('.canvas').appendChild(frag);
 		console.log(tcsArr);
+		var snake = document.createElement('div');
+		snake.style.background = 'white';
+		start.onclick = function() {
+			var y = 0;
+			var x = 0;
+			document.onkeydown = function(eve) {
+				if (eve.keyCode == 39) {
+					clearInterval(timer2);
+					var timer1 = setInterval(function() {
+						x++;
+						tcsArr[y][x].style.background = 'white';
+						tcsArr[y][x + 1].style.background = 'white';
+						tcsArr[y][x - 1].style.background = 'black';
+					}, 500);
+				}
+				if (eve.keyCode == 40) {
+					var timer2 = setInterval(function() {
+						y++;
+						tcsArr[y][x].style.background = 'white';
+						tcsArr[y + 1][x].style.background = 'white';
+						tcsArr[y - 1][x].style.background = 'black';
+					}, 500)
+				}
+			}
+		}
 	</script>
 </body>
 </html>

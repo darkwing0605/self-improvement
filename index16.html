@@ -87,7 +87,7 @@
 	document.write("<br>");
 //////////////////////////////////////////////打印九九乘法表
 	for(g = 1; g < 10; g++){
-		for(h = 1; h < 10; h++){
+		for(h = 1; h <= g; h++){
 			document.write(g + "x" + h +"=" + g * h + "&nbsp;");
 		}
 		document.write("<br>");
@@ -96,7 +96,7 @@
 	var i = 1;
 	while(i < 10){
 		var j = 1;
-		while(j < 10){
+		while(j <= i){
 			document.write(i + "x" + j +"=" + i * j + "&nbsp;");
 			j++;
 		}
@@ -110,7 +110,7 @@
 		do{
 			document.write(k + "x" + l +"=" + k * l + "&nbsp;");
 			l++;
-		}while(l < 10);
+		}while(l <= k);
 		document.write("<br>")
 		k++;
 	}while(k < 10);
