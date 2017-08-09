@@ -680,7 +680,7 @@ console.log(str);
 console.log(s);
 ```
 
-## Math方法和Date对象
+## 6.Math方法和Date对象
 
 ### Math方法
 >它是js提供的一些数学函数，可以直接使用，不需要定义
@@ -723,6 +723,356 @@ console.log(timer.gerFullYear());
 
 >toString() 把Date对象转换为字符串
 >toLocaleString() 根据本地时间，把Date对象的日期部分转换为字符串
+
+
+
+
+## 7.函数
+
+### 1.定义和使用
+函数：就是*封装*起来的具有特定功能的一段代码
+定义函数：
+
+####第一种方式：function 函数名(){}
+函数定义后不会自动执行，只有调用时才能执行
+
+丰富函数功能：
+>第一个：可以传参
+>>定义的时候：function 函数名(形参列表){}
+
+>第二个：可以有返回值
+>>定义的时候：function 函数名(){return 表达式;}
+>>返回值的作用
+>>>第一个作用是返回它后面的表达式，返回到调用的地方
+>>>第二个作用是中断函数
+```javascript
+function add(a, b, c) {
+	// 功能：求三个数中最大和最小两个数的和
+	if (a > b) {
+		if (a > c) {
+			if (b > c) {
+				return a + c;
+			} else {
+				return a + b;
+			}
+		} else {
+			return c + b;
+		}
+	} else {
+		if (c > b) {
+			return c + a;
+		} else {
+			if (a > c) {
+				return b + c;
+			} else {
+				return b + a;
+			}
+		}
+	}
+	console.log("lalalala");
+	console.log("ahahahahah")
+}
+console.log(add(3333, 76, 100));
+```
+
+
+调用：函数名();
+有参数时调用方法：函数名(实参列表);
+特殊情况：形参和实参的个数可以不同
+>形参多余实参:多余的形参接收不到值，这时使用默认的undefined
+```javascript
+function add(a, b, c) {
+	console.log(a + b + c);
+	console.log(b); //undefined
+	console.log(c); //undefined
+}
+add(1); //NaN
+```
+>形参少于实参：形参按顺序接收实参的值，多余的实参显示不出来*不代表没有了*
+```javascript
+function add(a, b, c) {
+	console.log(a + b + c);
+}
+add(1,2,3,4,5,6,7); //6
+```
+>arguments：这是一个类数组，作用能保存函数调用时传入的所有实参
+```javascript
+function add(a, b, c) {
+	console.log(a);
+	console.log(b);
+	console.log(c);
+	console.log(arguments);
+	console.log(arguments[0]);
+	console.log(arguments[1]);
+	console.log(arguments[2]);
+	console.log(arguments[3]);
+
+	console.log(arguments[0] == a); //true
+	console.log(arguments.length);
+	//console.log(arguments.push(9)); //报错，类数组不是数组
+}
+add(1, 2, 3, 4, 5, 6, 7, 8);
+```
+
+调用有返回值的函数：函数名(); 这个时候调用的地方会得到一个返回来的值，这个值我们可以随便使用
+
+#### 第二种方式：var str = function(){}
+这也是定义函数的一种方式
+定义变量，变量的值为一个函数
+需要注意，这种方式定义的函数function后没有函数名，就是写函数名也调用不到这个函数，想调用时调用变量名();
+```javascript
+var str = function() {
+	console.log('字符串');
+}
+str();
+```
+
+### 2.变量名和函数提升机制
+
+#### 1.变量名的提升机制
+在程序执行时，js会把所有变量名提升到当前作用域的前面
+```javascript
+console.log(str); //undefined
+console.log(555);
+console.log(333);
+var str = '字符串';
+console.log(str); //'字符串'
+
+function add() {
+	console.log(num); //undefined
+	var num = 12;
+	console.log(num); //12
+}
+add();
+```
+
+#### 2.函数的提升机制
+通过function定义的函数，在程序执行的时候会把函数以及功能提升到当前作用域*最前面*
+```javascript
+fun1();
+function fun1() {
+	console.log('function定义的函数')；
+}
+```
+变量名和函数名重名的时候处理情况
+```javascript
+fun1(); //function定义的函数
+function fun1() {
+	console.log('function定义的函数')；
+}
+var fun1 = function() {
+	console.log('函数表达式定义的函数');
+}
+fun1(); //函数表达式定义的函数
+```
+
+### 3.作用域
+分为变量的作用域和函数的作用域
+
+#### 变量的作用域
+就是指变量的有效作用范围，分为全局变量和局部变量，*分全局和局部的标准是函数*，函数是js中唯一一个能限定作用域的功能
+>局部变量：写在函数内部的变量。只能在当前函数内部使用
+>全局变量：写在函数外部的变量。在任何地方都能用
+```javascript
+var num = 12; //全局变量，在任何地方都能用
+function add() {
+	console.log(num); //undefined
+	var num = 14; //局部变量，只能在当前函数内部使用
+	console.log(num); //14
+}
+console.log(num); //12
+add();
+```
+
+#### 变量作用域链
+变量在调用时会首先检查当前作用域内是否有该变量，如果当前作用域范围内有这个变量，则调用这个变量的值，如果没有，就向上一层找，上一层没有再上一层，直到全局变量，如果全局变量都没有，就报错；有就使用
+```javascript
+var str = 12;
+
+function add1() {
+	console.log(str); //undefined  
+	var str = 13;
+
+	function add2() {
+		console.log(str); //undefined 
+		var str = 14;
+
+		function add3() {
+			console.log(str); //14
+		}
+		add3();
+	}
+	add2();
+}
+add1();
+```
+
+### 4.闭包
+闭包：是函数天生就具备的一个特性，这个特性的功能是能记住它定义时的作用域
+闭包不是人为设置的，只要是函数，就具备闭包特性
+```javascript
+function add(){
+	a = 12;
+	return function(){
+		console.log(++a);
+	};
+}
+var num1 = add();
+console.log(num1); //function(){console.log(++a);}
+num1(); //13
+
+
+var arr = [];
+for(i = 0; i < 10; i++){
+	arr[i] = function(){
+		console.log(i);
+	};
+}
+console.log(arr);
+arr[0](); //10
+arr[3](); //10
+```
+
+### 5.IIFE（立即执行函数表达式）
+IIFE：它是函数表达式
+>作用：函数定义完成后就立即执行
+正常的函数（通过function定义的函数），它是不能直接加小括号调用的，必须函数名()这种方式调用
+立即执行函数的意思就是需要执行，执行就需要加小括号()，所以，需要把正常的函数变成函数表达式
+把正常函数变成函数表达式的方方法
+>加数学符号，最常用的是加小括号的这种方式
+```javascript
++function add1(){
+	console.log(1);
+}();
+!function add1(){
+	console.log(2);
+}();
+(function add1(){
+	console.log(3);
+})();
+```
+>立即执行函数也可以传参
+```javascript
+(function add1(a){
+	console.log(2+a);
+})(1);
+```
+
+*IIFE配合闭包使用*
+```javascript
+var arr = [];
+for(i = 0; i < 10; i++){
+	(function(i) {
+		arr[i] = function() {
+			console.log(i);
+		}
+	})(i);
+}
+//想要的结果：arr[0]输出结果是0，arr[3]输出结果是3
+console.log(arr); 
+```
+
+```javascript
+		//点哪个按钮就显示哪个按钮上面的数字
+		var aLi = document.getElementsByTagName('li');
+		console.log(aLi);
+		//需要给每个li添加点击事件，功能点击的时候显示上面的数字
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].onclick = function() {
+				console.log(this.innerHTML);
+			}
+		}
+
+		//点击li是5个li中的顺序
+		for (var j = 0; j < aLi.length; j++) {
+			(function(k) {
+				//onclick后是函数，所以产生闭包了，在点击调用函数时，函数会还找定义时的作用域，定义的j已经变成5了，所以结果都是5
+				aLi[k].onclick = function() {
+					console.log(k);
+				}
+			})(j);
+		}
+		//鼠标点击时才会触发函数
+```
+[实现](1.html)
+
+
+### 6.函数递归
+函数调用自己
+>斐波那契数列：1,1,2,3,5,8
+>求第20个数是几
+```javascript
+//循环方法
+var num1 = 1;
+var num2 = 1;
+var num3 = 0;
+for (var i = 3; i <= 20; i++) {
+	num3 = num1 + num2;
+	num1 = num2;
+	num2 = num3;
+}
+console.log(num3)
+
+//递归方法
+function digui(a) {
+	if (a == 1 || a == 2) {
+		return 1;
+	} else {
+		return digui(a - 1) + digui(a - 2);
+	}
+	var num = digui(3);
+	console.log(num);
+}
+digui(20);
+```
+
+
+## 8.DOM
+### 1.DOM是什么
+Document Object Model 文档对象模型，指的就是写的HTML的页面
+
+### 2.DOM树
+就是指HTML文档的结构
+平时操作DOM其实就是在操作DOM树节点
+想操作DOM元素，第一步需要找到这个元素
+
+### 3.查找元素的方法
+1.通过ID查找元素
+>document.getElementById(ID名);
+>得到一个唯一的对象，因为ID是唯一的，*得到后是一个js对象*
+
+2.通过标签查找元素
+>document.getElementsByTagName(标签名);
+>得到一个类数组，所有该标签的元素都在这个对象里面，*所有在使用的时候都要加下标*
+
+3.通过类名查找元素
+>document.getElementsByClassName
+>得到一个类数组，所有该类名的元素都在这个对象里面，*所有在使用的时候都要加下标*
+>>这个有兼容性，IE低版本的类名
+```javascript
+// 封装兼容IE低版本类名查找
+var allBox = document.getElementsByClassName('box');
+
+function classQuery(cName) {
+	//定义一个空数组，用来保存符合条件的元素
+	var arr = [];
+	//找到所有的标签
+	var allTag = document.getElementsByTagName('*');
+	console.log(allTag);
+	//判断类名是否符合标准
+	for (var i = 0; i < allTag.length; i++)
+} {
+	if (allTag[i].className == cName) {
+		arr.push(allTag[i]);
+	}
+}
+return arr;
+}
+console.log(classQuery('box'));
+```
+
+
+
 
 <script>
 

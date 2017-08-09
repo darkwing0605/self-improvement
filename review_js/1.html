@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>1</title>
+	<style>
+		body{margin:0;padding:0;}
+		ul{
+			list-style: none;
+			width: 300px;
+			height: 30px;
+			margin: 100px auto;
+			background: rgba(0,0,0,0.3)
+		}
+		li{
+			width: 30px;
+			height: 30px;
+			border-radius: 15px;
+			background-color: pink;
+			color: #fff;
+			float: left;
+			margin-right: 20px;
+			line-height: 30px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+	</ul>
+
+	<script type="text/javascript">
+		//点哪个按钮就显示哪个按钮上面的数字
+		var aLi = document.getElementsByTagName('li');
+		console.log(aLi);
+		//需要给每个li添加点击事件，功能点击的时候显示上面的数字
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].onclick = function() {
+				console.log(this.innerHTML);
+			}
+		}
+
+		//点击li是5个li中的顺序
+		for (var j = 0; j < aLi.length; j++) {
+			(function(k) {
+				//onclick后是函数，所以产生闭包了，在点击调用函数时，函数会还找定义时的作用域，定义的j已经变成5了，所以结果都是5
+				aLi[k].onclick = function() {
+					console.log(k);
+				}
+			})(j);
+		}
+		//鼠标点击时才会触发函数
+	</script>
+</body>
+</html>
