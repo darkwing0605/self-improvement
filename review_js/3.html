@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+		*{
+			margin:0;padding:0;
+		}
+		img{
+			width: 500px;
+		}
+	</style>
+</head>
+<body>
+	<button>上一张</button>
+	<img src="images/lunbo/1.jpg" alt="">
+	<button>下一张</button>
+	<script>
+		var aBtn = document.getElementsByTagName('button');
+		var oImg = document.getElementsByTagName('img')[0];
+		//定义一个全局变量来保存当前显示的图片
+		var index = 1;
+		aBtn[1].onclick = function(){
+			index++;
+			//需要判断是否当最后一张，到最后一张，再点就回第一张
+			if (index>5) {
+				index = 1;
+			}
+			//操作DOM
+			oImg.src = 'images/lunbo/'+index+'.jpg'
+		}
+		aBtn[0].onclick = function(){
+			index--;
+			if (index<1) {
+				index = 5;
+			}
+			//操作DOM
+			oImg.src = 'images/lunbo/'+index+'.jpg'
+		}
+	</script>
+</body>
+</html>

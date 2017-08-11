@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百度换肤</title>
+	<style>
+		*{
+			margin: 0;padding: 0;
+			background: url("images/baidu/1.jpg") no-repeat;
+		}
+		ul{
+			position: absolute;
+			top: 50px;
+			left: 200px;
+			list-style: none;
+			margin-top: 50px;
+		}
+		ul li{
+			float: left;
+			width: 100px;
+			margin-left: 20px;
+		}
+		ul li img{
+			width: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul>
+			<li><img src="images/baidu/1.jpg" alt=""></li>
+			<li><img src="images/baidu/2.jpg" alt=""></li>
+			<li><img src="images/baidu/3.jpg" alt=""></li>
+			<li><img src="images/baidu/4.jpg" alt=""></li>
+			<li><img src="images/baidu/5.jpg" alt=""></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		var oBody = document.body;
+		var aLi = document.getElementsByTagName('li');
+		for (i = 0; i < aLi.length; i++) {
+			(function(i) {
+				aLi[i].onclick = function() {
+					oBody.style.background = 'url(images/baidu/' + (i + 1) + '.jpg)';
+				}
+			})(i)
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+		*{
+			margin:0;padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+			color: #ffffff;
+		}
+		.box{
+			width: 520px;
+			height: 280px;
+			position: relative;
+			overflow: hidden;
+		}
+		.pics{
+			width: 2600px;
+			height: 280px;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			overflow: hidden;
+		}
+		.pics li{
+			float: left;
+			width: 520px;
+			height: 280px;
+		}
+		.pics li img{
+			width: 520px;
+			height: 280px;
+		}
+		.btn{
+			width: 20px;
+			height: 40px;
+			background: rgba(0,0,0,0.3);
+			position: absolute;
+			top: 120px;
+			line-height: 40px;
+			text-align: center;
+			font:22px/40px "宋体";
+		}
+		.btn:hover{
+			background: rgba(0,0,0,0.7);
+		}
+		.left{
+			left: 0;
+		}
+		.right{
+			right:0;
+		}
+		.circle{
+			width: 100px;
+			height: 18px;
+			padding-top: 2px;
+			background: rgba(183,183,183,1);
+			border-radius: 10px;
+			position: absolute;
+			bottom: 20px;
+			left: 220px;
+		}
+		.circle li{
+			width: 16px;
+			height: 16px;
+			border-radius: 8px;
+			background: cyan;
+			float: left;
+			margin: 0 2px;
+		}
+		.circle li.active{
+			background: #ff4400;
+		}
+	</style>
+</head>
+<body>
+	<!-- 
+	轮播图布局
+	外面一个大盒子：包括一组大盒子，一组左右小按钮，一组快捷导航
+	
+	大图：是一组，ul包裹这组大图
+	
+	左右按钮：两个单独的按钮
+
+	快捷导航：是一组，ul包裹
+
+	如果这个轮播图在页面中有位置，这时最后外层再套一个盒子
+	（这个盒子是用来包裹轮播图的）
+
+	火车法轮播图的原理
+	让外层的父级元素动，子级元素都不动
+	 -->
+
+	<div class="box">
+		<!-- 大图 -->
+		<ul class="pics">
+			<li><a href="#"><img src="images/lunbo/1.jpg" alt=""></a></li>
+			<li><a href="#"><img src="images/lunbo/2.jpg" alt=""></a></li>
+			<li><a href="#"><img src="images/lunbo/3.jpg" alt=""></a></li>
+			<li><a href="#"><img src="images/lunbo/4.jpg" alt=""></a></li>
+			<li><a href="#"><img src="images/lunbo/5.jpg" alt=""></a></li>
+		</ul>
+		<!-- 左右按钮 -->
+		<a href="javascript:;" class="btn left">&lt;</a>
+		<a href="javascript:;" class="btn right">&gt;</a>
+		<!-- 快捷导航 -->
+		<ul class="circle">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+
+<script>
+	var aCircle = document.getElementsByClassName('circle')[0].getElementsByTagName('li');
+	var aPics = document.getElementsByClassName('pics')[0].getElementsByTagName('li');
+	var leftBtn = document.getElementsByClassName('left')[0];
+	var rightBtn = document.getElementsByClassName('right')[0];
+	var oPics = document.getElementsByClassName('pics')[0];
+	//定义一个全局变量，保存当前显示的图片
+	var index = 0;
+
+	//实现点小圆圈跳转图片，给每个小圆圈添加点击事件
+	for (var i = 0; i < aCircle.length; i++) {
+		(function(k) {
+			aCircle[k].onclick = function() {
+				//对应思想，下面点的是第几个，上面就显示对应的第几个
+				console.log(k);
+				// 让上面发生改变
+				oPics.style.left = -k * 520 + 'px';
+				//小圆圈的颜色发生改变
+				// 排除思想，把所有的都恢复成默认的，设置当前的
+				for (var j = 0; j < aCircle.length; j++) {
+					aCircle[j].removeAttribute('class');
+				}
+				aCircle[k].className = 'active';
+
+				index = k;
+			}
+		})(i);
+	}
+
+	//左右按钮
+	leftBtn.onclick = function() {
+		index--;
+		if (index < 0) {
+			index = 4;
+		}
+		// 让上面发生改变
+		oPics.style.left = -index * 520 + 'px';
+		//小圆圈的颜色发生改变
+		// 排除思想，把所有的都恢复成默认的，设置当前的
+		for (var j = 0; j < aCircle.length; j++) {
+			aCircle[j].removeAttribute('class');
+		}
+		aCircle[index].className = 'active';
+	}
+	rightBtn.onclick = function() {
+		index++;
+		if (index > 4) {
+			index = 0;
+		}
+		// 让上面发生改变
+		oPics.style.left = -index * 520 + 'px';
+		//小圆圈的颜色发生改变
+		// 排除思想，把所有的都恢复成默认的，设置当前的
+		for (var j = 0; j < aCircle.length; j++) {
+			aCircle[j].removeAttribute('class');
+		}
+		aCircle[index].className = 'active';
+	}
+</script>
+
+</body>
+</html>

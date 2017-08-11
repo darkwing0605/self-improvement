@@ -851,14 +851,14 @@ add();
 ```javascript
 fun1();
 function fun1() {
-	console.log('function定义的函数')；
+	console.log('function定义的函数');
 }
 ```
 变量名和函数名重名的时候处理情况
 ```javascript
 fun1(); //function定义的函数
 function fun1() {
-	console.log('function定义的函数')；
+	console.log('function定义的函数');
 }
 var fun1 = function() {
 	console.log('函数表达式定义的函数');
@@ -866,13 +866,58 @@ var fun1 = function() {
 fun1(); //函数表达式定义的函数
 ```
 
-### 3.作用域
+#### 3.混合使用时
+函数名优先于变量名执行
+```javascript
+function fn1() {
+	console.log(11111);
+}
+var fn1 = function() {
+	console.log(22222);
+};
+console.log(fn1);
+
+/*相当于
+	function fn1() {
+		console.log(11111);
+	}
+	var fn1 = undefined;
+	fn1 = function() {
+		console.log(22222);
+	};
+	console.log(fn1);
+*/
+```
+
+```javascript
+console.log(fn1);
+function fn1() {
+	console.log(11111);
+}
+var fn1 = function() {
+	console.log(22222);
+};
+
+/*相当于
+	function fn1() {
+		console.log(11111);
+	}
+	var fn1 = undefined;
+	fn1 = function() {
+		console.log(22222);
+	};
+	console.log(fn1);
+*/
+```
+
+### 3.作用域和作用域链
 分为变量的作用域和函数的作用域
 
-#### 变量的作用域
-就是指变量的有效作用范围，分为全局变量和局部变量，*分全局和局部的标准是函数*，函数是js中唯一一个能限定作用域的功能
->局部变量：写在函数内部的变量。只能在当前函数内部使用
->全局变量：写在函数外部的变量。在任何地方都能用
+#### 1.变量的作用域和作用域链
+变量的作用域
+>就是指变量的有效作用范围，分为全局变量和局部变量，*分全局和局部的标准是函数*，函数是js中唯一一个能限定作用域的功能
+>>局部变量：写在函数内部的变量。只能在当前函数内部使用
+>>全局变量：写在函数外部的变量。在任何地方都能用，经常用来保存标识（比如轮播图中当前显示的图片顺序）
 ```javascript
 var num = 12; //全局变量，在任何地方都能用
 function add() {
@@ -884,8 +929,8 @@ console.log(num); //12
 add();
 ```
 
-#### 变量作用域链
-变量在调用时会首先检查当前作用域内是否有该变量，如果当前作用域范围内有这个变量，则调用这个变量的值，如果没有，就向上一层找，上一层没有再上一层，直到全局变量，如果全局变量都没有，就报错；有就使用
+变量的作用域链
+>变量在调用时会首先检查当前作用域内是否有该变量，如果当前作用域范围内有这个变量，则调用这个变量的值，如果没有，就向上一层找，上一层没有再上一层，直到全局变量，如果全局变量都没有，就报错；有就使用
 ```javascript
 var str = 12;
 
@@ -906,6 +951,23 @@ function add1() {
 }
 add1();
 ```
+
+#### 2.函数的作用域和作用域链
+函数的作用域：指函数调用时只能在它的有效作用域范围内
+```javascript
+function fn1() {
+	console.log(1111);
+
+	function fn2() {
+		console.log(2222);
+	}
+	fn2();
+}
+fn1();
+fn2();
+```
+函数的作用域链
+函数的作用域链其实就是闭包
 
 ### 4.闭包
 闭包：是函数天生就具备的一个特性，这个特性的功能是能记住它定义时的作用域
@@ -938,7 +1000,7 @@ IIFE：它是函数表达式
 >作用：函数定义完成后就立即执行
 正常的函数（通过function定义的函数），它是不能直接加小括号调用的，必须函数名()这种方式调用
 立即执行函数的意思就是需要执行，执行就需要加小括号()，所以，需要把正常的函数变成函数表达式
-把正常函数变成函数表达式的方方法
+把正常函数变成函数表达式的方法
 >加数学符号，最常用的是加小括号的这种方式
 ```javascript
 +function add1(){
@@ -956,7 +1018,14 @@ IIFE：它是函数表达式
 (function add1(a){
 	console.log(2+a);
 })(1);
+
+(function(a) {  //函数名没什么用了 ，一般就不写了
+	console.log(2+a);
+})(1);
 ```
+
+以后写的代码要用立即执行函数包裹一下，这样做的好处是不会造成变量污染
+利用IIFE和闭包实现记住点击的位置（轮播图）
 
 *IIFE配合闭包使用*
 ```javascript
@@ -998,7 +1067,7 @@ console.log(arr);
 
 
 ### 6.函数递归
-函数调用自己
+函数在函数内部调用自己
 >斐波那契数列：1,1,2,3,5,8
 >求第20个数是几
 ```javascript
@@ -1030,13 +1099,17 @@ digui(20);
 ## 8.DOM
 ### 1.DOM是什么
 Document Object Model 文档对象模型，指的就是写的HTML的页面
+所有我们操作DOM，就是在操作文档对象
+前端操作文档对象就是HTML
 
 ### 2.DOM树
 就是指HTML文档的结构
 平时操作DOM其实就是在操作DOM树节点
 想操作DOM元素，第一步需要找到这个元素
 
-### 3.查找元素的方法
+### 3.DOM常用操作
+
+查找元素的方法
 1.通过ID查找元素
 >document.getElementById(ID名);
 >得到一个唯一的对象，因为ID是唯一的，*得到后是一个js对象*
@@ -1070,6 +1143,151 @@ return arr;
 }
 console.log(classQuery('box'));
 ```
+
+操作HTML
+>获取内容
+>>innerHTML
+>>innerText
+>>value
+
+>修改内容
+>>元素.innerHTML = '新的值';
+
+操作属性
+>操作标签自己的属性
+>>获取：元素.属性
+
+>>设置：元素.value = '新的值';
+
+>操作自定义属性
+>>获取；元素.getAttribute('属性名');
+
+>>设置；元素.setAttribute('属性名','属性值');
+
+[百度换肤](2.html)
+[轮播图](3.html)
+
+操作样式
+>就是操作CSS
+>>修改CSS样式，不需要注意什么，*因为修改完的样式会直接添加到行内*
+
+>获取CSS样式有兼容性
+>>获取行内样式，没有兼容性
+>>获取内部样式或外部样式表的CSS样式
+>>>这个时候通过：元素.style.css样式，不管高级浏览器还是IE低版本浏览器都获取不到
+>>>这个时候需要专门的方法来获取
+>>>获取计算后的样式
+```javascript
+//高级浏览器的方法：
+window.getComputedStyle('元素')['属性'];
+//IE低版本的方法：
+元素.currentStyle['属性'];
+
+//封装
+(function(window) {
+	function getStyle(ele, attr) {
+		//判断当前浏览器识别哪种获取方法
+		if (window.getComputedStyle) {
+			//高级浏览器
+			return window.getComputedStyle(ele)[attr];
+		} else {
+			//IE低版本浏览器
+			return ele.currentStyle[attr];
+		}
+	}
+	//把该方法绑定到window上
+	window.getStyle = getStyle;
+})(window);
+```
+
+## 9.DOM节点关系
+### 1.子节点
+
+原生js中的子节点：childNodes
+>有兼容性：
+>>高级浏览器会把回车、换行、空格当做一个子节点，而IE低版本浏览器不会这样计算
+```HTML
+<ul id="list">
+	<li class="active">这是li</li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+```
+```javascript
+var oList = document.getElementById('list');
+alert(oList.childNodes.length);  //高级浏览器弹出11  IE低版本浏览器弹出5
+```
+>>文本是节点，属性也是节点、注释也是节点
+
+children：能获取元素的子节点，同时没有兼容性，找到的就是元素节点
+```javascript
+alert(oList.children.length);
+```
+
+节点类型 nodeType
+>元素节点    	就是指标签         		1
+>文本节点    	写的文字           		3
+>document节点	HTML文档节点       		9
+>注释节点    	&lt;!-- 注释 --&gt;		8
+
+节点的值 nodeValue
+能修改文本节点中的值，也能获取文本节点中的值，无法修改元素节点的值
+
+### 2.父节点
+原生js中的表示方法：parentNode
+该方法只能找到它自己的父亲，找不到祖先元素，如果要找，需要再调用parentNode方法
+
+### 3.兄弟节点
+原生js中只有找当前元素的上一个兄弟元素或找下一个兄弟元素
+上一个：previousSibling
+下一个：nextSibling
+```javascript
+//封装的获取当前元素的兄弟节点方法
+(function() {
+	window.allSibling = function(ele) {
+		//用while来实现次数不定的循环
+		/*
+		var n = ele;
+		var m = ele;
+		while(n = n.nextSibing){
+			console.log(n);
+		}
+		console.log(n); //null
+		while(m = m.nextSibing){
+			console.log(m);
+		}
+		*/
+		var n = ele;
+		var arr = []
+		for (i = 0; i < n.parentNode.children.length; id++) {
+			if (n.parentNode.children[i] != n) {
+				console.log(n.parentNode.children[i])
+			}
+		}
+	}
+})()
+```
+
+### 4.轮播图
+[轮播图](4.html)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
