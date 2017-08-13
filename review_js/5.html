@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.box{
+			width: 800px;
+			margin: 10px auto;
+		}
+		#news{
+			width: 600px;
+			height: 20px;
+		}
+		#btn{
+			display: block;
+			width: 50px;
+			height: 30px;
+			background: orange;
+			line-height: 30px;
+			text-align: center;
+			font-size: 16px;
+			color: #ffffff;
+			text-decoration: none;
+			border-radius: 4px;
+			float: right;
+			margin-top:10px;
+			margin-right: 200px
+		}
+		.clear{
+			clear:both;
+		}
+		ul{
+			list-style: none;
+		}
+		ul li{
+			height: 10px;
+			padding: 20px 40px;
+			border-bottom: 1px solid #cccccc;
+		}
+		ul li a {
+			float: right;
+			margin-right: 10px;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<input type="text" placeholder="请输入评论内容" id="news"><br>
+		<a href="javascript:;" id="btn">评论</a>
+		<div class="clear"></div>
+		<ul id="list">
+
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+	//招元素
+		var btn = document.getElementById('btn');
+		var news = document.getElementById('news');
+		var list = document.getElementById('list');
+		//点解按钮时候把用户输入的内容添加到页面的ul中
+		btn.onclick = function(){
+			var nr = news.value;
+			//创建新标签
+			var oLi = document.createElement('li');
+			//创建举报和屏蔽标签
+			var jbA = document.createElement('a');
+			//给a标签添加href属性
+			jbA.href = '#';
+			jbA.innerHTML= '举报';
+			var pbA = document.createElement('a');
+			pbA.href = '#';
+			pbA.innerHTML = '屏蔽';
+			//创建一个包裹内容的标签
+			var spanNr = document.createElement('span');
+			spanNr.innerHTML = nr;
+			//上树
+			oLi.appendChild(spanNr);
+			oLi.appendChild(jbA);
+			oLi.appendChild(pbA);
+			//给创建的li添加时间
+			oLi.onmouseover = function(){
+				jbA.style.display='block'
+				pbA.style.display='block'
+			}
+			oLi.onmouseout = function(){
+				jbA.style.display = 'none';
+				pbA.style.display = 'none';
+			}
+
+			//把创建的li添加到页面
+			//list.appendChlid(oLi);
+			if(list.children[0]){
+			list.insertBefore(oLi,list.children[0]);
+			}else{
+				list.appendChild(oLi);
+			}
+			//把输入框中的内容清空
+			news.value = '';
+			news.focus();
+		}
+	</script>
+</body>
+</html>

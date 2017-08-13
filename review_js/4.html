@@ -77,6 +77,19 @@
 		.circle li.active{
 			background: #ff4400;
 		}
+		/*******************************************************/
+		ul.list1,ul.list2{
+			list-style: none;
+			margin-bottom: 20px;
+			overflow: hidden;
+		}
+		ul.list1 li,ul.list2 li{
+			width: 100px;
+			height: 100px;
+			background: #cccccc;
+			margin-left: 20px;
+			float: left;
+		}
 	</style>
 </head>
 <body>
@@ -118,6 +131,35 @@
 			<li></li>
 		</ul>
 	</div>
+
+<!-- ***************************************************************** -->
+
+	<ul class="list1">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<ul class="list2">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
 	var aCircle = document.getElementsByClassName('circle')[0].getElementsByTagName('li');
@@ -176,6 +218,49 @@
 			aCircle[j].removeAttribute('class');
 		}
 		aCircle[index].className = 'active';
+	}
+</script>
+
+<!-- ****************************************************************** -->
+
+<script type="text/javascript">
+	//对应关系
+	//找list1中的li
+	var aList_li = document.getElementsByClassName('list1')[0].getElementsByTagName('li');
+	var aList2_li = document.getElementsByClassName('list2')[0].getElementsByTagName('li');
+
+	//对应操作
+	for (i = 0; i < aList_li.length; i++) {
+		(function(k) {
+			aList_li[k].onclick = function() {
+				//点谁谁自己变颜色
+				this.style.background = 'red';
+				//让对应的li变颜色
+				aList2_li[k].style.background = 'red';
+			}
+		})(i)
+	}
+
+
+	//排他操作
+	//找list1中的li
+	var aList_li = document.getElementsByClassName('list1')[0].getElementsByTagName('li');
+	var aList2_li = document.getElementsByClassName('list2')[0].getElementsByTagName('li');
+	for (i = aList_li.length - 1; i >= 0; i--) {
+		//排他操作
+		(function(k) {
+			aList_li[k].onclick = function() {
+				//把所有颜色恢复到默认颜色
+				for (j = aList2_li.length - 1; j >= 0; j--) {
+					aList_li[j].style.background = '#cccccc';
+					aList2_li[j].style.background = '#cccccc';
+				}
+				//自己变颜色
+				this.style.background = 'orange';
+				//当前活动的元素添加样式
+				aList2_li[k].style.background = 'orange';
+			}
+		})(i)
 	}
 </script>
 

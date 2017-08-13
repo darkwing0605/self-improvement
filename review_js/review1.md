@@ -1156,12 +1156,10 @@ console.log(classQuery('box'));
 操作属性
 >操作标签自己的属性
 >>获取：元素.属性
-
 >>设置：元素.value = '新的值';
 
 >操作自定义属性
 >>获取；元素.getAttribute('属性名');
-
 >>设置；元素.setAttribute('属性名','属性值');
 
 [百度换肤](2.html)
@@ -1174,7 +1172,7 @@ console.log(classQuery('box'));
 >获取CSS样式有兼容性
 >>获取行内样式，没有兼容性
 >>获取内部样式或外部样式表的CSS样式
->>>这个时候通过：元素.style.css样式，不管高级浏览器还是IE低版本浏览器都获取不到
+>>>这个时候通过：元素.style.css样式，（css样式如果是复合属性写的时候需要第二个单词首字母大写）不管高级浏览器还是IE低版本浏览器都获取不到
 >>>这个时候需要专门的方法来获取
 >>>获取计算后的样式
 ```javascript
@@ -1203,7 +1201,8 @@ window.getComputedStyle('元素')['属性'];
 ## 9.DOM节点关系
 ### 1.子节点
 
-原生js中的子节点：childNodes
+原生js中的子节点：元素.childNodes
+返回文本节点+元素节点+注释节点
 >有兼容性：
 >>高级浏览器会把回车、换行、空格当做一个子节点，而IE低版本浏览器不会这样计算
 ```HTML
@@ -1221,7 +1220,7 @@ alert(oList.childNodes.length);  //高级浏览器弹出11  IE低版本浏览器
 ```
 >>文本是节点，属性也是节点、注释也是节点
 
-children：能获取元素的子节点，同时没有兼容性，找到的就是元素节点
+获取纯元素子节点方法：children：能获取元素的子节点，同时没有兼容性，找到的就是元素节点
 ```javascript
 alert(oList.children.length);
 ```
@@ -1229,8 +1228,8 @@ alert(oList.children.length);
 节点类型 nodeType
 >元素节点    	就是指标签         		1
 >文本节点    	写的文字           		3
->document节点	HTML文档节点       		9
 >注释节点    	&lt;!-- 注释 --&gt;		8
+>document节点	HTML文档节点       		9
 
 节点的值 nodeValue
 能修改文本节点中的值，也能获取文本节点中的值，无法修改元素节点的值
@@ -1272,6 +1271,254 @@ alert(oList.children.length);
 
 ### 4.轮播图
 [轮播图](4.html)
+
+在实现的过程中有两个技巧
+```HTML
+<ul class="list1">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+<ul class="list2">
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+```
+>第一个是对应关系
+>>操作当前元素，能改变相对应的元素
+```javascript
+//找list1中的li
+var aList_li = document.getElementsByClassName('list1')[0].getElementsByTagName('li');
+var aList2_li = document.getElementsByClassName('list2')[0].getElementsByTagName('li');
+//对应操作
+for (i = 0; i < aList_li.length; i++) {
+	(function(k) {
+		aList_li[k].onclick = function() {
+			//点谁谁自己变颜色
+			this.style.background = 'red';
+			//让对应的li变颜色
+			aList2_li[k].style.background = 'red';
+		}
+	})(i)
+}
+```
+
+>第二个是排他操作
+>>除了他自己能有这个状态，其他所有元素都不能有这个状态
+```javascript
+//排他操作
+//找list1中的li
+var aList_li = document.getElementsByClassName('list1')[0].getElementsByTagName('li');
+var aList2_li = document.getElementsByClassName('list2')[0].getElementsByTagName('li');
+for (i = aList_li.length - 1; i >= 0; i--) {
+	//排他操作
+	(function(k) {
+		aList_li[k].onclick = function() {
+			//把所有颜色恢复到默认颜色
+			for (j = aList2_li.length - 1; j >= 0; j--) {
+				aList_li[j].style.background = '#cccccc';
+				aList2_li[j].style.background = '#cccccc';
+			}
+			//自己变颜色
+			this.style.background = 'orange';
+			//当前活动的元素添加样式
+			aList2_li[k].style.background = 'orange';
+		}
+	})(i)
+}
+```
+
+## 10.DOM结构操作
+常用的改变DOM结构的操作：增、删、改、克隆
+
+### 1.增
+就是向页面中添加新的标签
+步骤
+>第一步：创建新标签
+>>方法
+>>第一种
+>>>创建标签节点document.createElement('标签');
+>>>创建文本节点：document.createTextNode('文本');  *平时不用它*
+>>>创建的标签节点和文本节点要添加到页面，都需要“上树”
+>>>平时用的时候，给标签节点添加内容用：innerHTML='值'；
+
+>>第二种
+>>>字符串方法
+>>>创建元素时用字符串拼接
+>>>上树时不用appendChild  insertBefore这两个方法，用innerHTML
+>>>好处和缺点
+>>>>好处：写法特别简单，和正常写HTML页面没区别
+>>>>缺点：第一个是创建出来的不是DOM元素，只是字符串，不具备DOM任何操作
+>>>>第二个是添加时会把目标元素中的所有内容都替换了
+
+>第二步：上树
+>>第一种：添加到目标节点的最后面： 目标节点.appendChild('创建的节点');
+>>第二种：添加到目标节点的指定位置：目标节点.insertBefore('新节点','旧节点');
+```HTML
+<ul id="list">
+	<li>000001</li>
+	<li>000002</li>
+	<li id="li3">000003</li>
+	<li>000004</li>
+	<li>000005</li>
+</ul>
+```
+```javascript
+//找到目标节点
+var oList = document.getElementById('list');
+//创建一个新节点
+var oLi = document.createElement('li');
+var oText = document.createTextNode('新的li标签');
+//把文字添加到新创建的节点中
+OLi.appendChild(oText);
+//把新创建的li添加到ul中
+olist.appendChild(oLi);
+
+//把新创建的li添加到000003前面
+//创建一个新节点
+var oLi1 = document.createElement('li');
+var oText1 = document.createTextNode('新的li标签2222');
+//把文字添加到新创建的节点中
+OLi1.appendChild(oText1);
+//找到li3
+var oLi3 = document.getElementById('li3');
+//上树
+oList.insertBefore(oLi1,oLi3);
+```
+说明：通过*DOM的创建元素方法*：创建的节点是一个完整的DOM对象，所以可以给 创建的这个DOM元素添加任何DOM属性和方法
+可以添加class属性、可以添加click事件
+[微博实例](5.html)
+
+### 2.删
+元素节点.removeChild(子节点);
+```HTML
+<ul>
+	<li id="li1"></li>
+	<li id="li2"></li>
+	<li id="li3"></li>
+</ul>
+```
+```javascript
+var ul = document.getElementsByTagName('ul')[0];
+var li2 = document.getElementById('li2');
+ul.removeChild(li2);
+```
+
+### 3.改
+目标元素节点.replaceChild('新节点','旧节点')
+```javascript
+var ul = document.getElementsByTagName('ul')[0];
+var li2 = document.getElementById('li2');
+//创建一个div
+var oDiv = document.createElement('div');
+ul.replaceChild(oDiv,li2);
+```
+
+### 4.克隆（用的多）
+目标元素.cloneNode()
+小括号中可以有一个参数，这个参数是一个布尔值，true的时候表示深度克隆，会克隆元素的内容，但不能克隆方法。如果不写或写false表示只会克隆元素，不克隆元素
+```javascript
+var oDiv = document.getElementsByTagName('div')[0];
+oDiv.onclick = function(){
+	console.log('我是原先div的点击事件');
+}
+var newDiv = oDiv.cloneNode(true);
+document.body.appendChild(newDiv);
+```
+
+## 11.事件
+事件就是指咱们平时的鼠标事件和键盘事件
+常用的鼠标事件：
+>click 点击事件
+>dblclick 双击事件
+>mouseenter / mouseover 鼠标经过事件
+>mouseleave / mouseout 鼠标经过事件
+>mousemove 鼠标移动事件
+>mousedown 鼠标按下事件
+>mouseup 鼠标抬起事件
+>focus 鼠标获取焦点事件
+>blur 鼠标失去焦点事件
+
+常用的键盘事件
+>keydown 键盘按下事件
+>keyup 键盘抬起事件
+>keypress 键盘长按事件
+
+## 12.事件流
+浏览器解析事件的顺序就是指事件流
+事件流：浏览器在执行的时候，先从外向内一层一层找，找到最里面（你操作这个元素）后，会再从当前这个元素，一层一层向外找
+>从外向里找的过程叫 事件捕获
+>从里向外找的过程叫 事件冒泡
+*浏览器在执行的时候是先捕获后冒泡*
+
+### DOM0级操作
+DOM0级操作：元素.onxx = function(){}
+DOM0级操作只会响应事件冒泡（但浏览器在执行时有事件捕获也有事件冒泡）
+```HTML
+<div id="box" style="width: 500px;height: 500px;background: #cccccc;">
+	<div id="list" style="width: 300px;height: 300px;background: orange;">
+		<div id="bbox" style="width: 100px;height: 100px;background: lightgreen;"></div>
+	</div>
+</div>
+```
+```javascript
+//给三个div添加DOM0级点击事件
+var box = document.getElementById('box');
+var list = document.getElementById('list');
+var bbox = document.getElementById('bbox');
+box.onclick = function(){
+	alert('我是最外面的div');
+}
+list.onclick = function(){
+	alert('我是第二层div');
+}
+bboc.onclick = function(){
+	alert('我是最里面的div');
+}
+```
+
+### DOM2级事件
+有兼容性
+高级浏览器的DOM2级事件
+元素.addEventListener('事件类型','触发的函数','捕获或冒泡')
+>true：捕获
+>false：冒泡
+```javascript
+//捕获
+var box = document.getElementById('box');
+var list = document.getElementById('list');
+var bbox = document.getElementById('bbox');
+box.addEventListener('click',function(){alert('我是最外面的div')},true);
+list.addEventListener('click',function(){alert('我是第二层div')},true);
+bbox.addEventListener('click',function(){alert('我是最里面的div')},true);
+//冒泡
+box.addEventListener('click',function(){alert('我是最外面的div')},false);
+list.addEventListener('click',function(){alert('我是第二层div')},false);
+bbox.addEventListener('click',function(){alert('我是最里面的div')},false);
+```
+
+*如果操作元素是最里面的或页面中就这一个元素时，捕获不会优先于冒泡执行，执行顺序按书写顺序*
+
+```javascript
+var box = document.getElementById('box');
+box.addEventListener('click',function(){alert('捕获')},false);
+box.addEventListener('click',function(){alert('冒泡')},true);
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
