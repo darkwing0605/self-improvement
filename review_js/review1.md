@@ -1161,6 +1161,7 @@ console.log(classQuery('box'));
 >操作自定义属性
 >>获取；元素.getAttribute('属性名');
 >>设置；元素.setAttribute('属性名','属性值');
+>>删除：元素.removeAttribute('属性名')
 
 [百度换肤](2.html)
 [轮播图](3.html)
@@ -1394,6 +1395,21 @@ oList.insertBefore(oLi1,oLi3);
 可以添加class属性、可以添加click事件
 [微博实例](5.html)
 
+appendChild
+
+```javascript
+var btn = document.getElementById('btn');
+var list1 = document.getElementsByClassName('list1')[0];
+var list2 = document.getElementsByClassName('list2')[0];
+var list1_li = list1.getElementsByTagName('li');
+var list2_li = list2.getElementsByTagName('li');
+
+btn.onclick = function(){
+	list1.appendChild(list2.children[0]);
+}
+```
+[举个栗子](6.html)
+
 ### 2.删
 元素节点.removeChild(子节点);
 ```HTML
@@ -1420,7 +1436,7 @@ ul.replaceChild(oDiv,li2);
 ```
 
 ### 4.克隆（用的多）
-目标元素.cloneNode()
+目标元素.cloneNode();
 小括号中可以有一个参数，这个参数是一个布尔值，true的时候表示深度克隆，会克隆元素的内容，但不能克隆方法。如果不写或写false表示只会克隆元素，不克隆元素
 ```javascript
 var oDiv = document.getElementsByTagName('div')[0];
@@ -1451,13 +1467,15 @@ document.body.appendChild(newDiv);
 
 ## 12.事件流
 浏览器解析事件的顺序就是指事件流
-事件流：浏览器在执行的时候，先从外向内一层一层找，找到最里面（你操作这个元素）后，会再从当前这个元素，一层一层向外找
+事件流：浏览器在执行的时候，先从外向内一层一层找，找到最里面（*你操作这个元素*）后，会再从当前这个元素，一层一层向外找
 >从外向里找的过程叫 事件捕获
 >从里向外找的过程叫 事件冒泡
 *浏览器在执行的时候是先捕获后冒泡*
 
 ### DOM0级操作
-DOM0级操作：元素.onxx = function(){}
+DOM0级操作：
+>设置事件：元素.onxx = function(){}
+>解除事件：元素.onXX = null;
 DOM0级操作只会响应事件冒泡（但浏览器在执行时有事件捕获也有事件冒泡）
 ```HTML
 <div id="box" style="width: 500px;height: 500px;background: #cccccc;">
@@ -1484,7 +1502,7 @@ bboc.onclick = function(){
 
 ### DOM2级事件
 有兼容性
-高级浏览器的DOM2级事件
+#### 高级浏览器的DOM2级事件
 元素.addEventListener('事件类型','触发的函数','捕获或冒泡')
 >true：捕获
 >false：冒泡
@@ -1510,14 +1528,176 @@ box.addEventListener('click',function(){alert('捕获')},false);
 box.addEventListener('click',function(){alert('冒泡')},true);
 ```
 
+#### 高级浏览器DOM2级事件的解除事件
+元素.removeEventListener('事件类型',function(){},捕获或者冒泡);
+第二个参数：需要一个有名字的函数
+```javascript
+var oBox = document.getElementById('box');
+var btn = document.getElementById('btn');
+function str(){
+	console.log('捕获阶段');
+}
+oBox.addEventListener('click',str,true);
+oBox.addEventListener('click',function(){
+	console.log('冒泡阶段');
+});
+//解除DOM2级事件
+btn.onclick = function(){
+	obox.removeEventListener('click',str,true);
+}
+```
 
+#### IE低版本浏览器DOM2级事件
+注意：*IE低版本DOM2级事件只能监听冒泡阶段的事件*
+元素.attachEvent('事件类型',function(){});
+```javascript
+var box = document.getElementById('box');
+var list = document.getElementById('list');
+var bbox = document.getElementById('bbox');
+box.attachEvent('onclick',function(){
+	console.log('最外层div');
+})
+list.attachEvent('onclick',function(){
+	console.log('中间层div');
+})
+bbox.attachEvent('onclick',function(){
+	console.log('最里层div');
+})
+```
 
+#### IE低版本DOM2级解除事件
+元素.detachEvent('事件类型',函数名);
 
+```javascript
+//封装绑定DOM事件  包括DOM0  DOM2
+(window.addEvent = function(ele, type, callBack, bool) {
+	if (window.addEventListener) {
+		//高级浏览器
+		ele.addEventListener(type, callBack, bool);
+	} else if (window.attachEvent) {
+		//IE低版本DOM2级事件
+		return ele.attachEvent('on' + type, callBack);
+	} else {
+		//DOM0级事件
+		return ele['on' + type] = callBack;
+	}
+})();
+```
 
+#### 阻止事件冒泡
+有兼容性
+高级浏览器：event.stopPropagation();
+IE低版本浏览器：event.cancelBubble = true;
 
+```javascript
+var box = document.getElementById('box');
+var list = document.getElementById('list');
+box.onclick = function(){
+	console.log('我是box');
+}
+list.onclick = function(e){
+	e.stopPropagation();
+	console.log('我是list');
+}
+////////////////////////////////////////////
+list.onclick = function(event){
+	event = window.event;
+	console.log('我是list');
+	event.cancelBubble = true;
+}
+box.onclick = function(){
+	console.log('我是box');
+}
+```
 
+#### 阻止默认事件
+有兼容性
+高级浏览器：event.preventDefault();
+IE低版本：event.returnValue = false;
 
+```javascript
+//阻止默认事件
+var aLink = document.getElementsByTagName('a')[0];
+//阻止它的超链接
+aLink.onclick = function(e){
+	e.preventDefault();
+}
+//////////////////////////////////////////////////
+aLink.onclick = function(event){
+	event = window.event;
+	event.returnValue = false;
+}
+```
 
+### IE低版本DOM2中的this
+在IE低版本DOM2级事件中，事件不管是谁调用的，this都指向window
+
+```javascript
+var box = document.getElementById('box');
+box.attachEvent('onclick',function(){
+	console.log(this); //window
+});
+```
+
+解决方法：用call或apply
+这两个方法作用一模一样，都是能改变this的指向
+```javascript
+function newThis(){
+	console.log(this.style.height);
+}
+var box = document.getElementById('box');
+box.attachEvent('onclick',function(){
+	newThis.call(box);
+});
+
+function newThis2(){
+	console.log(this.random());
+}
+var box = document.getElementById('box');
+box.attachEvent('onclick',function(){
+	newThis2.call(Math);
+});
+////////////////////////////////////////////
+box.addEventListener('click',function(){
+	newThis2.call(Math);
+});
+```
+
+## 13.事件对象
+### 1.事件对象
+事件对象：就是事件触发时都会自动生成的一个对象，这个对象里保存了事件的信息
+常用的信息：
+>event.button  有三个返回值
+>>高级浏览器：左键0中键1右键2
+>>IE低版本：左键1中键4右键2
+```javascript
+document.body.onmousedown = function(e){
+	e = e || window.event;
+	console.log(e);
+}
+```
+
+>clientX clientY 返回浏览器窗口中的x  y坐标（打开的谷歌浏览器窗口）
+>offsetX offsetY 返回鼠标在*目标元素*中的x  y坐标（偏移的坐标，以目标元素的左上角为标准计算）
+>screenX screenY 返回鼠标距离屏幕左上角的x  y坐标（就是指屏幕左上角为标准）
+>pageX   pageY   返回鼠标距离页面左上角的x  y坐标（就是页面中的xy坐标）
+
+拖拽
+offsetParent 偏移参考元素
+>有兼容性
+>>高级浏览器：就看目标元素的父级或祖先级是否有定位，有定位就按就近原则执行，如果没有，那么就是body
+>>IE6-IE7：首先看父级或祖先级元素是否有宽高，如果有就按就近原则执行，如果父级或祖先级都没宽高，这时看是否有定位，有定位就按就近原则；如果父级或祖先级没有宽高没有定位，这时才是body；如果自身有定位，则是HTML
+>>IE8：同高级浏览器
+
+offsetLeft 目标元素距离参考元素的水平偏移量
+offsetTop 目标元素距离参考元素的垂直偏移量
+>还有兼容性
+>>高级浏览器和IE8：目标元素的外边框到参考元素的外边框
+>>IE6-7：目标元素的外边框到参考圆度的内边框
+
+```javascript
+
+```
 
 
 

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+			overflow: hidden;
+		}
+		.left{
+			width: 400px;
+			height: 500px;
+			background: skyblue;
+			float: left;
+		}
+		.right{
+			width: 400px;
+			height: 500px;
+			background: pink;
+			float: right;
+		}
+		ul li{
+			float: left;
+			width: 120px;
+			height: 100px;
+		}
+		ul li img{
+			width: 100px;
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<ul class="left">
+		<li><img src="images/baidu/1.jpg" alt=""><input type="checkbox"></li>
+		<li><img src="images/baidu/2.jpg" alt=""><input type="checkbox"></li>
+		<li><img src="images/baidu/3.jpg" alt=""><input type="checkbox"></li>
+	</ul>
+	<button class="leftBtn">--></button>
+	<button class="rightBtn"><--</button>
+	<ul class="right">
+		<li><img src="images/lunbo/1.jpg" alt=""><input type="checkbox"></li>
+		<li><img src="images/lunbo/2.jpg" alt=""><input type="checkbox"></li>
+		<li><img src="images/lunbo/3.jpg" alt=""><input type="checkbox"></li>
+		<li><img src="images/lunbo/4.jpg" alt=""><input type="checkbox"></li>
+		<li><img src="images/lunbo/5.jpg" alt=""><input type="checkbox"></li>
+		<li><img src="images/baidu/4.jpg" alt=""><input type="checkbox"></li>
+		<li><img src="images/baidu/5.jpg" alt=""><input type="checkbox"></li>
+	</ul>
+
+	<script type="text/javascript">
+		//按钮
+		var leftBtn = document.getElementsByClassName('leftBtn')[0];
+		var rightBtn = document.getElementsByClassName('rightBtn')[0];
+		//找到两个大盒子
+		var leftBox = document.getElementsByClassName('left')[0];
+		var rightBox = document.getElementsByClassName('right')[0];
+		//左边图片移动到右边的功能
+		leftBtn.onclick = function() {
+			//左边的盒子中所有选中的图片
+			var leftInput = leftBox.getElementsByTagName('input');
+			for (var i = leftInput.length - 1; i >= 0; i--) {
+				if (leftInput[i].checked) {
+					leftInput[i].checked = false;
+					rightBox.appendChild(leftInput[i].parentNode);
+				}
+			}
+		}
+			//右边回左边
+		rightBtn.onclick = function() {
+			var rightInput = rightBox.getElementsByTagName('input');
+			for (var i = rightInput.length - 1; i >= 0; i--) {
+				if (rightInput[i].checked) {
+					rightInput[i].checked = false;
+					leftBox.appendChild(rightInput[i].parentNode);
+				}
+			}
+		}
+	</script>
+
+</body>
+</html>
