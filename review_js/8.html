@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#box{
+			width: 200px;
+			height: 200px;
+			position: absolute;
+			background: url("images/baidu/2.jpg");
+			background-size: cover;
+		}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+
+	<script>
+		//获取到box
+		var oBox = document.getElementById('box');
+		oBox.onmousedown = function(e){
+			e = e || window.event;
+			//获取鼠标在obox上的位置
+			var dx = e.offsetX;
+			var dy = e.offsetY;
+			//鼠标拖拽
+			document.onmousemove = function(e){
+				e = e || window.event;
+				//获取鼠标移动到哪里
+				var mouseX = e.pageX;
+				var mouseY = e.pageY;
+				//oBox的x y坐标
+				var oBoxX = mouseX - dx;
+				var oBoxY = mouseY - dy;
+				//作用到DOM元素上
+				oBox.style.left = oBoxX + 'px';
+				oBox.style.top = oBoxY + 'px'; 
+			}
+		}
+		//鼠标抬起时把move事件取消
+		document.onmouseup = function(){
+			document.onmousemove = null;
+		}
+	</script>
+</body>
+</html>

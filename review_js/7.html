@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+		#box{
+			position: relative;
+			float: left;
+			width: 200px;
+			height: 200px;
+			background: url(images/baidu/2.jpg);
+		}
+		#box2{
+			position: absolute;
+			top: 50px;
+			left: 50px;
+			width: 100px;
+			height: 100px;
+			background: url(images/baidu/3.jpg);
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div id="box2"></div>
+	</div>
+	<script>
+		//计算鼠标在box中的净位置
+		var box = document.getElementById('box');
+		var box2 = document.getElementById('box2');
+		box.onmousedown = function(e) {
+			e = e || window.event;
+			//需要知道box2相对于box的offsetLeft  offsetTop
+			console.log(e.offsetX);
+			console.log(e.offsetY);
+			var dx = e.offsetX;
+			var dy = e.offsetY;
+			console.log(dx+','+dy);
+			//用鼠标距离pageX pageY
+			// console.log(e.pageX+','+e.pageY);
+			document.onmousemove = function(e){
+				e = e ||window.event;
+				var left1 = e.pageX - dx;
+				var top1 = e.pageY - dy;
+				box.style.left = left1 + 'px';
+				box.style.top = top1 + 'px';
+			}
+			return false;
+		}
+		document.onmouseup = function(){
+			document.onmousemove = null;
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#container{
+			width: 500px;
+			height: 500px;
+			border: 1px solid #000000;
+			margin: 10px auto;
+			position: relative;
+		}
+		#box {
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<img src="images/baidu/3.jpg" alt="" id="box">
+	</div>
+	<script>
+		//实现图片在container中拖拽
+		//找到这两个元素
+		var pic = document.getElementById('box');
+		var container = document.getElementById('container');
+		//实现图片拖拽
+	pic.onmousedown = function(e){
+		//获取鼠标在图片上的坐标
+		e = e ||window.event;
+		var dx = e.offsetX;
+		var dy = e.offsetY;
+		//实现拖拽
+		document.onmousemove = function(e){
+			//获取鼠标移动到哪里
+			var mouseX = e.pageX - container.offsetLeft;
+			var mouseY = e.pageY - container.offsetTop;
+			//计算图片左上角的坐标
+			var picX = mouseX - dx;
+			var picY = mouseY - dy;
+			if (picX <= 0) {
+				picX = 0;
+			} else if (picX >= 400) {
+				picX = 400
+			} else if (picY <= 0) {
+				picY = 0;
+			} else if (picY >= 400) {
+				picY = 400;
+			}
+			//让图片移动
+			pic.style.left = picX + 'px';
+			pic.style.top = picY + 'px';
+		}
+		return false;
+	}
+	document.onmouseup = function(){
+		document.onmousemove = null;
+	}
+	</script>
+</body>
+</html>

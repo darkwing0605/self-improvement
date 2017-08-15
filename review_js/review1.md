@@ -1664,7 +1664,6 @@ box.addEventListener('click',function(){
 ```
 
 ## 13.事件对象
-### 1.事件对象
 事件对象：就是事件触发时都会自动生成的一个对象，这个对象里保存了事件的信息
 常用的信息：
 >event.button  有三个返回值
@@ -1695,12 +1694,167 @@ offsetTop 目标元素距离参考元素的垂直偏移量
 >>高级浏览器和IE8：目标元素的外边框到参考元素的外边框
 >>IE6-7：目标元素的外边框到参考圆度的内边框
 
-```javascript
+计算鼠标在目标元素中的净位置：
+[拖拽1](7.html)
+[简单拖拽](8.html)
+[复杂拖拽](9.html)
 
+## 14.面向对象
+
+### 1.this指针
+this指针只能在事件中使用
+>第一种情况：直接调用函数时的this，this指向window
+```javascript
+function add(){
+	console.log(this);
+}
+add();//相当于window.add();  window
+```
+>第二种情况：函数绑定给对象使用，this指向调用它的这个元素
+```javascript
+box.onclick = function(){
+	console.log(this); //box
+}
+```
+>第三种情况：定时器中的this，指向window
+```javascript
+setTimeout(function(){
+	console.log(this); //window
+},500);
+```
+>第四种情况：对象中的this，指向当前对象
+```javascript
+var obj = {
+	'name':'小明',
+	'sayHello':function(){
+		console.log(this);
+	}
+}
+obj.sayHello();
+```
+>*定时器中调用对象的函数，this指向window*
+```javascript
+setTimeout(obj.sayHello,500); //window
+```
+>第五种情况：通过call apply调用，指向call apply指定的对象
+>>call语法：函数.call('设置this指针指向',参数1,参数2,...)
+>>>第一部分必写，它的作用就是改变this指针指向
+>>>第二部分可选，写的时候表示传进来的参数
+
+>>apply语法：函数.apply('设置this指针指向',[])
+>>>第一部分必写，它的作用就是改变this指针指向
+>>>第二部分可选，写的时候表示传进来的参数
+```javascript
+function five(){
+	console.log(this);
+}
+five.call(document.getElementById('box'));
+five.apply(new Date());
 ```
 
+>>这两种方法设置的this指针可以用null，表示不改变当前的指向
+```javascript
+//正常Math求最大值的方法
+console.log(Math.max(1,23,344,5,6,488));
+//求最大值
+var arr = [13,45,6847,78,5453,41354,76874,7,8979,3132,145,67];
+console.log(Math.max.apply(null,arr));
+```
 
+### 2.构造函数
 
+#### 1.new关键字
+new关键字能调用函数，在调用函数时还能送你个东西，this
+
+```javascript
+function add(){
+	this.name = '小明';
+}
+add();
+console.log(window.name); //小明
+//////////////////////////上下对比/////////////////////////
+function add2(){
+	this.name = '小明';
+}
+new add2();
+console.log(window.name); //空
+```
+
+送你这个东西默认执行4步
+>第一步，调用new的时候，在函数内创建一个this
+>第二部，把this绑定到函数上，所有通过this.xxx最终绑定到偷偷创建的this上
+>第三步，把数据整理成一个对象
+>第四步，把整个对象return出来
+```javascript
+function add(){ //this
+	this.name = '小明';
+	this.age = '12';
+	this.sex = '男';
+}
+/*
+	{
+		'name':'小明',
+		'age':'12',
+		'sex':'男'
+	}
+*/
+var str = new add();
+console.log(str.name);
+```
+
+对象的数据类型是引用类型的，变量保存的都是地址，所以变量里值相同的对象，不一定地址相同
+```javascript
+var str = new add();
+var str2 =new add();
+console.log(str == str2); //false
+```
+
+#### 2.函数中有return
+函数中如果自己有return，这个时候通过new调用函数，返回值是谁？
+>就是看return后的数据类型
+>>如果是基本数据类型，则返回偷偷创建的this
+>>如果是引用类型 ，则返回这个引用类型
+```javascript
+function add(){
+	this.name = '小明';
+	this.age = '38';
+	this.sex = '男';
+	//基本类型值
+	//return 2; // this
+	//引用类型值
+	//return [1,2,3,4,5]; //[1,2,3,4,5]
+}
+var str = new add();
+console.log(str);
+```
+
+#### 3.函数能传参数
+通过new调用函数时就能更灵活的创建对象
+```javascript
+function add(name,age,sex){
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+}
+var xiaoMing =new add('小明',38,'男');
+var snoopy =new add('史努比',2,'母');
+console.log(xiaoMing);
+console.log(snoopy);
+```
+
+以上三点综合到一块有个名字：*构造函数*
+平时写构造函数的时候，大家都有一个习惯，把构造函数的函数名首字母大写
+```javascript
+function Add(name,age,sex){
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+}
+var xiaoMing =new Add('小明',38,'男');
+var snoopy =new Add('史努比',2,'母');
+console.log(xiaoMing);
+console.log(snoopy);
+```
 
 
 
