@@ -1856,6 +1856,150 @@ console.log(xiaoMing);
 console.log(snoopy);
 ```
 
+#### 4.给构造函数添加方法
+通过this绑定方法，当new的时候，这个方法就会被绑定到return出来的，所以可以直接调用
+```javascript
+function People(name,age,sex){
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+	//如果this后是函数，就叫方法
+	this.sayHello = function(){
+		console.log('大家好，我叫'+'this.name+'...');
+	}
+}
+var xiaoMing = new People('小明',38,男);
+xiaoMing.sayHello();
+var snoopy = new People('史努比',2,'母');
+snoopy.sayHello();
+```
+*但是，平时方法都不写在构造函数里面。方法都写在原型上
+
+#### 5.原型
+每个函数都会有一个原型对象，这个原型对象是绑定在这个函数上的，有个名字叫prototype
+如果这个函数是构造函数，当你new的时候会创建一个东西叫__proto__，这个__proto__会指向prototype
+```javascript
+function add(){
+	console.log('111');
+}
+console.log(add.prototype);
+/////////////////////////////////////////////////////////////////
+function People(name,age,sex){
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+}
+function People(name, age, sex) {
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+}
+People.prototype.sayHello = function() {
+	console.log('大家好，我叫' + this.name);
+}
+var xiaoMing = new People('小明', 12, '男');
+xiaoMing.sayHello();
+var snoopy = new People('史努比', 2, '母');
+snoopy.sayHello();
+/*
+console.log(xiaoMing.__proto__ === People.prototype); //true
+console.log(snoopy.__proto__ === People.prototype); //true
+console.log(snoopy.__proto__ === xiaoMing.__proto__); //true
+*/
+```
+小明、史努比都是通过People构造函数new出来的，这个时候小白、史努比叫People的实例
+构造函数：抽象化的模型
+实例：就是一个具体的事物
+
+*一定要区分方法是绑定在原型上还是绑定在构造函数上*
+>绑定在构造函数上的方法，只有构造函数自己能用
+>绑定在原型（prototype）上的，实例化出来的都能调用
+```javascript
+function People(name,age,sex){
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+}
+People.teacher = '老师';
+People.prototype.teacher = '隔壁老王';
+//实例化一个人
+var xiaoMing = new People('小明',18,'男');
+console.log(xiaoMing.teacher); //隔壁老王
+////////////////////////////////////////////////
+function People(name){
+	this.name = name;
+	sayHello = function(){
+		console.log(1111);
+	}
+}
+People.sayHello = function(){
+	console.log(2222);
+}
+People.prototype.sayHello = function(){
+	console.log(3333);
+}
+var xiaoMing = new People('小明');
+xiaoMing.sayHello = function(){
+	console.log(4444);
+}
+
+People(); //空 调用函数，this指向window，这时window上就会多sayHello方法
+sayHello(); //1111 这是调用全局的sayHello方法
+People.sayHello(); //2222
+People().sayHello(); //报错 People()调用后没有返回值，剩下一个undefined
+new People().sayHello(); //3333 new People()这一步就相当于实例化，又调用sayHello方法，从原型链上找
+new People.sayHello(); //2222 相当于直接调用People.sayHello();
+//////////////////////////////////////////////////////////////////////////
+function People(name){
+	this.name = name;
+	sayHello = function(){
+		console.log(1111);
+	}
+}
+People.sayHello = function(){
+	console.log(2222);
+}
+People.prototype.sayHello = function(){
+	console.log(3333);
+}
+function sayHello(){
+	console.log(4444);
+}
+var sayHello = function(){
+	console.log(5555);
+}
+sayHello();
+People()sayHello();
+new People().sayHello();
+```
+
+内置构造函数之间的关系
+内置的构造函数有：function object array ExpReg (引用类型) number string boolean(基本类型)
+他们都有自己的构造函数
+>*真理*：
+···javascript
+//1.
+var a = new A;
+a.__proto__ === A.prototype;
+···
+2.js中所有的内置构造函数全部是function这个构造函数new出来的
+3.所有的对象的object new出来的
+4.function也是一个对象，所有function也是object new出来的
+
+···javascript
+
+···
+
+
+
+
+
+
+
+
+
+
+
 
 
 
