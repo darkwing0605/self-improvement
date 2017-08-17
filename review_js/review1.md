@@ -386,7 +386,7 @@ waiceng: for (i = 1; i <= 9; i++) {
 >第三步：执行完3后执行4
 >第四步：执行完成4后，再和2作比较，判断是否成立，如果成立再执行一遍第二三四步，如果不成立，则执行第五步
 >第五步：循环结束
-![img1](/images/img1.png "img1")
+![img1](/review_js/images/img1.png "img1")
 
 ##### do-while的运算规则
 >先执行do后大括号中的内容，然后再判断条件
@@ -1762,7 +1762,12 @@ console.log(Math.max.apply(null,arr));
 ```
 
 ### 2.构造函数
+构造函数还是平时写的函数，只是调用时使用关键字new来调用，这是就能产生一个真正的东西
+构造函数的额作用就是一个模型
+（跑男节目：指定规则，设置环节）
 
+new构造函数时：实例化
+实例化：通过构造函数创建一个真正的事物，得到是一个对象
 #### 1.new关键字
 new关键字能调用函数，在调用函数时还能送你个东西，this
 
@@ -1785,6 +1790,7 @@ console.log(window.name); //空
 >第二部，把this绑定到函数上，所有通过this.xxx最终绑定到偷偷创建的this上
 >第三步，把数据整理成一个对象
 >第四步，把整个对象return出来
+>所以我们在写构造函数时，需要把属性和方法写成this.xxx
 ```javascript
 function add(){ //this
 	this.name = '小明';
@@ -1813,7 +1819,7 @@ console.log(str == str2); //false
 函数中如果自己有return，这个时候通过new调用函数，返回值是谁？
 >就是看return后的数据类型
 >>如果是基本数据类型，则返回偷偷创建的this
->>如果是引用类型 ，则返回这个引用类型
+>>如果是引用类型，则返回这个引用类型
 ```javascript
 function add(){
 	this.name = '小明';
@@ -1859,55 +1865,57 @@ console.log(snoopy);
 #### 4.给构造函数添加方法
 通过this绑定方法，当new的时候，这个方法就会被绑定到return出来的，所以可以直接调用
 ```javascript
-function People(name,age,sex){
+function Fun(name,age,sex){
 	this.name = name;
 	this.age = age;
 	this.sex = sex;
 	//如果this后是函数，就叫方法
 	this.sayHello = function(){
-		console.log('大家好，我叫'+'this.name+'...');
+		console.log('大家好，我叫'+'this.name'+'...');
 	}
 }
-var xiaoMing = new People('小明',38,男);
+var xiaoMing = new Fun('小明',38,男);
 xiaoMing.sayHello();
-var snoopy = new People('史努比',2,'母');
+var snoopy = new Fun('史努比',2,'母');
 snoopy.sayHello();
 ```
-*但是，平时方法都不写在构造函数里面。方法都写在原型上
+*但是，平时方法都不写在构造函数里面。方法都写在原型上*
 
 #### 5.原型
-每个函数都会有一个原型对象，这个原型对象是绑定在这个函数上的，有个名字叫prototype
-如果这个函数是构造函数，当你new的时候会创建一个东西叫__proto__，这个__proto__会指向prototype
+每个函数都会有一个原型对象，这个原型对象是绑定在这个函数上的，有个名字叫prototype，这个prototype默认指向当前函数
+如果这个函数是构造函数，当你new的时候会创建一个东西叫__proto__，这个__proto__会指向构造函数的prototype
+![img2](/review_js/images/img2.png "img2")
+
 ```javascript
 function add(){
 	console.log('111');
 }
 console.log(add.prototype);
 /////////////////////////////////////////////////////////////////
-function People(name,age,sex){
+function Fun(name,age,sex){
 	this.name = name;
 	this.age = age;
 	this.sex = sex;
 }
-function People(name, age, sex) {
+function Fun(name, age, sex) {
 	this.name = name;
 	this.age = age;
 	this.sex = sex;
 }
-People.prototype.sayHello = function() {
+Fun.prototype.sayHello = function() {
 	console.log('大家好，我叫' + this.name);
 }
-var xiaoMing = new People('小明', 12, '男');
+var xiaoMing = new Fun('小明', 12, '男');
 xiaoMing.sayHello();
-var snoopy = new People('史努比', 2, '母');
+var snoopy = new Fun('史努比', 2, '母');
 snoopy.sayHello();
 /*
-console.log(xiaoMing.__proto__ === People.prototype); //true
-console.log(snoopy.__proto__ === People.prototype); //true
+console.log(xiaoMing.__proto__ === Fun.prototype); //true
+console.log(snoopy.__proto__ === Fun.prototype); //true
 console.log(snoopy.__proto__ === xiaoMing.__proto__); //true
 */
 ```
-小明、史努比都是通过People构造函数new出来的，这个时候小白、史努比叫People的实例
+小明、史努比都是通过Fun构造函数new出来的，这个时候小白、史努比叫Fun的实例
 构造函数：抽象化的模型
 实例：就是一个具体的事物
 
@@ -1915,51 +1923,51 @@ console.log(snoopy.__proto__ === xiaoMing.__proto__); //true
 >绑定在构造函数上的方法，只有构造函数自己能用
 >绑定在原型（prototype）上的，实例化出来的都能调用
 ```javascript
-function People(name,age,sex){
+function Fun(name,age,sex){
 	this.name = name;
 	this.age = age;
 	this.sex = sex;
 }
-People.teacher = '老师';
-People.prototype.teacher = '隔壁老王';
+Fun.teacher = '老师';
+Fun.prototype.teacher = '隔壁老王';
 //实例化一个人
-var xiaoMing = new People('小明',18,'男');
+var xiaoMing = new Fun('小明',18,'男');
 console.log(xiaoMing.teacher); //隔壁老王
 ////////////////////////////////////////////////
-function People(name){
+function Fun(name){
 	this.name = name;
 	sayHello = function(){
 		console.log(1111);
 	}
 }
-People.sayHello = function(){
+Fun.sayHello = function(){
 	console.log(2222);
 }
-People.prototype.sayHello = function(){
+Fun.prototype.sayHello = function(){
 	console.log(3333);
 }
-var xiaoMing = new People('小明');
+var xiaoMing = new Fun('小明');
 xiaoMing.sayHello = function(){
 	console.log(4444);
 }
 
-People(); //空 调用函数，this指向window，这时window上就会多sayHello方法
+Fun(); //空 调用函数，this指向window，这时window上就会多sayHello方法
 sayHello(); //1111 这是调用全局的sayHello方法
-People.sayHello(); //2222
-People().sayHello(); //报错 People()调用后没有返回值，剩下一个undefined
-new People().sayHello(); //3333 new People()这一步就相当于实例化，又调用sayHello方法，从原型链上找
-new People.sayHello(); //2222 相当于直接调用People.sayHello();
+Fun.sayHello(); //2222
+Fun().sayHello(); //报错 Fun()调用后没有返回值，剩下一个undefined
+new Fun().sayHello(); //3333 new Fun()这一步就相当于实例化，又调用sayHello方法，从原型链上找
+new Fun.sayHello(); //2222 相当于直接调用Fun.sayHello();
 //////////////////////////////////////////////////////////////////////////
-function People(name){
+function Fun(name){
 	this.name = name;
 	sayHello = function(){
 		console.log(1111);
 	}
 }
-People.sayHello = function(){
+Fun.sayHello = function(){
 	console.log(2222);
 }
-People.prototype.sayHello = function(){
+Fun.prototype.sayHello = function(){
 	console.log(3333);
 }
 function sayHello(){
@@ -1969,26 +1977,336 @@ var sayHello = function(){
 	console.log(5555);
 }
 sayHello();
-People()sayHello();
-new People().sayHello();
+Fun()sayHello();
+new Fun().sayHello();
 ```
 
 内置构造函数之间的关系
 内置的构造函数有：function object array ExpReg (引用类型) number string boolean(基本类型)
 他们都有自己的构造函数
 >*真理*：
-···javascript
+```javascript
 //1.
 var a = new A;
 a.__proto__ === A.prototype;
-···
+```
 2.js中所有的内置构造函数全部是function这个构造函数new出来的
 3.所有的对象的object new出来的
 4.function也是一个对象，所有function也是object new出来的
 
-···javascript
+#### 6.原型链
+>在调用真正实例时，首先会查找自己身上是否有该方法，如果有就调用自己的方法
+>如果自己身上没有该方法，它会沿着__proto__去找构造函数的原型上是否有该方法，如果有就使用
+>如果没有，会继续向上找，知道object.prototype
 
-···
+![img3](/review_js/images/img3.png "img3")
+记着三点：
+>1.是函数就是prototype
+>2.函数new以后的实例，这个实例的__proto__会指向这个函数的prototype
+>所有对象的__proto__都会指向Object。prototype
+
+```javascript
+function Fun(name, age, sex) {
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+}
+Fun.prototype.sayHello = function() {
+	console.log('我叫' + this.name);
+}
+//实例化
+var dengchao = new Fun('邓超', 48, '大叔');
+var lichen = new Fun('李晨', 45, '大叔');
+dengchao.sayHello = function() {
+	console.log(111);
+}
+dengchao.sayHello(); //111
+lichen.sayHello(); //我叫李晨
+////////////////////////////////////////////////////
+function Fun(name, age, sex) {
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+}
+//实例化
+var dengchao = new Fun('邓超', 48, '大叔');
+var lichen = new Fun('李晨', 45, '大叔');
+dengchao.sayHello = function() {
+	console.log(111);
+}
+dengchao.sayHello(); //111
+console.log(lichen.sayHello); //undefined
+lichen.sayHello(); //报错
+////////////////////////////////////////////////////
+Object.prototype.sayHello = function(){
+	console.log(333);
+}
+function Fun(name, age, sex) {
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+}
+//实例化
+var dengchao = new Fun('邓超', 48, '大叔');
+var lichen = new Fun('李晨', 45, '大叔');
+dengchao.sayHello = function() {
+	console.log(111);
+}
+dengchao.sayHello(); //111
+lichen.sayHello(); //333
+```
+
+```javascript
+//Function 是所有函数的终点
+Function.prototype.sayHello = function() {
+	console.log('我是Function的原型中的方法');
+}
+
+//构造函数，它是终极Function new出来的额
+function Fun() {}
+
+//Fun.prototype只能影响通过new Fun的实例，所以不会影响到Function.prototype
+Fun.prototype.sayHello = function() {
+	console.log('我是Fun构造函数原型上的方法');
+}
+Fun.sayHello();
+var xiaoMing = new Fun();
+xiaoMing.sayHello(); //我是Fun上的
+```
+
+
+### 3.constructor
+constructor是prototype这个对象的一个属性，作用指它是谁的原型
+```javascript
+function People(name, age, sex) {
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+}
+//给People添加一个原型方法
+People.prototype.sayHello = function() {
+	console.log('我叫' + this.name + ',' + this.age + ',' + this.sex);
+}
+//创建实例
+var xiaoMing = new People('小明', 18, '男');
+console.log(People.prototype.constructor === Array); //false
+console.log(People.prototype.constructor === People); //true
+console.log(Array.prototype.constructor === Array); //true
+```
+
+### 4.查找属性归属
+查找属性归属：查找当前这个元素是否有指定的属性
+
+#### 1.点方法
+对象.属性
+>这个方法有弊端，当调用时返回undefined时，就分不清到底是对象中没有这个属性还是对象属性值就是undefined
+```javascript
+var obj = {
+	'a' = undefined,
+	'b' = true
+}
+console.log(obj.b); //true
+console.log(obj.a); //undefined  这是因为对象没有这个属性
+console.log(obj.xx); //undefined  这是因为对象的属性值就是undefined
+```
+
+#### 2.instanceof方法
+instance 实例
+instance of  这个实例是谁new出来的，会通过原型链查找
+```javascript
+function People(){}
+//实例化
+var xiaoMing = new People();
+console.log(xiaoMing instanceof People); //true
+console.log(xiaoMing instanceof Object); //true
+
+var obj = {};
+console.log(obj instanceof Object);
+```
+
+```javascript
+var A = function() {};
+A.prototype = {};
+var B = {};
+console.log(A.constructor === Function); //true
+console.log(B.constructor === Object); //true
+
+var a = new A();
+A.prototype = {}; //空对象
+var b = new A();
+b.constructor = A.constructor; //Function
+console.log(a.constructor == A); //false
+console.log(a.constructor == b.constructor); //false
+console.log(a instanceof A); //false
+console.log(b instanceof A); //true
+//a.constructor == Object
+//b.constructor ==Function
+```
+
+#### 3.hasOwnProperty()方法
+这个只会查找当前prototype上是否有，不会进行原型链查找
+对象.hasOwnProperty('属性');
+```javascript
+Object.prototype.d = 4;
+var obj = {
+	'a': 1,
+	'b': 2,
+	'c': 3
+};
+console.log(obj.hasOwnproperty('a')); //true
+console.log(obj.hasOwnproperty('b')); //true
+console.log(obj.hasOwnproperty('c')); //true
+console.log(obj.hasOwnproperty('d')); //false
+```
+
+#### 4.in方法
+属性 in 对象
+>判断这个对象上是否有该属性，会通过原型链查找
+
+```javascript
+Object.prototype.d = 4;
+var obj = {
+	'a': 1,
+	'b': 2,
+	'c': 3,
+}
+console.log('a' in obj); //true
+console.log('b' in obj); //true
+console.log('c' in obj); //true
+console.log('d' in obj); //true
+```
+
+for-in遍历
+for (var i in 对象){
+	console.log(i); //键名
+	console.log(对象.i); //键对应的值
+}
+```javascript
+Object.prototype.d = 4;
+var obj = {
+	'a': 1,
+	'b': 2,
+	'c': 3,
+}
+for (var i in obj) {
+	console.log(i); //a  b  c  d
+	console.log(obj[i]); //1  2  3  4
+}
+```
+
+### 5.继承
+继承：js中的继承具备父级所有的功能，还具备父级没有的功能
+>B继承A
+>>B一定有A所有的功能
+>>B扩大了A的功能
+![img4](/review_js/images/img4.png "img4")
+
+在js中继承只能通过原型来继承
+
+小学生想继承人类的姓名、性别、年龄、吃饭、睡觉、走路
+小学生.prototype = new Renlei('小明',8,'男');
+
+```javascript
+//人类有的属性和方法
+function Renlei(name, age, sex) {
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+}
+Renlei.prototype.chifan = function() {
+	console.log('吃饭');
+}
+Renlei.prototype.shuijiao = function() {
+	console.log('睡觉');
+}
+Renlei.prototype.zoulu = function() {
+	console.log('走路');
+}
+//小学生 不直接把name age sex chifan shuijiao zoulu写到小学生类上
+function Xiaoxuesheng() {
+
+}
+//继承父级
+Xiaoxuesheng.prototype = new Renlei('小明', 8, '男');
+
+Xiaoxuesheng.prototype.xiezuoye = function() {
+	console.log('写作业');
+}
+Xiaoxuesheng.prototype.kaoshi = function() {
+	console.log('考试');
+}
+Xiaoxuesheng.prototype.fudaoban = function() {
+	console.log('辅导班');
+}
+
+var xiaoMing = new Xiaoxuesheng();
+console.log(Xiaoxuesheng.prototype);
+console.log(xiaoMing.name);
+xiaoMing.chifan();
+xiaoMing.kaoshi();
+```
+↓优化一下
+```javascript
+//人类有的属性和方法
+function Renlei(name, age, sex) {
+	this.name = name;
+	this.age = age;
+	this.sex = sex;
+}
+Renlei.prototype.chifan = function() {
+	console.log('我叫' + this.name + '，吃饭');
+}
+Renlei.prototype.shuijiao = function() {
+	console.log('我叫' + this.name + '，睡觉');
+}
+Renlei.prototype.zoulu = function() {
+	console.log('我叫' + this.name + '，走路');
+}
+//小学生 不直接把name age sex chifan shuijiao zoulu写到小学生类上
+function Xiaoxuesheng(name, age, sex) {
+	//实现继承
+	//把Renlei构造函数中的this.name this.age this.sex绑定到Xiaoxuesheng这个类的this上
+	//使用call方法，把Renlei中this指针改变成Xiaoxueshseng中的this
+	Renlei.call(this, name, age, sex);
+}
+
+Xiaoxuesheng.prototype = new Renlei();
+
+Xiaoxuesheng.prototype.xiezuoye = function() {
+	console.log('我叫' + this.name + '，写作业');
+}
+Xiaoxuesheng.prototype.kaoshi = function() {
+	console.log('我叫' + this.name + '，考试');
+}
+Xiaoxuesheng.prototype.fudaoban = function() {
+	console.log('我叫' + this.name + '，辅导班');
+}
+
+//实例小学生时再传入姓名年龄性别
+var xiaoMing = new Xiaoxuesheng('小明', 8, '男');
+var xiaoHong = new Xiaoxuesheng('小红', 9, '女');
+
+console.log(xiaoMing.name);
+xiaoMing.chifan();
+xiaoMing.kaoshi();
+xiaoHong.zoulu();
+xiaoHong.fudaoban();
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
