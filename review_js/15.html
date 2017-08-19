@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<ul>
+		<li>0000001</li>
+		<li>0000002</li>
+		<li>0000003</li>
+		<li>0000004</li>
+		<li>0000005</li>
+		<li>0000006</li>
+		<li>0000007</li>
+		<li>0000008</li>
+	</ul>
+	<ul>
+		<li>新0001</li>
+		<li>新0002</li>
+		<li>新0003</li>
+		<li>新0004</li>
+	</ul>
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		$('ul li:odd').css('background','pink');
+		$('ul li:even').css('background','orange');
+		$('ul li:eq(0)').html('eq方法');
+		$('ul li').eq(3).html('eq()当方法用');
+
+		console.log($('ul li').eq(11).html());
+		//第一个ul中的第一个li 和 第二个ul中的第二个li变红
+		$('ul').each(function(){
+			$(this).children().eq(0).css('background','red')
+		});
+		//让li中小于4的都变成绿色
+		$('ul li:lt(4)').css({
+			'background': 'green'
+		});
+		$('ul li:gt(7)').css({
+			'background': 'green'
+		})
+		//:not()
+		$('ul li:not(:eq(7))').css('background','blue');
+	</script>
+</body>
+</html>

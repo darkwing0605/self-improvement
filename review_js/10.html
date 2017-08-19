@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.box{
+			width: 71px;
+			height: 164px;
+			background: url(images/r.png);
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<!-- 
+	<div class="box"></div>
+	<script>
+		var oBox = document.getElementsByClassName('box')[0];
+		//颜色变化规律 红→黄→绿
+		//定义一个变量保存当前灯的颜色
+		var se = 'r';
+		oBox.onclick = function(){
+			if(se == 'r'){
+				se = 'y';
+			}else if(se == 'y'){
+				se = 'g';
+			}else if(se == 'g'){
+				se = 'r';
+			}
+			//让背景图发生改变
+			oBox.style.background = 'url(images/'+se+'.png)';
+		}
+	</script>
+-->
+	<!--
+	 <script>
+	 	function Honglv(se){
+	 		//保存传进来的颜色
+	 		this.se = se;
+	 		//创建元素
+	 		this.oDiv = document.createElement('div');
+	 		this.oDiv.className = 'box';
+	 		//上树
+	 		document.body.appendChild(this.oDiv);
+	 		this.oDiv.style.background = 'url(images/'+this.se+'.png)';
+	 		//保存外部this
+	 		var self = this;
+	 		//添加点击事件
+	 		this.oDiv.onclick = function(){
+	 			if (self.se == 'r') {
+	 				self.se = 'y';
+	 			} else if (self.se == 'y') {
+	 				self.se = 'g';
+	 			} else if (self.se == 'g') {
+	 				self.se = 'r';
+	 			}
+	 			self.oDiv.style.background = 'url(images/'+self.se+'.png)';
+	 		}
+	 	}
+	 	//实例
+	 	var first = new Honglv('r');
+	 	var second = new Honglv('y');
+	 	var third = new Honglv('g');
+	 	console.log(first);
+	 	console.log(second);
+	 </script>
+	-->
+	<script>
+	 	 	function Honglv(se) {
+	 		//保存传进来的颜色
+	 		this.se = se;
+	 		//创建元素，放到外面原型上
+	 		this.createDom();
+
+	 		//添加点击事件
+	 		this.BindEvent();
+	 	}
+	 	Honglv.prototype.createDom = function() {
+	 		this.oDiv = document.createElement('div');
+	 		this.oDiv.className = 'box';
+	 		//上树
+	 		document.body.appendChild(this.oDiv);
+	 		this.oDiv.style.background = 'url(images/' + this.se + '.png)';
+	 	}
+	 	Honglv.prototype.BindEvent = function() {
+	 			//保存外部this
+	 			var self = this;
+	 			this.oDiv.onclick = function() {
+	 				if (self.se == 'r') {
+	 					self.se = 'y';
+	 				} else if (self.se == 'y') {
+	 					self.se = 'g';
+	 				} else if (self.se == 'g') {
+	 					self.se = 'r';
+	 				}
+	 				self.oDiv.style.background = 'url(images/' + self.se + '.png)';
+	 			}
+	 		}
+	 		//实例
+	 		for (var i = 5; i > 0; i--) {
+	 			new Honglv('r');
+	 		}
+	</script>
+</body>
+</html>

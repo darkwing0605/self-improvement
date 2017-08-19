@@ -1995,9 +1995,11 @@ a.__proto__ === A.prototype;
 4.function也是一个对象，所有function也是object new出来的
 
 #### 6.原型链
+原型链就是调用属性或方法时，查找该属性或方法的链条
 >在调用真正实例时，首先会查找自己身上是否有该方法，如果有就调用自己的方法
 >如果自己身上没有该方法，它会沿着__proto__去找构造函数的原型上是否有该方法，如果有就使用
->如果没有，会继续向上找，知道object.prototype
+>如果没有，会继续向上找，直到object.prototype
+>找到就调用，找不到就返回undefined
 
 ![img3](/review_js/images/img3.png "img3")
 记着三点：
@@ -2098,7 +2100,7 @@ console.log(Array.prototype.constructor === Array); //true
 查找属性归属：查找当前这个元素是否有指定的属性
 
 #### 1.点方法
-对象.属性
+对象.方法或属性
 >这个方法有弊端，当调用时返回undefined时，就分不清到底是对象中没有这个属性还是对象属性值就是undefined
 ```javascript
 var obj = {
@@ -2111,7 +2113,7 @@ console.log(obj.xx); //undefined  这是因为对象的属性值就是undefined
 ```
 
 #### 2.instanceof方法
-instance 实例
+A instance B  检测A是否是B的实例
 instance of  这个实例是谁new出来的，会通过原型链查找
 ```javascript
 function People(){}
@@ -2174,12 +2176,14 @@ console.log('a' in obj); //true
 console.log('b' in obj); //true
 console.log('c' in obj); //true
 console.log('d' in obj); //true
+console.log('e' in obj); //false
 ```
 
 for-in遍历
+>主要的设计目的是为了遍历对象
 for (var i in 对象){
 	console.log(i); //键名
-	console.log(对象.i); //键对应的值
+	console.log(对象[i]); //键对应的值
 }
 ```javascript
 Object.prototype.d = 4;
@@ -2199,6 +2203,7 @@ for (var i in obj) {
 >B继承A
 >>B一定有A所有的功能
 >>B扩大了A的功能
+>>A.prototype = new B();
 ![img4](/review_js/images/img4.png "img4")
 
 在js中继承只能通过原型来继承
@@ -2293,21 +2298,195 @@ xiaoHong.zoulu();
 xiaoHong.fudaoban();
 ```
 
+### 6.面向对象解决方法
+解决大量功能相同的元素
+面向对象的核心思想：自治
+[红绿灯](10.html)
+[行走的小女孩](11.html)
 
+# jQuery
 
+## 1.jQuery版本
+>1.x.x版本：兼容IE6/7/8，这个文件比较大
+>3.x.x版本：只兼容高版本浏览器，这个文件相对比较小
 
+## 2.jQuery口号
+write less, do more
+>把所有的兼容问题都处理了，优化了DOM操作
 
+## 3.体验一下
 
+优化了选取元素
+```javascript
+$('li')
+```
+所有的操作都是批量操作
+```javascript
+$('li').css({'background':'pink'});
+```
+优化了DOM操作
+```javascript
+$('ul').append($('<li>新创建的li</li>'));
+```
+优化了动画操作
+```javascript
+$('li').animate({
+	'width':100,
+	'height':300
+},2000);
+```
 
+[整体体验](12.html)
 
+## 4.使用jQuery
+jQuery就是一个封装好的库，就是一个js，和平时引入外部js一模一样
+不要太依赖它，因为jQuery主要是优化了DOM操作。数据操作、业务逻辑都是需要自己写的
+引入jQuery
+>&lt;script src="jQuery的路径"&gt;&lt;/script&gt;
 
+## 5.$()
+$() ：是jQuery留给开发者能使用的唯二接口之一，想用jQuery里面的功能，只能通过$() jQuery()
+```javascript
+window.jQuery = window.$ = jQuery;
+```
 
+$() ：具备的功能，$()是jQuery所有功能的起点，$()自身具备的功能有：选择器功能、创建元素功能、转化功能等等
 
+*$()操作的是字符串，所以用的时候一定要记得加引号*
 
+*$()得到的是一个jQuery对象*，后面的属性和方法也需要使用jQuery提供的，不能直接使用原生js的
 
+jQuery对象转化成原生js（除ID选择器外）
+>jQuery对象[下标]  自动转成原生js
+```javascript
+$('.box1')[0].style.background = 'red';
+```
 
+原生js转成jQuery对象
+>$(原生js);
+```javascript
+var allSpan = document.getElementsByTagName('span');
+$(allSpan).css('background','green');
+```
 
+## 6.选择器功能
+jQuery中的选择器功能非常强大：CSS2选择器功能、CSS3选择器的功能、自己创建的一部分功能
 
+### 1.CSS2选择器功能
+ID选择器、class选择器、标签选择器、子集选择器、后代选择器、交集并集选择器、统配选择器
+用法：和CSS2操作一模一样
+```javascript
+//ID选择器
+$('#ID')
+//class选择器
+$('.class名')
+//子集选择器
+$('父级>子集')
+//标签选择器
+$('标签名')
+//后代选择器
+$('父级 子集')
+//并集
+$('div,span')
+//统配
+$('*')
+```
+
+[CSS2选择器](13.html)
+
+### 2.CSS3选择器
+:first-child  选取子集中的第一个
+:last-child  选取子集中的最后一个
+:nth-child(1)  下标从1开始，选取子集元素中对应数字的对应子集元素，如果是指定元素，则有效，如果不是指定元素，则无效
+:nth-of-type(1)  下标从1开始，只看指定元素在子集中的排序，不管中间是否有其他元素
+
+[CSS3选择器](14.html)
+
+### 3.jQuery封装的选择器
+:odd  奇数行
+:even  偶数行
+:eq(下标)  选择子集中指定的一个元素，下标从0开始
+.eq(下标)  可以当成jQuery的一个方法
+>eq()方法得到是子集，加下标时，这个下标是整个子集的下标
+
+:lt(数字)  子集中小于数字的元素
+:gt(数字)  子集中大于数字的元素
+:not()  排除指定的这个
+
+[jQuery封装的选择器](15.html)
+
+### 4.jQuery表单快捷操作
+:input  选取所有的input
+:text  选取type="text" input框
+:button  选取type="button" input框
+:checkbox  选取type="checkbox" input框
+:radio  选取type="radio" input框
+:password  选取type="password" input框
+:email  选取type="email" input框
+:file  选取type="file" input框
+:tel  选取type="tel" input框
+:disabled  选取所有有disabled这个属性的input框
+:checked  选取checkBox radio选中的input框
+:selected  选取下拉框中默认选中的值
+
+[jQuery表单快捷操作](16.html)
+
+## 7.jQuery常用操作
+jQuery的所有操作都是通过 点语法 调用的，而且调用后还会返回当前对象，还可以继续调用其他方法
+### 1.获取和修改CSS样式
+获取：jQuery对象.css('属性');
+设置
+>jQuery对象.css('属性','值')
+>jQuery对象.css({
+	'键名1': '值1',
+	'键名2': '值2'
+ });
+
+```javascript
+$('#box').css({
+	'width': 500,
+	'height': 20,
+	'border': '1px solid #cccccc'
+}).html('连续点语法');
+//获取box的background
+console.log($('#box').css('background'));
+```
+[获取和修改CSS样式](17.html)
+
+### 2.获取和设置元素里的值
+#### 1.获取类似div这种标签中的值
+获取：jQuery对象.html();
+>原生js：对象.innerHTML
+
+设置：jQuery对象.html('内容');
+>原生js：对象.innerHTML = '新内容';
+
+#### 2.获取input中的值
+获取：jQuery对象.val();
+>原生js：对象.value;
+
+设置：jQuery对象.val('内容');
+>原生js：对象.value = '新内容';
+
+```javascript
+//获取和设置div中的内容
+console.log($('div').html());
+$('div').html('jQuery修改div中的内容');
+//获取和设置input中的内容
+console.log($(':text').val());
+$('input').val('新设置的内容')
+```
+[获取元素里的值](18.html)
+
+### 3.获取和设置属性
+获取属性：jQuery对象.attr('属性名');
+>获取时返回第一个
+
+设置属性：jQuery对象.attr('属性名','值');
+>设置的时候批量操作
+
+移除属性：jQuery对象.removeAttr('属性';)
+[获取和设置属性](18.html)
 
 
 

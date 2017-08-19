@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.box{
+			width: 82px;
+			height: 106px;
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			background: url(images/girl.png);
+			background-position: 0 -212px;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		//构造函数法
+		function Girl(x, y, zuoyou, speed) {
+			this.x = x;
+			this.y = y;
+			this.zuoyou = zuoyou;
+			this.speed = speed;
+			//创建元素
+			this.createDom();
+			//移动方法
+			this.move();
+		}
+		Girl.prototype.createDom = function() {
+			this.oDiv = document.createElement('div');
+			this.oDiv.className = 'box';
+			document.body.appendChild(this.oDiv);
+			//设置x y坐标
+			this.oDiv.style.left = this.x + 'px';
+			this.oDiv.style.top = this.y + 'px';
+		}
+		Girl.prototype.move = function() {
+			//使用一个状态保存向左或向右移动，1向右走，2向左走
+			var timer = null;
+			//保存this
+			var self = this;
+			//定义一个保存当前状态的
+			self.state = 0;
+			clearInterval(timer);
+			timer = setInterval(function() {
+				if (self.zuoyou == 1) {
+					//向右走，left一直增大，最大 clientY - 82;
+					self.x += self.speed;
+					self.oDiv.style.left = self.x + 'px';
+					//判断是否走到头了，走到头就回头
+					if (document.documentElement.clientWidth - 82 <= self.x) {
+						self.zuoyou = 2;
+					}
+					//迈步子 状态 0 1 2 3 4 5 6 7
+					self.state++;
+					if(self.state == 7){
+						self.state == 0;
+					}
+					//改变背景图片
+					self.oDiv.style.backgroundPosition = 82*self.state+'px -212px';
+				}else{
+					self.x -= self.speed;
+					self.oDiv.style.left = self.x + 'px';
+					if(self.x <= 0){
+						self.zuoyou = 1;
+					}
+					//迈步子 状态 0 1 2 3 4 5 6 7
+					self.state++;
+					if(self.state == 7){
+						self.state == 0;
+					}
+					//改变背景图片
+					self.oDiv.style.backgroundPosition = 82*self.state+'px -106px';
+				}
+			}, 30);
+		}
+		//实例
+		for (var i = 0; i < 6; i++) {
+			new Girl(0, i * 106, 1, parseInt(Math.random()*10+1));
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.active {
+			width: 200px;
+			height: 20px;
+			background: red;
+			margin-bottom: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">000001</div>
+	<input type="text" value="000002">
+	<!-- ******************************************** -->
+	<div id="bbox"></div>
+
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		//获取和设置div中的内容
+		console.log($('div').html());
+		$('div').html('jQuery修改div中的内容');
+		//获取和设置input中的内容
+		console.log($(':text').val());
+		$('input').val('新设置的内容')
+
+		///////////////////////////////////////////////////
+
+		//获取属性
+		console.log($('div').attr('id'));
+		//设置属性
+		$('div').attr('class','active');
+		//移除属性
+		$('#bbox').removeAttr('class');
+	</script>
+</body>
+</html>

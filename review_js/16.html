@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text" disabled>
+	<input type="button">
+	<input type="checkbox" checked>
+	<input type="radio" checked>
+	<input type="password">
+	<input type="email">
+	<input type="file">
+	<input type="tel">
+	<input type="text">
+	<select name="" id="">
+		<option value="1">0001</option>
+		<option value="2" selected>0002</option>
+		<option value="3">0003</option>
+	</select>
+
+
+
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		$(':input').css({
+			'width': 200,
+			'height': 30,
+			'margin-bottom': 5
+		});
+		//text
+		$(':text').val('text内容');
+		//button
+		$(':button').val('按钮');
+
+		//原生js中还有一个获取元素的方法
+		//document.getElementsByName();
+	</script>
+</body>
+</html>

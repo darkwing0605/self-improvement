@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="box">
+		<div class="box1">
+			<p><span></span></p>
+			<span></span>
+			<p><span></span></p>
+			<span></span>
+			<p><span></span></p>
+			<span></span>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		//ID选择器
+		$('#box').css({
+			'width': '500px',
+			'height': '300px',
+			'border': '1px solid red'
+		});
+		//class选择器
+		$('.box1').css({
+			'width': '400px',
+			'height': '260px',
+			'border': '3px dotted green'
+		});
+		//标签选择器
+		$('p').css({
+			'width': '380px',
+			'height': '50px',
+			'background': 'pink'
+		});
+		//子集选择器
+		$('p>span').html('新添加的p子集的span内容');
+		$('.box1>span').html('新添加的box1子集的span内容');
+		//后代选择器
+		$('.box1 span').css('background','cyan');
+		//并集
+		$('div,span,p').css('background','orange');
+		//统配
+		$('*').css('background','');
+		//使用原生js方法
+		//$('.box1').style.background = 'red';  //报错
+		$('.box1')[0].style.background = 'red';
+		//用原生js获取所有的span标签
+		var allSpan = document.getElementsByTagName('span');
+		$(allSpan).css('background','green');
+	</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		li{
+			width: 500px;
+			height: 20px;
+			border: 1px solid #000000;
+			margin-bottom: 5px;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	<ul>
+		
+	</ul>
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		//选取所有的li，给他们添加背景
+		$('li').css({'background':'pink'});
+		//创建一个新标签，添加到ul中
+		$('ul').append($('<li>新创建的li</li>'));
+		//动画
+		$('li').animate({
+			'width':100,
+			'height':300
+		},2000);
+	</script>
+</body>
+</html>

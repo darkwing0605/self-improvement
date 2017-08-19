@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.box1{
+			height: 20px;
+			background: cyan;
+			margin-bottom: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div>
+		<div id="box">
+			<ul>
+				<li>00001</li>
+				<li>00002</li>
+				<li>00003</li>
+			</ul>
+			<div class="box1">0004</div>
+			<p>0006</p>
+			<div class="box1">0005</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		//选取子集的第一个
+		$('ul li:first-child').css({
+			'height': '200px',
+			'background': 'red'
+		});
+		//选取子集中的最后一个
+		$('ul li:last-child').css({
+			'height': 50,
+			'background': 'cyan'
+		});
+		//nth-child(数字)
+		$('#box div:nth-child(2)').css({
+			'border': '1px solid red'
+		});
+		//nth-of-type(数字)
+		$('#box div:nth-of-type(2)').css({
+			'border': '2px solid orange'
+		})
+	</script>
+</body>
+</html>
