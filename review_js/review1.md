@@ -2485,22 +2485,167 @@ $('input').val('新设置的内容')
 设置属性：jQuery对象.attr('属性名','值');
 >设置的时候批量操作
 
-移除属性：jQuery对象.removeAttr('属性';)
+移除属性：jQuery对象.removeAttr('属性');
 [获取和设置属性](18.html)
 
+### 4.增加和移除class名
+增加类名：jQuery对象.addClass('新增的类名');
+>给属性class中，添加新的属性值
 
+移除类名：jQuery对象.removeClass('类名');
+>把属性class中指定的类名删除
 
+切换类名：jQuery对象.toggleClass('类名');
+>该元素上有指定的类名则删除，没有则添加
 
+[增加和移除class名](19.html)
 
+## 8.简单动画
+### 1.简单的显示隐藏
+show()  显示
+hide()  隐藏
+>如果小括号中不加参数，瞬间显示隐藏
+>可以加参数，时间
+>>直接写数字，单位为ms，
+>>也可以写指定单词 fast slow
 
+### 2.卷动显示卷动隐藏
+显示：slideDown()
+隐藏：slideUp()
+切换：slideToggle()
+>小括号中不加参数，有默认动画执行时间（400ms）
+>小括号中可以自己写动画执行市场，写数字（ms）或单词（fast slow）
 
+### 3.淡入淡出
+淡入：fadeIn()
+>默认透明度从0到1
 
+淡出：fadeOut()
+>默认透明度从1到0
 
+切换：fadeToggle()
+>显示时就淡出，隐藏时就淡入
 
+改变透明度：fadeTo()
+>需要动画时间
+>这里改变透明度后会影响上面的淡入淡出效果
 
+[简单动画](20.html)
+[简单淡入淡出轮播图](21.html)
 
+[案例](22.html)
 
+## 9.jQuery节点关系
+### 1.自己
+$(this)
+### 2.父级元素
+当前对象.parent();
+>找到的是当前元素的亲生父亲
 
+### 3.祖先级元素
+当前对象.parents();
+>找到所有祖先级元素（包括父级）
+>小括号中可以添加筛选元素，得到筛选出来的结果
+
+### 4.子级元素
+当前对象.children();
+>找到所有的子集元素（不包括后代）
+>小括号中也可以添加筛选条件，得到筛选出来的结果
+
+### 5.后代元素
+当前对象.find('条件')
+>*这个方法必须添加筛选条件，得到指定的后代元素*
+
+### 6.兄弟元素
+当前对象.siblings();
+>找到当前对象的所有兄弟元素
+>小括号中可以加筛选条件，得到筛选出来的结果
+
+[jQuery节点关系](23.html)
+
+## 10.jQuery事件
+jQuery中给封装好的事件，调用jQuery中的事件，前面需要是jQuery对象
+
+### 1.一般方法
+下面这些事件的用法是一样的
+>单击事件
+```javascript
+jQuery对象.click(function(){
+	点击事件功能
+});
+```
+>双击事件
+```javascript
+dblclick(function(){});
+```
+>鼠标经过
+```javascript
+mouseover(function(){}); //有冒泡
+mouseenter(function(){}); //没冒泡
+```
+>鼠标离开
+```javascript
+mouseout(function(){}); //有冒泡
+mouseleave(function(){}); //没冒泡
+```
+>鼠标按下
+```javascript
+mousedown(function(){});
+```
+>鼠标抬起
+```javascript
+mouseup(function(){});
+```
+>鼠标移动
+```javascript
+mousemove(function(){});
+```
+>键盘按下
+```javascript
+keydown(function(){});
+```
+>键盘抬起
+```javascript
+keyup(function(){});
+```
+>键盘长按
+```javascript
+keypress(function(){});
+```
+
+### 2.jQuery封装的方法
+
+#### 1.on()方法
+事件绑定
+```javascript
+jQuery对象.on('事件类型',筛选,function(){功能})
+```
+>on()方法主要用于事件委托
+>原理：把方法绑定给父级元素，然后在on()方法的第二个参数写真正需要绑定的事件的元素，第二个是可选的；如果不写，这就相当于给父级绑定了一个事件
+>>写第二个参数，这时就是事件委托
+>>不写第二个参数，这时就相当于给自己绑定了事件
+
+#### 2.bind()方法
+同时绑定多个方法
+```javascript
+jQuery对象.bind('事件类型1 事件类型2 事件类型3', function(){功能});
+```
+>事件类型1 事件类型2 事件类型3同时具备后面的功能
+
+#### 3.one()方法
+```javascript
+jQuery对象.one('事件类型', function(){功能})
+```
+>这个事件类型只会执行第一次
+
+#### 4.hover()方法
+```javascript
+jQuery对象.hover(function(){鼠标进入功能}, function(){鼠标离开功能});
+```
+>鼠标进入目标元素和离开目标元素时触发
+>相当于调用mouseenter()方法和mouseleave()方法
+
+[jQuery封装的方法](24.html)
 
 
 

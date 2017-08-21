@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.container{
+			width: 731px;
+			height: 360px;
+			background: #000000;
+			padding: 20px;
+		}
+		.container>div{
+			width: 223px;
+			height: 355px;
+			padding: 5px;
+			border: 2px solid #ffffff; 
+			float: left;
+			margin-left: 10px;
+		}
+		.container>div:first-child{
+			margin-left: 0;
+		}
+		p{
+			line-height: 100px;
+			text-align: center;
+			width: 223px;
+		}
+		.zheng{
+			background: #ffffff;
+			display: block;
+			position: absolute;
+		}
+		.zheng p{
+			height: 100px;
+		}
+		.fan{
+			position: absolute;
+			display: none;
+			color: pink;
+			background: #000000;
+		}
+		.fan p:nth-child(1){
+			height: 255px;
+			line-height: 255px;
+		}
+		.fan p:nth-child(2){
+			height: 100px;
+			line-height: 108px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div>
+			<div class="zheng">
+				<img src="images/1.png" alt="">
+				<p>从安卓到苹果</p>
+			</div>
+			<div class="fan">
+				<p>用它开发的手机应用</p>
+				<p>从安卓到苹果</p>
+			</div>
+		</div>
+		<div>
+			<div class="zheng">
+				<img src="images/2.png" alt="">
+				<p>从安卓到苹果</p>
+			</div>
+			<div class="fan">
+				<p>用它开发的手机应用</p>
+				<p>从安卓到苹果</p>
+			</div>
+		</div>
+		<div>
+			<div class="zheng">
+				<img src="images/3.png" alt="">
+				<p>从安卓到苹果</p>
+			</div>
+			<div class="fan">
+				<p>用它开发的手机应用</p>
+				<p>从安卓到苹果</p>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		//面向对象来实现
+		function Move(i){
+			//选取元素
+			this.dom = $('.container>div').eq(i);
+			//绑定事件
+			this.BindEvent();
+		}
+		Move.prototype.BindEvent = function(e){
+			//鼠标进入事件
+			this.dom.mouseenter(function(){
+				//正面隐藏，反面显示
+				var self = $(this);
+				//节点关系，后代节点
+				self.find('.zheng').stop().fadeOut();
+				self.find('.fan').stop().fadeIn();
+				//边框从白色变成粉色
+				$(this).css('border-color', 'pink');
+			});
+			//鼠标移出事件
+			this.dom.mouseleave(function(){
+				var self = $(this);
+				self.find('.fan').stop().fadeOut();
+				self.find('.zheng').stop().fadeIn();
+				$(this).css('border-color', '#ffffff');
+			});
+		}
+
+		for (var i = 0; i < 3; i++) {
+			new Move(i);
+		}
+	</script>
+</body>
+</html>

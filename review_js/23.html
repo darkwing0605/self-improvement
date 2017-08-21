@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li id='li1'>
+				<p>00001</p>
+			</li>
+			<li>
+				<p>00002</p>
+			</li>
+			<li>
+				<p>00003</p>
+			</li>
+			<li>
+				<p>00004</p>
+			</li>
+			<li>
+				<p>00005</p>
+			</li>
+			<div></div>
+		</ul>
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		//找到ul
+		var oUl = $('ul');
+		//父级元素
+		console.log(oUl.parent());
+		//祖先级元素
+		console.log(oUl.parents());
+		console.log(oUl.parents('div'));
+		//子级元素
+		console.log(oUl.children());
+		console.log(oUl.children('li'));
+		//后代元素
+		console.log(oUl.find());
+		//兄弟节点
+		console.log($('#li1').siblings());
+		console.log($('#li1').siblings('li'));
+	</script>
+</body>
+</html>

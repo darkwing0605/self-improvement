@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.box{
+			width: 800px;
+			height: 500px;
+			position: relative;
+			overflow: hidden;
+		}
+		ul{
+			list-style: none;
+		}
+		ul li{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 800px;
+			height: 500px;
+			display: none;
+		}
+		ul li img{
+			width: 800px;
+			height: 500px;
+		}
+		a{
+			text-decoration: none;
+		}
+		.btn{
+			display: block;
+			width: 40px;
+			height: 80px;
+			font: 28px/80px "宋体";
+			text-align: center;
+			color: #ffffff;
+			background: rgba(0,0,0,0.3);
+			position: absolute;
+			top: 210px;
+		}
+		.left{
+			left: 0;
+		}
+		.right{
+			right: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<ul>
+			<li style="display: block;"><a href=""><img src="images/baidu/1.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/baidu/2.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/baidu/3.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/baidu/4.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/baidu/5.jpg" alt=""></a></li>
+		</ul>
+		<a href="javascript:;" class="btn left">&lt;</a>
+		<a href="javascript:;" class="btn right">&gt;</a>
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		//淡入淡出轮播图的原理，只有一个li的display是block，其他所有的li的display是none
+		//定义一个保存当前图片的变量
+		var index = 0;
+		//右按钮
+		$('.right')[0].onclick = function() {
+				//先让当前图片淡出
+				$('li').eq(index).fadeOut();
+				index++;
+				console.log(index);
+				if (index > 4) {
+					index = 0;
+				}
+				$('li').eq(index).fadeIn();
+			}
+			//左按钮
+		$('.left')[0].onclick = function() {
+			$('li').eq(index).fadeOut();
+			index--;
+			console.log(index);
+			if (index < 0) {
+				index = 4
+			}
+			$('li').eq(index).fadeIn();
+		}
+	</script>
+</body>
+</html>

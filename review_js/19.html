@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.active{
+			width: 200px;
+			height: 20px;
+			border: 1px solid #000000;
+		}
+	</style>
+</head>
+<body>
+	<div id="box" class="box1"></div>
+	<button>点我</button>
+
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		//增加类名
+		$('#box').addClass('active');
+		//移除类名
+		$('#box').removeClass('box1');
+		$('#box').removeClass('active');
+		//切换类名
+		$('button')[0].onclick = function(){
+			$('#box').toggleClass('active');
+		}
+	</script>
+</body>
+</html>
