@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+			color: #ffffff;
+		}
+		.container{
+			width: 512px;
+			height: 320px;
+			overflow: hidden;
+			position: relative;
+			margin: 0 auto;
+		}
+		.pic{
+			position: relative;
+			width: 512px;
+			height: 320px;
+		}
+		.pic li{
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: none;
+		}
+		.pic li.active{
+			display: block;
+		}
+		.pic img{
+			width: 512px;
+			height: 320px;
+		}
+		.btn{
+			z-index: 999;
+			width: 40px;
+			height: 80px;
+			position: absolute;
+			top: 120px;
+			font: 26px/80px "宋体";
+			text-align: center;
+			background: rgba(0,0,0,0.3);
+		}
+		.btn:hover{
+			background: rgba(0,0,0,0.8);
+		}
+		.left{
+			left: 0;
+		}
+		.right{
+			right: 0;
+		}
+		.nav{
+			z-index: 999;
+			width: 210px;
+			height: 40px;
+			background: rgba(0,0,0,0.3);
+			position: absolute;
+			bottom: 10px;
+			left: 151px;
+		}
+		.nav li{
+			float: left;
+			margin-left: 10px; 
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			background: red;
+			margin-top: 5px;
+		}
+		.nav li.active{
+			background: pink;
+		}
+		.maoni{
+			z-index: 2;
+		}
+	</style>
+</head>
+<body>
+	<!-- 淡入淡出 -->
+	<div class="container">
+	<!-- 大图 -->
+		<ul class="pic">
+			<li class="active"><a href="javascript:;"><img src="images/lunbo/1.jpg" alt=""></a></li>
+			<li><a href="javascript:;"><img src="images/lunbo/2.jpg" alt=""></a></li>
+			<li><a href="javascript:;"><img src="images/lunbo/3.jpg" alt=""></a></li>
+			<li><a href="javascript:;"><img src="images/lunbo/4.jpg" alt=""></a></li>
+			<li><a href="javascript:;"><img src="images/lunbo/5.jpg" alt=""></a></li>
+		</ul>
+		<!-- 左右按钮 -->
+		<a href="javascript:;" class="btn left">&lt;</a>
+		<a href="javascript:;" class="btn right">&gt;</a>
+		<!-- 小圆圈快捷导航 -->
+		<ul class="nav">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<div class="maoni"></div>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		//实现切片轮播：先显示背景（maoni这个div中创建的div），显示动画完成后再把maoni中的所有内容删除，展示出真正图片
+		//maoni中创建的div要刚好把整个大图铺满，同时和大图上的图片位置一致
+		var nowPage = 0;
+		$('.right').click(function() {
+			nowPage++;
+			if (nowPage > 4) {
+				nowPage = 0;
+			}
+			$('.nav li').eq(nowPage).addClass('active').siblings().removeClass('active');
+			//创建maoni，一排能放8张，width:64px;能放5排，height:64px;
+			for (var i = 0; i < 40; i++) {
+				$('<div></div>').css({
+					'position': 'absolute',
+					'width': 0,
+					'height': 0,
+					'left': parseInt(i % 8) * 64,
+					'top': parseInt(i / 8) * 64,
+					'background': 'url(images/lunbo/' + (nowPage + 1) + '.jpg)',
+					'background-size': '512px 320px',
+					'background-position': -parseInt(i % 8) * 64 + 'px ' + (-parseInt(i / 8) * 64) + 'px',
+					// 'opacity': 0
+				}).appendTo($('.maoni'));
+				//遍历新创建的div
+				$('.maoni div').each(function() {
+					//动画
+					$(this).delay(Math.random() * 500).animate({
+						'width': 64,
+						'height': 64,
+						// 'opacity': 1,
+					}, 1000);
+				});
+				//执行完后需要把maoni中内容删除
+				setTimeout(function() {
+					$('.maoni').empty();
+					//让图片切换
+					$('.pic li').eq(nowPage).show().siblings().hide();
+				}, 2000);
+			}
+		});
+	</script>
+</body>
+</html>

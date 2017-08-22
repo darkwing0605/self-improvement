@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="box">
+		<ul>
+			<li>001</li>
+			<li class="li2">002</li>
+			<li>003</li>
+			<li>004</li>
+			<li>005</li>
+		</ul>
+		<div>101</div>
+		<div class="div2">102</div>
+		<div>103</div>
+		<span>201</span>
+		<span class="span2">202</span>
+		<span>203</span>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		//查看div2的index()
+		console.log($('.div2').index());
+		console.log($('#box').children('.div2').index());
+		//查看li2的index()
+		console.log($('.li2').index());
+		console.log($('ul li:eq(1)').index());
+	</script>
+</body>
+</html>

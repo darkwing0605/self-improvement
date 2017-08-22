@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background: #eeeeee;
+		}
+		.box{
+			height: 237px;
+			position: relative;
+		}
+		img{
+			position: absolute;
+			left: 95px;
+    		top: 44px;
+    		display: none;
+		}
+		.pic1{
+			   left: 59px;
+    		top: 50px;
+		}
+		.pic2{
+		    left: 140px;
+		    top: 84px;
+		}
+		.pic3{
+		    left: 341px;
+		    top: 50px;
+		}
+		.pic4{
+			   left: 590px;
+    		top: 86px;
+		}
+		.pic5{
+			top: 3px;
+    		left: 881px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<img src="images/homework1/ad_1.png" alt="" class="pic1">
+		<img src="images/homework1/ad_2.png" alt="" class="pic2">
+		<img src="images/homework1/ad_3.png" alt="" class="pic3">
+		<img src="images/homework1/ad_4.png" alt="" class="pic4">
+		<img src="images/homework1/ad_5.png" alt="" class="pic5">
+	</div>
+
+
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		//让每一个图片都闪烁两次，最终是显示状态
+		$('.box img').each(function(i) {
+			$(this).delay(1000 * i).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200);
+		});
+	</script>
+</body>
+</html>
