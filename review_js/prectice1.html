@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		/*223*255*/
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.container{
+			width: 711px;
+			height: 321px;
+			padding: 20px;
+			position: relative;
+			background: #000000;
+		}
+		.container>div{
+			width: 223px;
+			height: 306px;
+			background: #000000;
+			border: 3px solid #ffffff;
+			margin-right: 3px;
+			padding: 3px;
+			float: left;
+		}
+		.container>div:last-child{
+			margin-right: 0px;
+		}
+		p{
+			width: 223px;
+			text-align: center;
+			line-height: 50px;
+		}
+		.zheng{
+			width: 223px;
+			height: 305px;
+			background: #ffffff;
+			display: block;
+			position: absolute;
+		}
+		.zheng p{
+			height: 50px;
+		}
+		.fan{
+			width: 223px;
+			height: 305px;
+			background: #000000;
+			color: pink;
+			display: none;
+			position: absolute;
+		}
+		.fan p:nth-child(1){
+			height: 255px;
+			line-height: 255px;
+		}
+		.fan p:nth-child(2){
+			height: 50px;
+			line-height: 57px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div>
+			<div class="zheng">
+				<img src="images/1.png" alt="">
+				<p>从安卓到苹果1</p>
+			</div>
+			<div class="fan">
+				<p>开发手机应用1</p>
+				<p>从安卓到苹果1</p>
+			</div>
+		</div>
+		<div>
+			<div class="zheng">
+				<img src="images/2.png" alt="">
+				<p>从安卓到苹果2</p>
+			</div>
+			<div class="fan">
+				<p>开发手机应用2</p>
+				<p>从安卓到苹果2</p>
+			</div>
+		</div>
+		<div>
+			<div class="zheng">
+				<img src="images/3.png" alt="">
+				<p>从安卓到苹果3</p>
+			</div>
+			<div class="fan">
+				<p>开发手机应用3</p>
+				<p>从安卓到苹果3</p>
+			</div>
+		</div>
+	</div>
+	<script src="js/jQuery-1.12.4.min.js"></script>
+	<script>
+		function move(i){
+			this.dom = $('.container>div').eq(i);
+			this.BindEvent();
+		}
+		move.prototype.BindEvent = function(e){
+			this.dom.mouseenter(function(){
+				var self = $(this);
+				self.find('.zheng').stop().fadeOut();
+				self.find('.fan').stop().fadeIn();
+				self.css('border-color', 'pink');
+			});
+			this.dom.mouseleave(function(){
+				var self = $(this);
+				self.find('.fan').stop().fadeOut();
+				self.find('.zheng').stop().fadeIn();
+				self.css('border-color', '#ffffff');
+			})
+		}
+		for(var i = 0; i < 3; i++){
+			new move(i);
+		}
+	</script>
+</body>
+</html>

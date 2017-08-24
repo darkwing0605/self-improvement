@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			height: 4000px;
+		}
+		.nav{
+			width: 30px;
+			height: 300px;
+			background: #918888;
+			position: fixed;
+			top: 200px;	
+			left: 10px;
+		}
+		a{
+			text-decoration: none;
+			color: #ffffff;
+		}
+		.nav ul li{
+			height: 99px;
+			border-bottom: 1px solid #ffffff;
+			text-align: center;
+			line-height: 45px;
+		}
+		.nav ul li.active{
+			background: #D7081C;
+		}
+		.floor{
+			margin-left: 50px;
+		}
+		.floor div{
+			height: 500px;
+			background: #cccccc;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<!-- 京东楼层 -->
+	<!-- 第一部分：导航 -->
+	<div class="nav">
+		<ul>
+			<li><a href="javascript:;">一楼</a></li>
+			<li><a href="javascript:;">二楼</a></li>
+			<li><a href="javascript:;">三楼</a></li>
+		</ul>
+	</div>
+	<!-- 楼层部分 -->
+	<div class="floor">
+		<div class="f0">楼层前的内容</div>
+		<div style="background: orange;" class="f1">第1层</div>
+		<div style="background: pink;" class="f2">第2层</div>
+		<div style="background: cyan;" class="f3">第3层</div>
+		<div class="f4">楼层后的内容</div>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		// 用offset().top  是否小于一个值时就认为到达这个楼层了
+		//添加滚动事件
+		$(window).scroll(function() {
+			//获取滚动高度
+			var a = $(window).scrollTop();
+			if (($('.f4').offset().top - a) < $('.f3').height() / 2) {
+				// console.log('已经出了正常的三层楼了');
+				$('.nav li').removeClass('active');
+			} else if (($('.f3').offset().top - a) < $('.f2').height() / 2) {
+				// console.log('到第三楼了');
+				$('.nav li').eq(2).addClass('active').siblings().removeClass('active');
+			} else if (($('.f2').offset().top - a) < $('.f1').height() / 2) {
+				// console.log('到第二楼了');
+				$('.nav li').eq(1).addClass('active').siblings().removeClass('active');
+			} else if (($('.f1').offset().top - a) < $('.f0').height() / 2) {
+				// console.log('到第一楼了');
+				$('.nav li').eq(0).addClass('active').siblings().removeClass('active');
+			} else {
+				$('.nav li').removeClass('active');
+			}
+		});
+		//点击哪个楼层，页面就滚动到哪个楼层
+		$('.nav li').click(function() {
+			$('html,body').stop().animate({
+				'scrollTop': $('.f' + ($(this).index() + 1)).offset().top
+			}, 1000);
+		});
+	</script>
+</body>
+</html>

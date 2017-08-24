@@ -2766,6 +2766,58 @@ jQuery对象.remove();
 [删](31.html)
 [切片轮播图](32.html)
 
+### 3.包裹
+在目标元素上添加新标签
+wrap() wrapAll()
+
+### 4.替换
+replaceWith()
+把目标元素的标签替换成设置的标签
+
+[包裹和替换](33.html)
+
+## 14.快速获取值
+### 1.快速获取宽高值
+通过css()方法获取的宽高，都是带单位的
+```javascript
+css('width')
+css('height')
+```
+获取不带单位的宽高值
+```javascript
+.width()
+.height()
+
+.innerWidth()  //width + padding-left + padding-right
+.innerHeight()  //height + padding-top + padding-bottom
+
+.outerWidth()  //width + padding + border
+.outerWidth(true)  //width + padding + border + margin
+
+.outerHeight()
+.outerHeight(true)
+```
+
+### 2.快速获取偏移量的值
+jQuery中已经封装好快速获取偏移量的方法，而且没有兼容性
+offset()获取当前元素到页面的偏移
+>offset().left
+>offset().top
+
+### 3.快速获取滚动高度
+获取滚动高度，需要有滚动事件才能触发
+$(window).scroll(function(){
+	$(window).scrollTop();
+});
+
+[快速获取值](34.html)
+[京东楼层案例](35.html)
+
+
+
+
+
+
 
 
 
