@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+			color: #ffffff;
+		}
+		.container{
+			width: 512px;
+			height: 320px;
+			position: relative;
+			overflow: hidden;
+			margin: 20px auto;
+		}
+		.pic{
+			width: 512px;
+			height: 320px;
+		}
+		.pic li{
+			position: absolute;
+			left: 512px;
+			top: 0;  
+		}
+		.pic li:first-child{
+			left: 0;
+		}
+		.pic img{
+			width: 512px;
+			height: 320px;
+		}
+		.btn{
+			position: absolute;
+			width: 40px;
+			height: 80px;
+			top: 120px;
+			background: rgba(0,0,0,0.3);
+			text-decoration: none;
+			color: #ffffff;
+			font: 26px/80px "宋体";
+			text-align: center;
+		}
+		.btn:hover{
+			background: rgba(0,0,0,0.8);
+		}
+		.left{
+			left: 0;
+		}
+		.right{
+			right: 0;
+		}
+		.nav{
+			width: 160px;
+			height: 30px;
+			position: absolute;
+			bottom: 20px;
+			left: 176px;
+			background: rgba(0,0,0,0.3);
+		}
+		.nav li{
+			float: left;
+			margin-left: 10px;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			margin-top: 5px;
+			background: pink;
+		}
+		.nav li.active{
+			background: skyblue;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<ul class="pic">
+			<li><a href=""><img src="images/lunbo/1.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/lunbo/2.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/lunbo/3.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/lunbo/4.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/lunbo/5.jpg" alt=""></a></li>
+		</ul>
+		<a href="javascript:;" class="btn left">&lt;</a>
+		<a href="javascript:;" class="btn right">&gt;</a>
+		<ul class="nav">
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<script src="js/jQuery-1.12.4.min.js"></script>
+	<script>
+		var nowPage = 0;
+		$('.right').click(function() {
+			rightClick();
+		});
+
+		function rightClick() {
+			$('.pic li').eq(nowPage).stop().animate({
+				'left': -512,
+			}, 1000);
+			nowPage++;
+			if (nowPage > 4) {
+				nowPage = 0;
+			}
+			$('.pic li').eq(nowPage).css('left', 512).stop().animate({
+				'left': 0,
+			}, 1000);
+			$('.nav li').eq(nowPage).addClass('active').siblings().removeClass('active');
+		}
+		$('.left').click(function() {
+			$('.pic li').eq(nowPage).stop().animate({
+				'left': 512,
+			}, 1000);
+			nowPage--;
+			if (nowPage < 0) {
+				nowPage = 4;
+			}
+			$('.pic li').eq(nowPage).css('left', -512).animate({
+				'left': 0,
+			}, 1000);
+			$('.nav li').eq(nowPage).addClass('active').siblings().removeClass('active');
+		});
+		$('.nav li').click(function() {
+			if ($(this).index() < nowPage) {
+				$('.pic li').eq(nowPage).stop().animate({
+					'left': 512,
+				}, 1000)
+				nowPage = $(this).index();
+				$('.pic li').eq(nowPage).css('left', -512).stop().animate({
+					'left': 0,
+				}, 1000);
+				$('.nav li').eq(nowPage).addClass('active').siblings().removeClass('active');
+			} else if ($(this).index() > nowPage) {
+				$('.pic li').eq(nowPage).stop().animate({
+					'left': -512,
+				}, 1000);
+				nowPage = $(this).index();
+				$('.pic li').eq(nowPage).css('left', 512).stop().animate({
+					'left': 0,
+				}, 1000);
+				$('.nav li').eq(nowPage).addClass('active').siblings().removeClass('active');
+			}
+		});
+	</script>
+</body>
+</html>

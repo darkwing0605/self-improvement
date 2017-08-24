@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="box">原始div</div>
+	<script src="js/jQuery-1.12.4.min.js"></script>
+	<script>
+		//给box添加一个点击事件
+		$('.box').click(function(){
+			console.log($(this).html());
+		});
+		//克隆 不加参数
+		$('body').append($('.box').clone());
+		$('body').append($('.box').clone(true));
+	</script>
+</body>
+</html>

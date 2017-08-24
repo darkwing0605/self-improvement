@@ -16,9 +16,53 @@
 		}
 		.container{
 			width: 1024px;
-			width: 640px;
+			height: 640px;
 			margin: 0 auto; 
 			overflow: hidden;
+			position: relative;
+		}
+		.btn{
+			width: 50px;
+			height: 150px;
+			top: 245px;
+			background: rgba(0,0,0,0.3);
+			font: 80px/150px "宋体";
+			position: absolute;
+			color: #ffffff;
+			text-align: center;
+			cursor: pointer;
+			z-index: 999;
+		}
+		.left{
+			left: 0;
+		}
+		.right{
+			right: 0;
+		}
+		.nav{
+			width: 200px;
+			height: 50px;
+			position: absolute;
+			left: 412px;
+			bottom: 10px;
+			background: rgba(0,0,0,0.3);
+			z-index: 999;
+		}
+		.nav ul li{
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			background: red;
+			float: left;
+			margin-top: 10px;
+			margin-left: 12.5px;
+			cursor: pointer;
+		}
+		.nav ul li:nth-child(1){
+			margin-left: 0px;
+		}
+		.nav ul li.active{
+			background: pink;
 		}
 	</style>
 </head>
@@ -26,18 +70,18 @@
 	<div class="container">
 		<div class="pic">
 			<ul>
-				<li><img src="images/lunbo/1.jpg" alt=""></li>
-				<li><img src="images/lunbo/2.jpg" alt=""></li>
-				<li><img src="images/lunbo/3.jpg" alt=""></li>
-				<li><img src="images/lunbo/4.jpg" alt=""></li>
-				<li><img src="images/lunbo/5.jpg" alt=""></li>
+				<li><a href=""><img src="images/lunbo/1.jpg" alt=""></a></li>
+				<li><a href=""><img src="images/lunbo/2.jpg" alt=""></a></li>
+				<li><a href=""><img src="images/lunbo/3.jpg" alt=""></a></li>
+				<li><a href=""><img src="images/lunbo/4.jpg" alt=""></a></li>
+				<li><a href=""><img src="images/lunbo/5.jpg" alt=""></a></li>
 			</ul>
 		</div>
-		<div class="btn left"></div>
-		<div class="btn right"></div>
+		<div class="btn left">&lt;</div>
+		<div class="btn right">&gt;</div>
 		<div class="nav">
 			<ul>
-				<li></li>
+				<li class="active"></li>
 				<li></li>
 				<li></li>
 				<li></li>
@@ -48,7 +92,79 @@
 	</div>
 	<script src="js/jQuery-1.12.4.min.js"></script>
 	<script>
-		
+		var nowPage = 0;
+		var widthNum = 0
+		var heightNum = 0
+
+		function getNum1() {
+			widthNum = Math.random();
+			if (widthNum < 0.5) {
+				return widthNum = 0;
+			} else {
+				return widthNum = 1;
+			}
+		}
+
+		function getNum2() {
+			heightNum = Math.random();
+			if (heightNum < 0.5) {
+				return heightNum = 0;
+			} else {
+				return heightNum = 1;
+			}
+		}
+
+		function getNum() {
+			getNum1();
+			getNum2();
+			if (widthNum == 1 && heightNum == 1) {
+				return widthNum = 0;
+				return heightNum = 0;
+			}
+		}
+
+		function move() {
+			for (var i = 0; i < 40; i++) {
+				$('<div></div>').css({
+					'position': 'absolute',
+					'width': widthNum * 128,
+					'height': heightNum * 128,
+					'left': parseInt(i % 8) * 128,
+					'top': parseInt(i / 8) * 128,
+					'background': 'url(images/lunbo/' + (nowPage + 1) + '.jpg)',
+					'background-size': '1024px 640px',
+					'background-position': (-parseInt(i % 8) * 128) + 'px ' + (-parseInt(i / 8) * 128) + 'px'
+				}).appendTo($('.fragments'));
+			}
+			$('.fragments div').each(function() {
+				$(this).stop().animate({
+					'width': 128,
+					'height': 128
+				}, 1000);
+			});
+		}
+		$('.right').click(function() {
+			nowPage++;
+			if (nowPage > 4) {
+				nowPage = 0;
+			}
+			$('.nav ul li').eq(nowPage).addClass('active').siblings().removeClass('active');
+			getNum();
+			move();
+		});
+		$('.left').click(function() {
+			nowPage--;
+			if (nowPage < 0) {
+				nowPage = 4;
+			}
+			$('.nav ul li').eq(nowPage).addClass('active').siblings().removeClass('active');
+			getNum();
+			move();
+		})
+		$('.nav ul li').click(function(){
+			getNum();
+			move();
+		});
 	</script>
 </body>
 </html>

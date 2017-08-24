@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+			color: #ffffff;
+		}
+		.container{
+			width: 512px;
+			height: 320px;
+			margin: 20px auto;
+			overflow: hidden;
+			position: relative;
+		}
+		.pic{
+			width: 3072px;
+			height: 320px;
+			overflow: hidden;
+		}
+		.pic li{
+			float: left;
+		}
+		.pic img{
+			width: 512px;
+			height: 320px;
+		}
+		.btn{
+			position: absolute;
+			width: 40px;
+			height: 80px;
+			top: 120px;
+			background: rgba(0,0,0,0.3);
+			text-decoration: none;
+			color: #ffffff;
+			font: 26px/80px "宋体";
+			text-align: center;
+		}
+		.btn:hover{
+			background: rgba(0,0,0,0.8);
+		}
+		.left{
+			left: 0;
+		}
+		.right{
+			right: 0;
+		}
+		.nav{
+			width: 160px;
+			height: 30px;
+			position: absolute;
+			bottom: 20px;
+			left: 176px;
+			background: rgba(0,0,0,0.3);
+		}
+		.nav li{
+			float: left;
+			margin-left: 10px;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			margin-top: 5px;
+			background: pink;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<ul class="pic">
+			<li><a href=""><img src="images/lunbo/1.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/lunbo/2.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/lunbo/3.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/lunbo/4.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/lunbo/5.jpg" alt=""></a></li>
+			<li><a href=""><img src="images/lunbo/1.jpg" alt=""></a></li>
+		</ul>
+		<a href="javascript:;" class="btn left">&lt;</a>
+		<a href="javascript:;" class="btn right">&gt;</a>
+		<ul class="nav">
+			<li style="background: skyblue"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<script src="js/jQuery-1.12.4.min.js"></script>
+	<script>
+		var nowPage = 0;
+		$('.right').click(function() {
+			rightClick();
+		});
+
+		function move() {
+			$('.pic').animate({
+				'margin-left': -nowPage * 512,
+			}, 1000);
+			$('.nav li').eq(nowPage == 5 ? 0 : nowPage).css('background', 'skyblue').siblings().css('background', 'pink');
+		}
+
+		function rightClick() {
+			nowPage++;
+			if (nowPage > 5) {
+				nowPage = 1;
+				$('.pic').css('margin-left', 0);
+			}
+			move();
+		}
+		$('.left').click(function() {
+			nowPage--;
+			if (nowPage < 0) {
+				nowPage = 4;
+				$('.pic').css('margin-left', -2560);
+			}
+			move();
+		});
+		$('.nav li').click(function() {
+			nowPage = $(this).index();
+			move();
+		});
+		var timer = setInterval(rightClick, 3000);
+		$('.container').hover(function() {
+			clearInterval(timer);
+		}, function() {
+			timer = setInterval(rightClick, 3000);
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+			color: #ffffff;
+		}
+		.container{
+			width: 1044px;
+			height: 350px;
+			position: relative;
+			margin: 20px auto;
+			overflow: hidden;
+			border: 1px solid #000000;
+		}
+		.pic{
+			width: 3000px;
+			height: 350px;
+			overflow: hidden;
+		}
+		.pic li{
+			position: absolute;
+		}
+		.pic img{
+			width: 100%;
+			height: 100%;
+		}
+		.pic li.n0{
+			width: 128px;
+			height: 80px;
+			left: -138px;
+			top: 135px;
+		}
+		.pic li.n1{
+			width: 256px;
+			height: 160px;
+			left: 0px;
+			top: 95px;
+		}
+		.pic li.n2{
+			width: 512px;
+			height: 320px;
+			left: 266px;
+			top: 15px;
+		}
+		.pic li.n3{
+			width: 256px;
+			height: 160px;
+			left: 788px;
+			top: 95px;
+		}
+		.pic li.n4{
+			width: 128px;
+			height: 80px;
+			left: 1054px;
+			top: 135px;
+		}
+		.btn{
+			width: 40px;
+			height: 80px;
+			position: absolute;
+			top: 135px;
+			background: rgba(0,0,0,0.3);
+			font: 26px/80px "宋体";
+			text-align: center;
+		}
+		.btn:hover{
+			background: rgba(0,0,0,0.8)
+		}
+		.left{
+			left: 0px;
+		}
+		.right{
+			right: 0px;
+		}
+		.nav{
+			width: 160px;
+			height: 30px;
+			position: absolute;
+			bottom: 20px;
+			left: 400px;
+			background: rgba(0,0,0,0.3);
+		}
+		.nav li{
+			float: left;
+			margin-left: 10px;
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			margin-top: 5px;
+			background: pink;
+		}
+		.nav li.active{
+			background: skyblue;
+		}
+		.waiting{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<ul class="pic">
+			<li class="n0"><a href=""><img src="images/lunbo/1.jpg" alt=""></a></li>
+			<li class="n1"><a href=""><img src="images/lunbo/2.jpg" alt=""></a></li>
+			<li class="n2"><a href=""><img src="images/lunbo/3.jpg" alt=""></a></li>
+			<li class="n3"><a href=""><img src="images/lunbo/4.jpg" alt=""></a></li>
+			<li class="n4"><a href=""><img src="images/lunbo/5.jpg" alt=""></a></li>
+		</ul>
+		<a href="javascript:;" class="btn left">&lt;</a>
+		<a href="javascript:;" class="btn right">&gt;</a>
+		<ul class="nav">
+			<li></li>
+			<li></li>
+			<li class="active"></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<script src="js/jQuery-1.12.4.min.js"></script>
+	<script>
+		var nowPage = 2;
+		var imgMessage = (function() {
+			var arr = [];
+			$('.pic li').each(function() {
+				arr.push({
+					'left': $(this).css('left'),
+					'top': $(this).css('top'),
+					'width': $(this).css('width'),
+					'height': $(this).css('height'),
+				});
+			});
+			return arr;
+		})();
+		var liClass = (function() {
+			var arr = [];
+			$('.pic li').each(function() {
+				arr.push($(this).attr('class'));
+			});
+			return arr;
+		})();
+		$('.right').click(function() {
+			if ($('.pic li').is(':animated')) {
+				return;
+			}
+			nowPage++;
+			if (nowPage > $('.pic li').length - 1) {
+				nowPage = 0;
+			}
+			for (var i = 1; i < $('.pic li').length; i++) {
+				$('.pic li.n' + i).animate(imgMessage[i - 1], 500);
+			}
+			$('.pic li.n0').css(imgMessage[4]);
+			liClass.unshift(liClass.pop());
+			for (var j = 0; j < $('.pic li').length; j++) {
+				$('.pic li').eq(j).attr('class', liClass[j]);
+			}
+			$('.pic li.n4').css(imgMessage[4]);
+			$('.nav li').eq(nowPage).addClass('active').siblings().removeClass('active');
+		});
+		$('.left').click(function() {
+			if ($('.pic li').is(':animated')) {
+				return;
+			}
+			nowPage--;
+			if (nowPage < 0) {
+				nowPage = $('.pic li').length - 1;
+			}
+			for (var i = 0; i < $('.pic li').length - 1; i++) {
+				$('.pic li.n' + i).animate(imgMessage[i + 1], 500);
+			}
+			$('.pic li.n4').css(imgMessage[0]);
+			liClass.push(liClass.shift());
+			for (var j = 0; j < $('.pic li').length; j++) {
+				$('.pic li').eq(j).attr('class', liClass[j]);
+			}
+			$('.pic li.n0').css(imgMessage[0]);
+			$('.nav li').eq(nowPage).addClass('active').siblings().removeClass('active');
+		});
+		$('.nav li').click(function() {
+			if ($(this).index() < nowPage) {
+				for (var i = 0; i < (nowPage - $(this).index()); i++) {
+					liClass.push(liClass.shift());
+				}
+			} else if ($(this).index() > nowPage) {
+				for (var j = 0; j < ($(this).index() - nowPage); j++) {
+					liClass.unshift(liClass.pop());
+				}
+			}
+
+			$('.pic li').stop().fadeOut(200, function() {
+				$('.pic li').each(function(k) {
+					$('.pic li').eq(k).attr('class', liClass[k]);
+				});
+				for (var m = 0; m < $('.pic li').length; m++) {
+					$('.n' + m).css(imgMessage[m]);
+				}
+				$('.pic li').fadeIn();
+			});
+			nowPage = $(this).index();
+			$('.nav li').eq(nowPage).addClass('active').siblings().removeClass('active');
+		});
+	</script>
+</body>
+</html>
