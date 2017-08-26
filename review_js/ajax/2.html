@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#login{
+			width: 300px;
+			height: 200px;
+			background: #efefef;
+			margin: 20px auto;
+		}
+	</style>
+</head>
+<body>
+	<div id="login">
+		用户名：<input type="text" name="uname" id="uname"><br>
+		密码：<input type="password" name="pwd" id="pwd"><br>
+		<input type="button" value="登录">
+	</div>
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		$(':button').click(function() {
+			//创建ajax
+			var xhr = (function() {
+				if (window.XMLHttpRequest) {
+					return new XMLHttpRequest;
+				} else {
+					return new ActiveXObject('Microsoft.XMLHTTP');
+				}
+			})();
+			//连接 获取用户输入的用户名和密码，然后组成字符串添加到地址后面
+			xhr.open('get', '2_01.php?uname=' + $('#uname').val() + '&pwd=' + $('#pwd').val(), true);
+			//发送
+			xhr.send();
+			//接收
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4) {
+					console.log(xhr.responseText);
+				}
+			}
+		});
+	</script>
+</body>
+</html>

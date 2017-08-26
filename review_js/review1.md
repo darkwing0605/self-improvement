@@ -2780,17 +2780,6 @@ clone()
 >小括号中不加参数时，表示原生js中的深度克隆，天生能复制节点中的内容
 >小括号中加参数true，表示jQuery中的深度克隆，能克隆事件
 [克隆](36.html)
-#### 1.无缝滚动轮播图-火车法
-原理：大图的ul动，里面的li都不动
-要实现无缝滚动：就是在正常轮播图后面添加第一张图片，“欺骗”用户的视觉效果
-[无缝滚动轮播图-火车法](37.html)
-
-#### 2.无缝滚动轮播图-三位置法
-[无缝滚动轮播图-三位置法](38.html)
-
-#### 3.无缝滚动-3D轮播图
-[无缝滚动-3D轮播图](39.html)
-
 
 ## 14.快速获取值
 ### 1.快速获取宽高值
@@ -2831,12 +2820,188 @@ $(window).scroll(function(){
 [快速获取值](34.html)
 [京东楼层案例](35.html)
 
+## 15.无缝滚动轮播图案例
+
+#### 1.无缝滚动轮播图-火车法
+原理：大图的ul动，里面的li都不动
+要实现无缝滚动：就是在正常轮播图后面添加第一张图片，“欺骗”用户的视觉效果
+>右键：用户能点击到第六张图，看第六张的时候，快捷导航应该显示到第一个，再点击时，通过css()瞬间把ul的margin-left=0，然后再展示第二张
+>左键：用户到第一张时，再点击左按钮，通过css()瞬间把ul的margin-left=-5*li的宽度，然后再ul从最后一张动画到倒数第二张
+
+[无缝滚动轮播图-火车法](37.html)
+
+#### 2.无缝滚动轮播图-三位置法
+原理：给每个图片一个绝对定位，只有一张显示在可视窗口中，其他所有的都在外面排队
+>右键：让当前显示的这张图片left从0 到-512去 ，然后把下一张图片通过css()瞬间拉到右边(512)，然后再动画它的left 从512到0
+>左键：让当前显示的这张图片left从0 到 512，下一张图片通过css()瞬间拉到左边(-512)，然后动画它的left从-512 到0
+>快捷导航：需要判断点击的这个按钮在当前图片的前面还是后面，如果在前面，相当于点击的是左键；如果在它后面，相当于点击的是右键
+
+[无缝滚动轮播图-三位置法](38.html)
+
+#### 3.无缝滚动-3D轮播图
+原理：定位五张图片，都有各自的大小和位置
+>右键：让所有的图片都到它的前一张图片的位置去，需要拿到前一张图片的大小和位置信息，还需要专门把第一张拿到最后去。然后需要把每个图片对应的类名更换了，更换成它前一张的类名
+>左键：让所有的图片都到它的后一张图片的位置去，需要拿到后一张图片的大小和位置信息，还需要专门把最后一张拿到最前面去。然后需要把每个图片对应的类名更换了，更换成它后一张的类名
+>快捷导航：需要把图片隐藏，排序好后再展示
+[无缝滚动-3D轮播图](39.html)
+
+## 16.BOM
+BOM浏览器对象模型，里面保存都是关于浏览器的一些信息，前端很少操作BOM
+常用操作：
+>定时器
+>>setInterval(function(){}, 时长);	间隔定时器：每隔指定时间就执行一遍功能
+>>setTimeout(function(){}, 时长);	延时定时器：只有到达指定时间功能才会被执行（就执行一次）
+>>>相当于window.setInterval(function(){console.log(this)}, 时长);
+>>>这里的this指向window
+
+>打开新页面
+>>window.open("网址", '打开方式');
+
+>滚动
+>>window.onscroll = function(){}
+
+>获取地址栏中的信息
+>>window.location
+>>得到一个对象
+>>>host：主域名，http和https是两个不同的域名
+>>>href：保存当前页面的完整路径
+>>>port：网络访问端口
+
+>同源策略
+>访问两个网址，看这两个网址是否是同一个地方
+>如果下面这两个条件完全相同，表示是同一个地址；否则就不是
+>>主域名是否相同
+>>>协议是否相同http（普通协议）https（加密协议）
+>>>看主域名名字是否相同
+
+>>看端口号是否相同
+>>>port默认端口号是80，可以不写
+>>>非80端口，在访问时必须写
+
+>网页缩放
+>>resize()
+>>window.onresize = function(){//窗口大小发生改变才会触发}
+
+>页面加载事件
+>>window.onload = function(){//页面加载完成后才触发的}
+
+>
+```javascript
+	//常用的属性和方法
+	//定时器
+	window.setInterval(function(){console.log(111)}, 1000);
+	//打开新窗口
+	window.open('http://www.baidu.com', '_blank');
+	//滚动
+	window.onscroll = function(){	//原生，所以是onscroll
+		console.log(document.body.scrollTop);
+	}
+	//网址
+	console.log(window.location)
+	//网页缩放
+	window.onresize = function(){
+		console.log('窗口大小发生改变了');
+	}
+	//页面加载事件
+	window.onload = function(){
+		console.log('页面加载完成了');
+	}
+```
+
+# 3.ajax
+## 1.什么是HTTP请求
+就是上网时请求网络的一个过程，这个过程包括两步
+>发生请求			Request
+>把请求结果给你	Response
+
+## 2.认识ajax
+主要是连接前台和后台的“中间人”，用于数据传输
+ajax(Asynchronous Javascript And XML)：异步请求
+XML是一种数据传输格式，但是现在几乎没人用了
+>写法难
+>解析难
+
+JSON是现在用的最多的数据传输格式
+主要的体现：不刷新页面，能局部更新数据
+
+## 3.使用ajax
+一个完整ajax请求有四步
+>第一步：创建ajax对象
+>第二步：打开链接，找到服务器
+>第三步：发送数据，你想请求的东西要告诉服务器
+>第四步：服务器把数据返回来
+
+### 1.创建ajax对象
+ajax是js的一个内置构造函数，用的时候需要new出来
+new的时候有兼容性
+```javascript
+//高级浏览器
+new XMLHttpRequest();
+//IE低版本
+new ActiveXObject(Microsoft.XMLHTTP);
+
+//兼容性
+function ajax(){
+	if (window.XMLHttpRequest) {
+		return new XMLHttpRequest();
+	}else{
+		return new ActiveXObject('Microsoft.XMLHTTP');
+	}
+}
+alert(ajax());
+```
+
+### 2.调用ajax对象的方法
+#### 找服务器
+ajax对象.open()方法
+open('请求类型','服务器地址','是否异步');
+>请求类型：get post
+>服务器地址：想要链接的服务器，*ajax天生不能跨域*
+>是否异步：true代表异步执行，false代表同步执行
 
 
 
 
 
+#### 发送数据
+ajax对象.send()方法
+>如果open中请求类型是get方法，这个时候send()小括号中写null或 空着
+>如果open中请求类型是post方法，这个时候需要把请求数据写到send()小括号中，而且在send()方法钱需要添加请求头
+>>ajax对象.setRequestHeader("content-Type","application/x-www-form-urlencoded");
+#### 得到数据
+```javascript
+ajax.onreadystatechange = function(){
+	if(ajax对象.readyState == 4){
+		//这个时候数据就返回来了
+		ajax对象.responseText
+	}
+}
+```
+*访问电脑本地的服务器时，本地路径：127.0.0.1*
 
+### 详细
+#### get方式
+如果请求类型是get，这个时候第三步要发送的数据写在这一步（服务器地址后）
+格式：服务器地址?数据
+>问号后面跟数据，问号最多出现一次
+>数据说明
+>>是键值对组成的：键名=值
+>>多个信息之间用 & 符号连接
+```HTML
+<form action="http://www.baidu.com" method="get">
+	姓名：<input type="text" name="uname">
+	年龄：<input type="text" name="age">
+	<input type="submit" value="提交">
+</form>
+<!-- 输入：小明 8 -->
+<!-- https://www.baidu.com/?uname=小明&age=8 -->
+```
+
+[ajax请求类型为get](http://127.0.0.1/ajax/1.html)
+[简单的登录效果](http://127.0.0.1/ajax/2.html)
+
+#### post方式
+说明：如果是post方式请求，这个时候数据不能再写在“服务器地址”后面，数据需要写在第三步的send()小括号中
 
 
 <script>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="box">
+		用户名：<input type="text" name="uname" id="uname">
+		密码：<input type="password" name="pwd" id="pwd">
+		<input type="button" value="登录">
+	</div>
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		$(':button').click(function() {
+			//创建ajax
+			var xhr = (function() {
+				if (window.XMLHttpRequest) {
+					return new XMLHttpRequest();
+				} else {
+					return new ActiveXObject('Microsoft.XMLHTTP');
+				}
+			})();
+			//连接
+			xhr.open('post', '3_01.php', true);
+			//第三步
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.send('uname=' + $('#uname').val() + '&pwd=' + $('#pwd').val());
+			//接收
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4) {
+					console.log(xhr.responseText);
+				}
+			}
+		});
+	</script>
+</body>
+</html>

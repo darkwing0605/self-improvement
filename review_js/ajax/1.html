@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	姓名：<input type="text" name="uname" id="uname">
+	性别：<input type="text" name="sex" id="sex">
+	年龄：<input type="text" name="age" id="age">
+	<input type="button" name="submit" value="提交">
+	<script type="text/javascript" src="js/jQuery-1.12.4.min.js"></script>
+	<script>
+		$(':button').click(function() {
+			function ajax() {
+				if (window.XMLHttpRequest) {
+					return new XMLHttpRequest();
+				} else {
+					return new ActiveXObject('Microsoft.XMLHTTP');
+				}
+			}
+			var xhr = ajax();
+			console.log(xhr);
+
+			//链接服务器
+			xhr.open('get', '1_01.php?uname=' + $('#uname').val() + '&sex=' + $('#sex').val() + '&age=' + $('#age').val(), true);
+			//发送数据
+			xhr.send();
+			//得到数据
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4) {
+					console.log(xhr.responseText);
+				}
+			}
+		});
+
+	/*
+		// 第一步，创建ajax对象
+		function ajax() {
+			if (window.XMLHttpRequest) {
+				return new XMLHttpRequest();
+			}else{
+				return new ActiveXObject('Microsoft.XMLHTTP');
+			}
+		}
+		var xhr = ajax();
+		console.log(xhr);
+	
+		//链接服务器
+		xhr.open('get','1_01_ajax.txt',true);
+		//发送数据
+		xhr.send();
+		//得到数据
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState == 4) {
+				console.log(xhr.responseText);
+			}
+		}
+	*/
+	</script>
+</body>
+</html>

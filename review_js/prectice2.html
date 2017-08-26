@@ -124,6 +124,9 @@
 		}
 
 		function move() {
+			if ($('.fragments div').is(':animated')){
+				return;
+			}
 			for (var i = 0; i < 40; i++) {
 				$('<div></div>').css({
 					'position': 'absolute',
@@ -162,6 +165,11 @@
 			move();
 		})
 		$('.nav ul li').click(function(){
+			if ($('.fragments ul li').is(':animated')){
+				return;
+			}
+			nowPage = $(this).index();
+			$('.nav ul li').eq(nowPage).addClass('active').siblings().removeClass('active');
 			getNum();
 			move();
 		});
