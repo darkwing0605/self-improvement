@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#box{
+			width: 300px;
+			height: 200px;
+			background: #efefef;
+			margin: 20px auto;
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<label for="uname">用户名：</label>
+		<input type="text" name="uname" id="uname"><br>
+		<label for="pwd">密码：</label>
+		<input type="password" name="pwd" id="pwd"><br>
+		<input type="button" value="注册">
+	</div>
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		$(':button').click(function() {
+			var xhr = (function() {
+				if (window.XMLHttpRequest) {
+					return new XMLHttpRequest;
+				} else {
+					return new ActiveXObject('Microsoft.XMLHTTP');
+				}
+			})();
+			xhr.open('get', '4_01.php?uname=' + $('#uname').val() + '&pwd=' + $('#pwd').val(), true);
+			xhr.send();
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4) {
+					if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
+						console.log(xhr.responseText);
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>

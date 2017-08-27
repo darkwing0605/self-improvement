@@ -2979,8 +2979,8 @@ ajax.onreadystatechange = function(){
 ```
 *访问电脑本地的服务器时，本地路径：127.0.0.1*
 
-### 详细
-#### get方式
+## 4.open()方法（详细）
+### get方式
 如果请求类型是get，这个时候第三步要发送的数据写在这一步（服务器地址后）
 格式：服务器地址?数据
 >问号后面跟数据，问号最多出现一次
@@ -3000,10 +3000,111 @@ ajax.onreadystatechange = function(){
 [ajax请求类型为get](http://127.0.0.1/ajax/1.html)
 [简单的登录效果](http://127.0.0.1/ajax/2.html)
 
-#### post方式
+### post方式
 说明：如果是post方式请求，这个时候数据不能再写在“服务器地址”后面，数据需要写在第三步的send()小括号中
+[ajax请求类型为post](http://127.0.0.1/ajax/3.html)
 
+## 5.第四步（详细）
+ajax.onreadystatechange() = function(){}
+onreadystatechange是ajax中的一个监听方法，通过这个方法，我们可以监听ajax的状态码和HTTP服务器状态码
 
-<script>
+### 1.ajax状态码
+readyState这个属性中保存的
+readyState有五个状态码
+>0：ajax刚被创建
+>1：调用open()方法
+>2：服务器把响应的头部返回
+>3：开始接收数据
+>4：数据接收完成，和服务器断开连接
+```javascript
+xhr.onreadystatechange = function(){
+	console.log(xhr.readyState); //只能得到2 3 4
+}
+```
 
-</script>
+### 2.HTTP状态码
+HTTP状态码是服务器返回来的一个表示状态的数值
+>2开头都表示请求成功
+>304也表示请求成功
+>4开头的表示请求的页面发生了错误
+>5/6开头的都是服务器出错了，需要后台人员去解决
+>>我们经常使用HTTP状态码为*大于等于200，小于300，或等于304*
+
+HTTP状态码：status来保存的
+
+>1 消息（1字头）代表请求已被接受，需要继续处理。这类响应是临时响应，只包含状态行和某些可选的响应头信息，并以空行结束。
+>>▪ 100 Continue
+>>▪ 101 Switching Protocols
+>>▪ 102 Processing
+
+>2 成功（2字头）代表请求已成功被服务器接收、理解、并接受
+>>▪ 200 OK
+>>▪ 201 Created
+>>▪ 202 Accepted
+>>▪ 203 Non-Authoritative Information
+>>▪ 204 No Content
+>>▪ 205 Reset Content
+>>▪ 206 Partial Content
+>>▪ 207 Multi-Status
+
+>3 重定向（3字头）代表需要客户端采取进一步的操作才能完成请求。通常，这些状态码用来重定向，后续的请求地址（重定向目标）在本次响应的 Location 域中指明。
+>>▪ 300 Multiple Choices
+>>▪ 301 Moved Permanently
+>>▪ 302 Move temporarily
+>>▪ 303 See Other
+>>▪ 304 Not Modified
+>>▪ 305 Use Proxy
+>>▪ 306 Switch Proxy
+>>▪ 307 Temporary Redirect
+
+>4 请求错误（4字头）代表了客户端看起来可能发生了错误，妨碍了服务器的处理。
+>>▪ 400 Bad Request
+>>▪ 401 Unauthorized
+>>▪ 402 Payment Required
+>>▪ 403 Forbidden
+>>▪ 404 Not Found
+>>▪ 405 Method Not Allowed
+>>▪ 406 Not Acceptable
+>>▪ 407 Proxy Authentication Required
+>>▪ 408 Request Timeout
+>>▪ 409 Conflict
+>>▪ 410 Gone
+>>▪ 411 Length Required
+>>▪ 412 Precondition Failed
+>>▪ 413 Request Entity Too Large
+>>▪ 414 Request-URI Too Long
+>>▪ 415 Unsupported Media Type
+>>▪ 416 Requested Range Not Satisfiable
+>>▪ 417 Expectation Failed
+>>▪ 422 Unprocessable Entity
+>>▪ 423 Locked
+>>▪ 424 Failed Dependency
+>>▪ 425 Unordered Collection
+>>▪ 426 Upgrade Required
+>>▪ 449 Retry With
+>>▪ 451Unavailable For Legal Reasons
+
+>5 服务器错误（5、6字头）代表了服务器在处理请求的过程中有错误或者异常状态发生，也有可能是服务器意识到以当前的软硬件资源无法完成对请求的处理。
+>>▪ 500 Internal Server Error
+>>▪ 501 Not Implemented
+>>▪ 502 Bad Gateway
+>>▪ 503 Service Unavailable
+>>▪ 504 Gateway Timeout
+>>▪ 505 HTTP Version Not Supported
+>>▪ 506 Variant Also Negotiates
+>>▪ 507 Insufficient Storage
+>>▪ 509 Bandwidth Limit Exceeded
+>>▪ 510 Not Extended
+>>▪ 600 Unparseable Response Headers
+
+[HTTP状态码登录功能](http://127.0.0.1/ajax/4.html)
+
+### 3.responseText
+responseText是ajax的一个属性，作用是保存服务器传回来的结果
+得到的结果是一个*字符串*
+解析得到的结果
+JSON.parse(字符串);
+[解析json](http://127.0.0.1/ajax/5.html)
+
+[注册登录案例_txt](127.0.0.1/ajax/6.html)
+[注册登录案例_json](127.0.0.1/ajax/7.html)
