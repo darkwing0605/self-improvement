@@ -3102,9 +3102,66 @@ HTTP状态码：status来保存的
 ### 3.responseText
 responseText是ajax的一个属性，作用是保存服务器传回来的结果
 得到的结果是一个*字符串*
-解析得到的结果
-JSON.parse(字符串);
+如果返回值的数据格式是字符串，这时用字符串的方法解析
+如果返回值的数据格式是JSON，这时用JSON.parse()解析
+如果返回值的数据格式是XML，这时接收数据用ajax对象.responseXML，得到一个文档结构，想进一步使用需要DOM操作
+```javascript
+$('#uname').html(xhr.responseXML.getElementsByTagName('name')[0].innerHTML);
+```
 [解析json](http://127.0.0.1/ajax/5.html)
+[解析XML](http://127.0.0.1/ajax/8.html)
 
-[注册登录案例_txt](127.0.0.1/ajax/6.html)
-[注册登录案例_json](127.0.0.1/ajax/7.html)
+[注册登录案例_txt](http://127.0.0.1/ajax/6.html)
+[注册登录案例_json](http://127.0.0.1/ajax/7.html)
+
+## 6.跨域
+### 1.ajax天生不能跨域
+跨域：指不符合同源策略的都是跨域
+```javascript
+xhr.open('post', 'D:/8_personMessage.xml', true);  //不是服务器文件夹下
+```
+这个时候回报错，跨域了
+
+### 2.解决跨域
+解决跨域有两种方式，
+>第一种：前端方式（自己解决）
+>第二种：后台方法（后台人员解决）
+
+#### 前端解决方法
+不使用ajax，使用script标签
+script标签中的src属性没有跨域问题
+[src具备跨域能力](http://127.0.0.1/ajax/9.html)
+
+##### 可以在当前的js中调用外部的函数
+这个外部的函数是通过script引入的外部
+[在当前的js中调用外部的函数](http://127.0.0.1/ajax/12.html)
+[跨域请求数据](http://127.0.0.1/ajax/13.html)
+
+##### JSONP跨域
+*通过给页面中添加script标签引入外部js，外部js调用本地函数时调用传入数据*
+[JSONP跨域](http://127.0.0.1/ajax/14.html)
+*JSONP跨域创建script标签时可以传入更多的信息，后台可以根据传入的信息更精准的返回数据*
+传入数据的写法：*服务器地址?数据1=值1&数据2=值2*
+```javascript
+var oScript = $('<script src="http://127.0.0.1:88/13_01.js?page="+page+"&callback="+data+"&aa=aa&bb=bb"></script>');
+// 此处</script>应为<\/script>
+```
+
+##### callback
+后台人员会处理数据名，一般情况下会给前台人员留一个callback接口，这个接口的意思是让前台人员自己决定用什么函数名，如果前台人员没有自己指定，这个时候默认用函数名callBack
+```PHP
+//得到你传进来的callback
+$callback = $_GET['callback'];
+//判断是否为空
+$callback = ($callback==""?'callback':$callback);
+
+echo "$callback({'name': '小明','sex': '女'})";
+```
+[callback](http://127.0.0.1/ajax/10.html)
+
+#### 后端解决方法
+PHP解决方法：file_get_contents("路径");
+这个时候需要使用ajax连接后台，剩下的就是后台来处理
+[后端解决方法](http://127.0.0.1/ajax/11.html)
+
+[解析JSON数据案例](http://127.0.0.1/ajax/15.html)

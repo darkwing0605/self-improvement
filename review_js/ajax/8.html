@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	姓名：<span id="uname"></span>
+	年龄：<span id="age"></span>
+	性别：<span id="sex"></span>
+	<button id="btn">点我</button>
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		$('#btn').click(function(){
+			var xhr = (function(){
+				if (window.XMLHttpRequest) {
+					return new XMLHttpRequest();
+				}else{
+					return new ActiveXObject('Microsoft.XMLHTTP');
+				}
+			})();
+			xhr.open('post', '8_personMessage.xml', true);
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencode');
+			xhr.send();
+			xhr.onreadystatechange = function(){
+				if (xhr.readyState == 4) {
+					if (xhr.status>=200&&xhr.status<300||xhr.status==304) {
+						// console.log(xhr.responseText);
+						$('#uname').html(xhr.responseXML.getElementsByTagName('name')[0].innerHTML);
+						$('#age').html(xhr.responseXML.getElementsByTagName('age')[0].innerHTML);
+						$('#sex').html(xhr.responseXML.getElementsByTagName('sex')[0].innerHTML);
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>

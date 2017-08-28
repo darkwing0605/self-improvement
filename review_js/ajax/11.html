@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	姓名：<input type="text" name="uname" id="uname"><br>
+	年龄：<input type="text" name="age" id="age"><br>
+	性别：<input type="text" name="sex" id="sex"><br>
+	<button id="btn">点我</button>
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		$('#btn').click(function() {
+			var xhr = (function() {
+				if (window.XMLHttpRequest) {
+					return new XMLHttpRequest();
+				} else {
+					return new ActiveXObject('Microsoft.XMLHTTP');
+				}
+			})();
+			xhr.open('get', '11_01.php', true);
+			xhr.send();
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4) {
+					if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
+						var data = JSON.parse(xhr.responseText);
+						DOMcz(data);
+					}
+				}
+			}
+		});
+
+		function DOMcz(data) {
+			$('#uname').val(data.name);
+			$('#age').val(data.age);
+			$('#sex').val(data.sex);
+		}
+	</script>
+</body>
+</html>

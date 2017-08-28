@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="box"></div>
+	<!-- 这个时候引入的jQuery不是服务器下的文件，是其他路径下面的 -->
+	<script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+		$('#box').css({
+			'width': 300,
+			'height': 300,
+			'background': 'orange'
+		});
+	</script>
+</body>
+</html>

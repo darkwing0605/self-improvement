@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background: #eeeeee;
+		}
+		ul{
+			list-style: none;
+			width: 1040px;
+			padding: 0px 20px;
+			background: #ffffff;
+			margin: 0 auto;
+		}
+		ul li{
+			height: 70px;
+			padding-top: 30px;
+			border-bottom: 1px solid #eeeeee;
+		}
+		ul li>div{
+			float: left;
+		}
+		.jobName{
+			width: 400px;
+		}
+		.jobName span{
+			display: block;
+		}
+		.workPlace, .salary, .source{
+			width: 150px;
+		}
+	</style>
+</head>
+<body>
+	<ul class="list">
+<!-- 		<li>
+			<div class="jobName">
+				<a href="">销售支持工程师（北京）</a>
+				<span class="company">通力电梯有限公司</span>
+			</div>
+			<div class="workPlace">
+				<span>ori_city:"北京"</span>
+			</div>
+			<div class="salary">
+				<span>面议</span>
+			</div>
+			<div class="source">
+				<span>猎聘网</span>
+			</div>
+			<div class="startTime">
+				<span>2016-09-19</span>
+			</div>
+		</li> -->
+	</ul>
+	<button id="btn">点我</button>
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script>
+		$('#btn').click(function() {
+			var xhr = (function() {
+				if (window.XMLHttpRequest) {
+					return new XMLHttpRequest();
+				} else {
+					return new ActiveXObject('Microsoft.XMLHTTP');
+				}
+			})();
+			xhr.open('get', 'data/zhaopin1.json', true);
+			xhr.send();
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4) {
+					if (xhr.status >= 200 && xhr.status < 300 || xhr.status == 304) {
+						var data = JSON.parse(xhr.responseText);
+						DOMcz(data);
+						console.log(data);
+						console.log(data.data.dist_info[0]);
+					}
+				}
+			}
+		});
+		function DOMcz(data){
+			//解析数据并添加到页面
+			// $('<li><div class="jobName"><a href="'+data.data.data.disp_data[0].sourcelink+'">'+data.data.data.disp_data[0].name+'</a><span class="company">'+data.data.data.disp_data[0].officialname+'</span></div><div class="workPlace"><span>'+data.data.data.disp_data[0].ori_city+'</span></div><div class="salary"><span>'+data.data.data.disp_data[0].ori_salary+'</span></div><div class="source"><span>'+data.data.data.disp_data[0].source+'</span></div><div class="startTime"><span>'+data.data.data.disp_data[0].startdate+'</span></div></li>').appendTo($('.list'));
+			var json = data.data.data.disp_data;
+			for(var i = 0; i<json.length; i++){
+				$('<li><div class="jobName"><a href="'+json[i].sourcelink+'">'+json[i].name+'</a><span class="company">'+json[i].officialname+'</span></div><div class="workPlace"><span>'+json[i].ori_city+'</span></div><div class="salary"><span>'+json[i].ori_salary+'</span></div><div class="source"><span>'+json[i].source+'</span></div><div class="startTime"><span>'+json[i].startdate+'</span></div></li>').appendTo($('.list'));
+			}
+		}
+	</script>
+</body>
+</html>
