@@ -580,6 +580,82 @@ var arr = [1,2,3,4];
 var str = arr.join('---');
 ```
 
+### ES5新特性
+#### 1.every
+对于数组每一个元素进行一个函数的运行，如果都返回true，最后返回true，如果有一个返回false，最后返回false
+```javascript
+var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+var result1 = arr.every(function(item, index, array) {
+	return item > 2;
+});
+console.log(result1); //false
+var result2 = arr.every(function(item, index, array) {
+	return item > 0;
+})
+console.log(result2); //true
+```
+#### 2.filter
+对于数组的每一个元素进行一个函数的运行，给定的函数去执行，把过滤后的结果返回
+```javascript
+var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+var result = arr.filter(function(item, index, array) {
+	return item > 2;
+});
+console.log(result); //[3, 4, 5, 4, 3]
+```
+#### 3.forEach
+循环数组每一项的值，并执行一个方法
+```javascript
+var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+arr.forEach(function(item, index, array) {
+	console.log(item); //1 2 3 4 5 4 3 2 1
+});
+```
+#### 4.map
+对于数组的每一个元素进行一个函数的运行，可以经过函数执行完毕后，把新的结果返回
+```javascript
+var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+var result = arr.map(function(item, index, array) {
+	return item * 2;
+});
+console.log(result); //[2, 4, 6, 8, 10, 8, 6, 4, 2]
+```
+#### 5.some
+对于数组每一个元素进行一个函数的运行，如果有一项返回true，最后则返回true，如果每一项都返回false，最后则返回false
+```javascript
+var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+var result1 = arr.some(function(item, index, array) {
+	return item > 10;
+});
+console.log(result1); //false
+var result2 = arr.some(function(item, index, array) {
+	return item >= 5;
+});
+console.log(result2); //true
+```
+#### 6.reduce
+从左遍历
+```javascript
+var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+var result = arr.reduce(function(prev, cur, index, array) {
+	//前一个值，当前值，索引位置，数组本身
+	return prev + cur;
+});
+console.log(result);
+```
+#### 7.reduceRight
+从右遍历
+```javascript
+var arr = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+var result = arr.reduceRight(function(prev, cur, index, array) {
+	//前一个值，当前值，索引位置，数组本身
+	return prev + cur;
+});
+console.log(result);
+```
+
+
+
 ## 5.字符串对象
 
 >字符串：用引号引起来的东西就是字符串。
@@ -3165,3 +3241,298 @@ PHP解决方法：file_get_contents("路径");
 [后端解决方法](http://127.0.0.1/ajax/11.html)
 
 [解析JSON数据案例](http://127.0.0.1/ajax/15.html)
+
+## 7.jQuery中的ajax
+### 1.$.get()
+get请求方式
+$.get('路径','数据',function(){//请求成功时的回调函数});
+>参数1：路径
+>参数2：要发送的数据，是个可选参数，写的时候按JSON格式写
+>参数3：成功时的回调函数，一般都会有一个参数，用来接收返回来的数据
+
+### 2.$.post()
+post请求方式
+$.post('路径','数据',function(){//请求成功时的回调函数});
+>参数1：路径
+>参数2：要发送的数据，是个可选参数，写的时候按JSON格式写
+>参数3：成功时的回调函数，一般都会有一个参数，用来接收返回来的数据
+
+### 3.$.getJSON()
+得到JSON数据，而且解析好了，可以直接使用
+$.getJSON('路径','数据',function(){//请求成功时的回调函数});
+
+### 4.$.ajax()
+功能最完善，需要传的参数比较多，所有参数放在一个JSON中
+```javascript
+$.ajax({
+	'url': '路径',
+	'type': '请求方法',
+	'async': '是否异步',
+	'data': {},
+	'beforeSend': function(){//发送ajax前做的事},
+	'complete': function(){//ajax状态码到4的时候做的事},
+	'success': function(){//ajax状态码为4且HTTP状态码为200做的事},
+	'error': function(){//请求失败时做的事},
+	'dataType': 'json/jsonp/xml/txt',
+	'jsonp': '修改callback的名字',
+	'jsonpCallback': '改变后台调用函数的名字'
+});
+```
+例↓
+```javascript
+$.ajax({
+	'url': '16_01.js',
+	'type': 'get',
+	'success': function(data) {
+		console.log(data);
+	}
+});
+```
+
+### 5.解决跨域能力
+jQuery中$.ajax()函数已经封装了跨域能力，可以直接使用
+```javascript
+$.ajax({
+	'url': '路径',
+	'dataType': 'jsonp',
+	'jsonp': 'callback',
+	'jsonpCallback': 'add',
+	'success': function(){}
+});
+```
+例↓
+```javascript
+$.ajax({
+	'url': 'http://127.0.0.1:88/13_01.js',
+	'dataType': 'jsonp',
+	// 'jsonp': 'aaa',
+	'jsonpCallback': 'data',
+	'success': function(json) {
+		console.log(json);
+	}
+});
+```
+
+## 8.ajax中的两个小点
+### 1.get请求方式，存在缓存问题
+IE低版本中比较严重
+后台数据已经更改了，但是刷新页面，页面中的数据不变
+
+IE低版本的判断机制
+>看URL是否发生改变，没有发生改变，就认为页面没有新动态
+
+解决方法
+>xhr.open('get', '17_01.php?zz=' + Math.random(), true);
+>xhr.open('get', '17_01.php?zz=' + new Date().getTime(), true);
+[解决IE低版本缓存问题](http://127.0.0.1/ajax/17.html)
+
+### 2.encodeURI() decodeURI()
+汉字转成URI编码  URI编码转回汉字
+js中内置的方法
+```javascript
+console.log(encodeURI('我是汉字')); //%E6%88%91%E6%98%AF%E6%B1%89%E5%AD%97
+console.log(decodeURI('%E6%88%91%E6%98%AF%E6%B1%89%E5%AD%97')); //我是汉字
+```
+
+### 3.JSON.stringfty()
+把JSON转成字符串
+数据向服务器传送时，需要转成字符串再传
+```javascript
+var json1 = {
+	'name': '小明',
+	'age': 8
+}
+var str1 = JSON.stringify(json1);
+console.log(str1);
+console.log(typeof str1);
+```
+
+### 4.get和post方式的区别
+#### 1.get方式
+发送的数据量比较小，一般不超过5M
+发送的数据会显示在地址栏中（比较不安全）
+请求速度比较快
+#### 2.post方式
+发送的数据量比较大
+发送的数据不会显示（比较安全）
+请求速度比较慢
+
+## 9.正则表达式
+它是js中的内置对象，用的时候有两种创建方式
+>字面量方式
+>>var reg = /正则表达式/;
+
+>构造函数法
+>>var reg1 = new RegExp(正则表达式);
+
+### 1.作用
+匹配验证字符串，常用在表单验证
+
+### 2.基本语法
+它是由基本符号（数字、字母、下划线）和特殊符号（  ^$\()*.[]  ）组成的
+
+### 3.自己具备的方法
+test() 测试的作用，返回布尔值
+exec() 测试方法，只能测试匹配到的第一个（用的较少），匹配到了返回下标，匹配不到返回-1
+
+### 4.字符串的四个方法
+match(/正则/)
+replace(/正则/)
+search(/正则/)
+split(/正则/)
+
+### 5.写法
+#### 1.精准匹配
+匹配指定的字符
+```javascript
+var str = 'abc sdfo asdt dsgsgoj sfosdjf lo'
+// 精准匹配sd
+console.log(str.match(/sd/)); 
+// ["sd", index: 4, input: "abc sdfo asdt dsgsgoj sfosdjf lo"]
+
+console.log(str.match(/sd/g)); 
+// ["sd", "sd", "sd"]
+```
+
+#### 2.字符集
+匹配范围内的字符串
+
+##### 1.基本范围类
+[规则]
+>中括号中能匹配到任意一个就算匹配到了
+```javascript
+var str = 'abc sdfo asdt dsgsgoj sfosdjf lo'
+// 找sdt sdf sdj
+console.log(str.match(/sd[tfj]/g));
+// ["sdf", "sdt", "sdj"]
+console.log(str.match(/sd[tfjasd]/g));
+// ["sdf", "sdt", "sdj"]
+```
+
+##### 2.负向类
+[^规则]
+>除了中括号中的情况都能匹配到
+```javascript
+var str = 'abc sdfo asdt dsgsgoj sfosdjf lo sdy'
+console.log(str.match(/sd[^tfj]/g));
+// ["sdy"]
+```
+
+##### 3.范围类
+这里的范围只有两种：a-z、A-Z (a-Z)、0-9
+范围类中可以写多个范围：[a-z0-9]
+[范围]
+```javascript
+var str = 'abc sdfo asdt sdSgsgoj sfosdjf lo sdy'
+console.log(str.match(/sd[a-zA-Z]/g));
+// ["sdf", "sdt", "sdS", "sdj", "sdy"]
+```
+
+#### 3.修饰符
+1.全局匹配：g
+2.忽略大小写：i
+```javascript
+var str = 'abc sdfo asdt sdSgsgoj sfosdjf lo sdy'
+console.log(str.match(/sds/ig));
+// ["sdS"]
+```
+
+#### 4.内置预定义类
+.  匹配除了换行回车以外的任何字符
+\d 匹配数字0-9
+\D 匹配除了数字
+\w 匹配字母、数字、下划线
+\W 匹配除了字母、数字、下划线
+\s 匹配空格、回车、换行
+\S 匹配除了空格、回车、换行
+
+#### 5.量词
+指匹配的次数
+
+##### 1.固定量词
+{数字}
+```javascript
+var str = 'abc sddsddfo asdt sdSgsgoj sfosdjf lo sdy'
+console.log(str.match(/sd{2}/g));
+// ["sdd", "sdd"]
+```
+
+##### 2.软性量词
+{数字,}  大于等于个数
+```javascript
+var str = 'abc sddsddfo asdt sdSgsgoj sfosdjf lo sdy'
+console.log(str.match(/sd{1,}/g));
+// ["sdd", "sdd", "sd", "sd", "sd", "sd"]
+```
+
+##### 3.范围量词
+{数字1,数字2}
+```javascript
+var str = 'abc sddsddfo asddddt sddddddSgsgoj sfosdjf lo sdy'
+console.log(str.match(/sd{1,3}/g));
+// ["sdd", "sdd", "sddd", "sddd", "sd", "sd"]
+```
+
+##### 4. *
+能匹配任意次数
+```javascript
+var str = 'abc sddsddfo asddddt sddddddSgsgoj sfosdjf lo sdy'
+console.log(str.match(/sd*/g));
+// ["sdd", "sdd", "sdddd", "sdddddd", "s", "s", "sd", "sd"]
+```
+
+##### 5. +
+匹配大于等于1次的，相当于{1,}
+```javascript
+var str = 'abc sddsddfo asddddt sddddddSgsgoj sfosdjf lo sdy'
+console.log(str.match(/sd+/g));
+// ["sdd", "sdd", "sdddd", "sdddddd", "sd", "sd"]
+```
+
+##### 6. ?
+匹配0次或1次
+```javascript
+var str = 'abc sddsddfo asddddt sddddddSgsgoj sfosdjf lo sdy'
+console.log(str.match(/sd?/g));
+// ["sd", "sd", "sd", "sd", "s", "s", "sd", "sd"]
+```
+
+#### 6.边界
+##### 1. ^
+不是写在字符集中，*写在正则表达式最前面的一个符号*
+作用：匹配以什么开头的
+```javascript
+var str = 'abc sddsddfo asddddt sddddddSgsgoj sfosdjf lo sdy'
+console.log(str.match(/^a[a-zA-Z0-9]+/g));
+// ["abc"]
+console.log(str.match(/^asd[a-zA-Z0-9]+/g));
+// null
+```
+
+##### 2. $
+写在正则表达式的最后面
+作用：匹配以什么结尾的
+```javascript
+var str = 'abc sddsddfo asddddt sddddddSgsgoj sfosdjf lo sdy'
+console.log(str.match(/y$/g));
+// ["p"]
+console.log(str.match(/p$/g));
+// null
+```
+
+#### 7.分组
+()
+用在正则表达式非字符集中
+```javascript
+var str = 'goodbye goodbyebye';
+console.log(str.match(/good(bye){2}/g));
+// ["goodbyebye"]
+```
+
+#### 8.或
+|
+```javascript
+var str = 'goodbye,goodbyebye goodbyebyebye';
+console.log(str.split(/,| /g));
+// ["goodbye", "goodbyebye", "goodbyebyebye"]
+```
