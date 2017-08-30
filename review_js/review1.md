@@ -1,7 +1,7 @@
 <div style="width:50px;height:50px;border-radius:50%;background-color:cyan;position:fixed;right:100px;bottom:100px;line-height:50px;text-align:center;font-size:30px;color:white;cursor:pointer;">↑</div><script>var div=document.querySelector('div');div.onclick=function(eve){var timer=setInterval(function(){var scrollDistance=document.body.scrollTop||document.documentElement.scrollTop;scrollDistance=scrollDistance*0.8;document.body.scrollTop=scrollDistance;document.documentElement.scrollTop=scrollDistance;if(scrollDistance==0){clearInterval(timer)}},30)}</script>
 [TOC]
 
-# 复习
+# JavaScript
 
 ## 1.js组成
 
@@ -2374,11 +2374,164 @@ xiaoHong.zoulu();
 xiaoHong.fudaoban();
 ```
 
+### 5.5模拟extjs底层继承方式
+```javascript
+function extend(sub, sup) {
+	// 目的：实现只继承父类的原型对象
+	var F = new Function(); // 1.创建一个空函数  目的：空函数进行中转
+	F.prototype = sup.prototype; // 2.实现空函数的原型对象和超类的原型对象转换
+	sub.prototype = new F(); // 3.原型继承
+	sub.prototype.constructor = sub; // 4.还原子类的构造器
+	// 保存一下父类的原型对象，一方面方便解耦，另一方面方便获得父类的原型对象
+	sub.superClass = sup.prototype; //自定义一个子类的静态属性，接收父类的原型对象
+
+	// 判断父类的原型对象的构造器（加保险）
+	if (sup.prototype.constructor == Object.prototype.constructor) {
+		sup.prototype.constructor = sup; //手动获取父类原型的构造器
+	}
+}
+
+// 混合继承，原型继承和用构造函数继承
+function Person(name, age) {
+	this.name = name;
+	this.age = age;
+}
+Person.prototype = {
+	constructor: Person,
+	sayHello: function() {
+		console.log('Hello World!');
+	}
+};
+
+function Boy(name, age, sex) {
+	Boy.superClass.constructor.call(this, name, age);
+	this.sex = sex;
+}
+extend(Boy, Person);
+
+var b = new Boy('张三', 20, '男');
+console.log(b.name);
+console.log(b.sex);
+b.sayHello();
+```
+
 ### 6.面向对象解决方法
 解决大量功能相同的元素
 面向对象的核心思想：自治
 [红绿灯](10.html)
 [行走的小女孩](11.html)
+
+## 设计模式
+### 1.建立接口的方式
+#### 1.注释描述的方式
+优点
+>程序员可以有一个参考
+
+缺点
+>还是属于文档的范畴
+>这种方式太松散了，没有检查接口的方法是否完全被实现
+
+```javascript
+/**
+ *	interface Composite {
+ *		function add(obj);
+ *		function remove(obj);
+ *		function update(obj);
+ *	}
+ */
+
+// CompositeImp1 implements Composite
+var CompositeImp1 = function() {
+	//
+}
+
+CompositeImp1.prototype.add = function(obj) {
+	//do something...
+}
+CompositeImp1.prototype.remove = function(obj) {
+	//do something...
+}
+CompositeImp1.prototype.update = function(obj) {
+	//do something...
+}
+
+var o1 = new CompositeImp1();
+var o2 = new CompositeImp1();
+console.log(o1.add == o2.add);
+```
+#### 2.属性检测的方法
+```javascript
+/**
+ *	interface Composite {
+ *		function add(obj);
+ *		function remove(obj);
+ *		function update(obj);
+ *	}
+ *
+ *	interface FormItem {
+ *		function select(obj);
+ *	}
+ */
+
+//CompositeImp1 implenents Composite , FormItem
+var CompositeImp1 = function() {
+	// 显示的在类的内部，接收所实现的接口
+	// 一般来说是一个规范，我们项目经理：在类的内部定义一个数组（名字要固定）
+	this.implenentsInterfaces = ['Composite', 'FormItem'];
+}
+
+CompositeImp1.prototype.add = function(obj) {
+	//do something...
+	alert('add...');
+}
+CompositeImp1.prototype.remove = function(obj) {
+	//do something...
+}
+CompositeImp1.prototype.update = function(obj) {
+	//do something...
+}
+CompositeImp1.prototype.select = function(obj) {
+	//do something...
+}
+
+//检测CompositeImp1类的对象
+function CheckCompositeImp1(instance) {
+	// 判断当前对象是否实现了所有的接口
+	if (!IsImplements(instance, 'Composite', 'FormItem')) {
+		throw new Error('Object does not implement a required interface!');
+	}
+}
+
+// 公用的具体的检测方法（核心方法），返回值类型为boolean
+// 这个方法的主要目的，就是判断实例对象有没有实现相关的接口
+function IsImplements(object) {
+	// arguments对象，获得函数的实际参数
+	for (var i = 1; i < arguments.length; i++) {
+		// 接收所实现的每一个接口的名字
+		var interfaceName = arguments[i];
+		// 判断此方法到底是成功还是失败
+		var interfaceFound = false;
+		for (var j = 0; j < object.implenentsInterfaces.length; j++) {
+			if (object.implenentsInterfaces[j] == interfaceName) {
+				interfaceFound = true;
+				break;
+			}
+		}
+		if (!interfaceFound) {
+			return false;
+		}
+	}
+	return true;
+}
+
+var c1 = new CompositeImp1();
+CheckCompositeImp1(c1);
+c1.add();
+```
+
+#### 3.鸭式辨型的方法
+### 2.
+
 
 # jQuery
 
