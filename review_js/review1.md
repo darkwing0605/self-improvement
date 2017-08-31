@@ -2423,6 +2423,11 @@ b.sayHello();
 
 ## 设计模式
 ### 1.建立接口的方式
+接口的缺点
+>对于一些中小型程序来说，使用接口很显然是不明智的，对项目来说接口的好处也不明显，只是徒增其复杂度而已
+
+接口的优点
+>首先促进代码的重用，对于开发来讲，还可以告诉程序员那些类都使用了什么方法>如果你事先知道接口，那么就减少了你在编码的时候对类与类之间冲突，实现解耦>对于测试和调试也会变得轻松，用JavaScript的弱类型语言，类型不匹配经常出现，那么使用接口，这一点会更容易些
 #### 1.注释描述的方式
 优点
 >程序员可以有一个参考
@@ -2460,6 +2465,15 @@ var o2 = new CompositeImp1();
 console.log(o1.add == o2.add);
 ```
 #### 2.属性检测的方法
+优点
+>检测类的实例有没有实现接口
+>有一定解耦性
+
+缺点
+>没有完全的脱离注释
+>不能检测实现接口里面的方法
+>没有面向对象的思想
+
 ```javascript
 /**
  *	interface Composite {
@@ -2530,7 +2544,318 @@ c1.add();
 ```
 
 #### 3.鸭式辨型的方法
-### 2.
+优点
+>保留了面向对象
+>实现了解耦
+>应用灵活
+
+鸭式辨型法实现的核心：一个类实现接口的主要目的：把接口里的方法都实现（检测方法）
+
+```javascript
+// 1.接口类 Class Interface 目的：实例化N多接口
+
+/*
+ *	接口类需要2个参数
+ *	参数1：接口的名字
+ *	接口2：接收方法名称的集合（数组）
+ */
+
+var Interface = function(name, methods) {
+	// 判断接口的参数个数
+	if (arguments.length != 2) {
+		throw new Error('This instance interface constructor arguments must be 2 length!');
+	}
+	this.name = name;
+	this.methods = []; // 定义一个内置的空数组对象，等待接收methods里的元素（方法名字）
+	for (var i = 0, len = methods.length; i < len; i++) {
+		if (typeof methods[i] !== 'string') {
+			throw new Error('the Interface methods name must be string!');
+		}
+		this.methods.push(methods[i]);
+	}
+}
+
+// 2.准备工作
+// 2.1实例化接口对象
+var CompositeInterface = new Interface('CompositeInterface', ['add', 'remove']);
+var FormItemInterface = new Interface('FormItemInterface', ['update', 'select']);
+
+// CompositeImp1 implements CompositeInterface, FormItemInterface
+
+// 2.2具体的实现类
+var CompositeImp1 = function() {}
+
+// 2.3实现接口的方法Implements methods
+CompositeImp1.prototype.add = function(obj) {
+	//do something...
+	alert('add');
+}
+CompositeImp1.prototype.remove = function(obj) {
+	//do something...
+	alert('remove');
+}
+CompositeImp1.prototype.update = function(obj) {
+	//do something...
+	alert('update');
+}
+CompositeImp1.prototype.select = function(obj) {
+	//do something...
+	alert('select');
+}
+
+
+// 3.检验接口里的方法
+// 如果检验通过，不做任何操作，不通过浏览器抛出异常
+// 这个方法的目的，就是检测方法的
+Interface.ensureImplements = function(object) {
+	// 如果检测方法接收的参数小于2个，参数传递失败
+	if (arguments.length < 2) {
+		throw new Error('Interface.ensureImplements method constructor arguments must be >= 2!');
+	}
+	// 获得接口实例对象
+	for (var i = 1, len = arguments.length; i < len; i++) {
+		var instanceInterface = arguments[i];
+		// 判断参数是否是接口类的类型
+		if (instanceInterface.constructor !== Interface) {
+			throw new Error('the arguments constructor not be Interface Class');
+		}
+		// 循环接口实例对象里面的每一个方法
+		for (var j = 0; j < instanceInterface.methods.length; j++) {
+			// 用一个临时变量，接收每一个方法的名字（注意是字符串）
+			var methodName = instanceInterface.methods[j];
+			// object[key]
+			if (!object[methodName] || typeof object[methodName] !== 'function') {
+				throw new Error('the method name "' + methodName + '" is not found');
+			}
+		}
+	}
+}
+
+var c1 = new CompositeImp1();
+Interface.ensureImplements(c1, CompositeInterface, FormItemInterface);
+
+c1.add();
+```
+### 2.单体模式
+单体（singleton）模式是JavaScript中最基本但又最有用的模式之一
+这种模式提供了一种将代码组织为一个逻辑单元的手段，这个歌逻辑单元中的代码可以通过单一的变量进行访问。通过确保单体对象只存在一份实例，你就可以确信自己的所有代码使用的都是相同的全局资源
+#### 1.简单单体
+可以划分命名空间
+```javascript
+var Singleton = {
+	attr1: true,
+	attr2: 10,
+	method1: function() {
+		console.log('我是方法1');
+	},
+	method2: function() {
+		console.log('我是方法2');
+	}
+};
+
+console.log(Singleton.attr1);
+```
+
+#### 2.闭包单体
+```javascript
+// 命名空间
+var ABC = {};
+ABC.Singleton = (function() {
+
+	// 添加自己的私有成员
+	var a1 = true;
+	var a2 = 10;
+	var f1 = function() {
+		console.log('f1');
+	}
+	var f2 = function() {
+		console.log('f2');
+	}
+
+	// 把块级作用域里的执行结果赋值给我的单体对象
+	return {
+		attr1: a1,
+		attr2: a2,
+		method1: function() {
+			return f1();
+		},
+		method2: function() {
+			return f2();
+		}
+	};
+})();
+
+console.log(ABC.Singleton.attr1);
+ABC.Singleton.method1();
+```
+#### 3.惰性单体
+和闭包单体有一些相似
+```javascript
+// 命名空间
+var ABC = {}
+
+ABC.Base = (function() {
+
+	// 私有变量， 控制返回的单体对象
+	var uniqInstance; //undefined
+
+	// 需要一个构造init初始化单体对象的方法
+	function init() {
+		// 私有成员变量
+		var a1 = 10;
+		var a2 = true;
+		var fn1 = function() {
+			console.log('fn1')
+		};
+		var fn2 = function() {
+			console.log('fn2')
+		};
+
+		return {
+			attr1: a1,
+			attr2: a2,
+			method1: function() {
+				return fn1();
+			},
+			method2: function() {
+				return fn2();
+			}
+		}
+	}
+
+	return {
+		getInstance: function() {
+			if (!uniqInstance) {
+				uniqInstance = init();
+			}
+			return uniqInstance;
+		}
+	};
+})();
+
+console.log(ABC.Base.getInstance());
+console.log(ABC.Base.getInstance().attr1);
+ABC.Base.getInstance().method1();
+```
+#### 4.分支单体
+判断程序的分支（浏览器的差异检测）
+```javascript
+var ABC = {};
+var different = true;
+ABC.More = (function() {
+	var objA = { //火狐浏览器内部的一些配置
+		attr1: 'FF属性1'
+			//属性1
+			//属性2
+			//属性3
+			//属性4
+	};
+	var objB = { //IE浏览器内部的一些配置
+		attr1: 'IE属性1'
+			//属性1
+			//属性2
+			//属性3
+			//属性4
+	};
+	return (different) ? objA : objB;
+})();
+
+console.log(ABC.More.attr1);
+```
+### 3.链式编程
+```javascript
+function Dog() {
+	this.run = function() {
+		console.log('run');
+		return this;
+	};
+	this.eat = function() {
+		console.log('eat');
+		return this;
+	};
+	this.sleep = function() {
+		console.log('sleep');
+		return this;
+	}
+}
+
+var d1 = new Dog();
+d1.run().eat().sleep();
+// d1.eat();
+// d1.sleep();
+```
+*模拟jQuery底层链式编程*
+```javascript
+// 块级作用域
+// 内部的成员变量外部无法访问，（除了不加var修饰的变量）
+(function(window, undefined) {
+	// 大型程序开发，一般使用_作为私用的对象（规范）
+	function _$(arguments) {
+		// 正则表达式匹配id选择器
+		var idselector = /#\w+/;
+		this.dom; // 此属性接收所得到的元素
+		// 如果匹配成功，则接收dom元素
+		if (idselector.test(arguments[0])) {
+			this.dom = document.getElementById(arguments[0].substring(1));
+		} else {
+			throw new Error('arguments is error');
+		}
+	}
+
+	// 在Function类上扩展一个可以实现链式编程的方法
+	Function.prototype.method = function(methodName, fn) {
+		this.prototype[methodName] = fn;
+		return this;
+	}
+
+	// 在_$的原型对象上加一些公共的方法
+	_$.prototype = {
+		constructor: _$,
+		addEvent: function(type, fn) {
+			// 给得到的元素注册事件
+			if (window.addEventListener) {
+				this.dom.addEventListener(type, fn);
+			} else if (window.attachEvent) {
+				this.dom.attachEvent('on' + type, fn)
+			}
+			return this;
+		},
+		setStyle: function(prop, val) {
+			this.dom.style[prop] = val;
+			return this;
+		}
+	}
+
+
+	// window上先注册一个全局变量，与外界产生关系
+	window.$ = _$;
+
+	_$.onReady = function(fn) {
+		// 1.实例化出来_$对象，真正的注册到window上
+		window.$ = function() {
+			return new _$(arguments);
+		};
+
+		// 2.执行传入进来的代码
+		fn();
+
+		// 3.实现链式编程
+		_$.method('addEvent', function() {
+			// nothing
+		}).method('setStyle', function() {
+			// nothing
+		});
+	}
+})(window);
+
+
+$.onReady(function() {
+	$('#hplogo').addEvent('click', function() {
+		alert('Google的logo被点击了');
+	}).setStyle('backgroundColor', 'red');
+});
+```
+### 4.
 
 
 # jQuery
