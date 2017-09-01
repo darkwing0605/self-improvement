@@ -2855,7 +2855,9 @@ $.onReady(function() {
 	}).setStyle('backgroundColor', 'red');
 });
 ```
+
 ### 4.
+
 
 
 # jQuery
