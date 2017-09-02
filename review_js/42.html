@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script>
+		/*
+		var PublicClass = function(){
+			// private variable
+			var name = '张三'
+
+			// getter 访问私有成员变量 // 特权函数
+			this.getName = function(){
+				return name;
+			};
+		};
+
+		var p1 = new PublicClass;
+		console.log(p1.getName());
+		*/
+
+		var PublicClass = function() {
+			// 私有化的变量
+			var privateMethod = function() {
+				alert('执行了一个很复杂的操作');
+			};
+
+			// 单元测试这个很复杂的函数
+			privateMethod();
+
+			// 通过特权函数去访问这个私用的独立单元
+			this.bridgeMethod = function() {
+				return privateMethod();
+			}
+		};
+
+		var p1 = new PublicClass;
+		p1.bridgeMethod();
+	</script>
+</body>
+</html>

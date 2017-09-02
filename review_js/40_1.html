@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- 引入的核心js公共文件 -->
+	<script src="js/commonUtil.js"></script>
+	<script>
+
+		// 细粒度 和 粗粒度
+
+		// 卖车的商店 -> 卖车 -> 生产车 -> Factory
+
+		// 搭建一个工厂的环境
+		// 卖车的商店
+		function Carshop() {}
+		Carshop.prototype = {
+			constructor: Carshop,
+			sellCar: function(type) {
+				var car = CarFactory.createCar(type);
+				return car;
+			}
+		};
+
+		// 生产车的工厂，目的就是为了生产车
+		// 单体模式
+		var CarFactory = {
+			createCar: function(type) {
+				var car; // 声明一个变量
+				switch (type) {
+					case 'Benz':
+						car = new Benz();
+						break;
+					case 'BMW':
+						car = new BMW();
+						break;
+					case 'Audi':
+						car = new Audi();
+						break;
+					default:
+						alert('not buy it');
+				}
+				HL.Interface.ensureImplements(car, CarInterface);
+				return car;
+			}
+		};
+
+		// 接口对象的实例
+		var CarInterface = new HL.Interface('CarInterface', ['start', 'run']);
+
+		// SuperClass implements CarInterface
+		function BaseCar(){};
+		BaseCar.prototype = {
+			constructor: BaseCar,
+			start: function(){alert(this.constructor.name + ' start');},
+			run: function(){alert(this.constructor.name + ' run');}
+		}
+
+		// Class Benz BMW Audi
+		// 注意关键问题：子类先继承父类，子类再扩展子类自己特有的方法
+
+		function Benz() {}
+		HL.extend(Benz, BaseCar);
+		Benz.prototype.BenzDrive = function(){alert('Benz drive');};
+
+		function BMW() {}
+		HL.extend(BMW, BaseCar);
+		BMW.prototype.BMWDrive = function(){alert('BMW drive');};
+
+		function Audi() {}
+		HL.extend(Audi, BaseCar);
+		Audi.prototype.AudiDrive = function(){alert('Audi drive');};
+
+		var shop = new Carshop();
+		var car = shop.sellCar('Benz');
+		car.start();
+		car.run();
+		car.BenzDrive();
+	</script>
+</body>
+</html>

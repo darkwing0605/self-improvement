@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="button" name="" id="inp" value="我是数据">
+
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/commonUtil.js"></script>
+	<script>
+		/*
+		// 经典事件监听回调机制
+		// 当页面加载完毕后执行函数体
+		$(function(){
+			// 1.前台业务逻辑
+			var inp = $('#inp')[0];
+			HL.EventUtil.addHandler(inp, 'click', sendReq);
+// -------------------------------------------------------------------------
+			// 2.后台业务逻辑
+			// 处理后台的函数
+			function sendReq(){
+				// ajax
+				// $.post('127.0.0.1:88/#', {msg: this.value}, function(result) {
+					// callback
+				// });
+				alert('发送了指定的数据到后台：'+ this.value);
+			}
+		});
+		*/
+
+
+
+		// 利用桥模式，分开两个业务逻辑单元
+		$(function(){
+			// 1.前台业务逻辑
+			var inp = $('#inp')[0];
+			HL.EventUtil.addHandler(inp, 'click', bridgeHandler);
+
+
+			// 利用桥模式分开
+			function bridgeHandler(){
+				var msg = this.value;
+				sendReq(msg);
+			}
+
+
+			// 2.后台业务逻辑
+			// 处理后台的函数
+			function sendReq(msg){
+				// ajax
+				// $.post('127.0.0.1:88/#', {msg: this.value}, function(result) {
+					// callback
+				// });
+				alert('发送了指定的数据到后台：'+ msg);
+			}
+
+			// 单元测试的时候
+			sendReq('我是单元测试数据');
+		});
+	</script>
+</body>
+</html>

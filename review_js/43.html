@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<script>
+		var Class1 = function(a, b, c) {
+			this.a = a;
+			this.b = b;
+			this.c = c;
+		};
+		var Class2 = function(d, e) {
+			this.d = d;
+			this.e = e;
+		};
+		var BridgeClass = function(a, b, c, d, e) {
+			this.class1 = new Class1(a, b, c);
+			this.class2 = new Class2(d, e);
+		};
+	</script>
+</body>
+</html>
