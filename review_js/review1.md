@@ -4037,3 +4037,145 @@ var str = 'goodbye,goodbyebye goodbyebyebye';
 console.log(str.split(/,| /g));
 // ["goodbye", "goodbyebye", "goodbyebyebye"]
 ```
+
+# 4.RequireJS
+
+## 为什么使用RequireJS
+异步加载文件
+模块化开发
+>一个文件一个模块
+>减少全局变量
+
+## 初步使用
+### define: 定义模块
+```javascript
+define('模块名', [模块依赖], function(){
+	// 模块的实现function
+});
+```
+模块名可省略，不写的时候以文件路径作为模块名
+>实际中一般不写模块名，使用构建工具自动命名模块名，有利于后续的打包
+
+在执行代码的时候需要依赖哪些模块，数组，可以有多个依赖的模块，可有可无
+在下载依赖之后，把模块参数传入到模块实现的function中
+返回结果可以是任何值
+```javascript
+define('helper', ['jquery'], function($) {
+	// 因为是依赖中第一个是jQuery，所以传入的第一个参数时$
+	return {
+		trim: function(str){
+			return $.trim(str);
+		}
+	}
+});
+```
+
+定义模块的方式
+>函数式定义
+>定义简单的对象
+>>
+```javascript
+define({
+	username: 'xiaoMing',
+	name: '小明',
+	age: 18,
+	sex: '男'
+});
+```
+
+
+### require: 加载模块
+```javascript
+require(['模块名'], function(){
+	// 模块的实现function
+});
+```
+模块名是数组格式，使用自定义的模块名或使用文件路径
+下载执行模块之后，再执行模块的实现
+```javascript
+require(['helper'], function(helper) {
+	var str = helper.trim('  amd     ');
+	console.log(str);
+});
+```
+
+### 加载文件
+RequireJS以一个相对于baseUrl的地址来加载所有的代码
+>不使用data-main直接在html中引用，baseUrl默认html页面本身
+>使用了data-main，baseUrl默认为data-main的js的文件路径
+>手动baseUrl
+
+### 加载机制
+RequireJS使用head.appendChild()将每一个依赖加载为一个script标签（也就是说可以跨域访问）
+加载即执行
+
+### 配置模块路径
+baseUrl
+```javascript 
+baseUrl: '/js'
+```
+
+paths
+```javascript
+path: {
+	'jquery': [
+		'http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js', //首选项
+		'/%E5%8F%8C/0000/review_js/js/jquery-1.12.4' // 备选项
+	]
+}
+```
+
+[简单使用](45.html)
+
+## 配置
+### 配置不支持AMD的库和插件
+AMD：require/define
+
+加载不支持AMD的库，如Modernizr.js
+>检测HTML5和CSS3的特性，只有一个全局变量modernizr
+
+加载不支持AMD的框架，如bootstrap
+
+#### shim
+加载不支持AMD的库，如Modernizr.js
+```javascript
+shim:{
+	'不支持AMD的模块': {
+		deps: ['依赖的模块'],
+		exports: '全局变量作为模块对象',
+		init: function() {
+			//初始化函数，返回的对象代替exports作为模块对象
+		}
+	}
+}
+```
+即↓
+```javascript
+shim: {
+	'modernizr': {
+		deps: ['jquery'],
+		exports: 'Modernizr',
+		init: function($) {
+			return $;
+		}
+	}
+}
+```
+实际上↓
+```javascript
+shim: {
+	'modernizr': {
+		exports: 'Modernizr'  // 把全局变量Modernizr导入为模块
+	}
+}
+```
+
+加载不支持AMD的框架，如bootstrap
+>没有全局变量，但是有依赖
+```javascript
+shim: {
+	'bootstrap': ['jquery'] // 数组，代替deps的写法
+}
+```
+
+[配置不支持AMD的库和插件](46.html)
