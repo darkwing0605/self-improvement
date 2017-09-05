@@ -4136,7 +4136,7 @@ AMD：require/define
 
 加载不支持AMD的框架，如bootstrap
 
-#### shim
+** shim **
 加载不支持AMD的库，如Modernizr.js
 ```javascript
 shim:{
@@ -4179,3 +4179,140 @@ shim: {
 ```
 
 [配置不支持AMD的库和插件](46.html)
+
+### 其他常用配置
+#### map
+项目开发初期使用jquery-1.12.3，后期因为需要支持移动开发，升级到jquery-2.2.3
+但是又担心之前依赖jquery-1.12.3的代码升级到2.2.3后可能会有问题，就保守的让这部分代码继续使用1.12.3版本
+```javascript
+map: {
+	'app/api': {
+		'jquery': './lib/jquery' 
+		// 当app/api模块里加载jQuery模块时，将加载jquery.js
+	},
+	'app/api2': {
+		'jquery': './lib/jquery2'
+		// 当app/api2模块里加载jquery模块时，将加载jquery2.js
+	}
+}
+```
+
+#### waitSeconds
+下载js等待的时间，默认7秒
+如果设为0，则禁用等待超时
+
+#### urlArgs
+下载文件时，在url后面增加额外的query参数
+```javascript
+urlArgs: '_=' + (new Date()).getTime()
+```
+
+[其他常用配置](47.html)
+
+### jsonp服务
+RequireJS是通过script标签来加载模块
+```javascript
+require(['http://www.baidu.com/user'], function(user) {});
+```
+```javascript
+define({
+	username: 'xiaoMing',
+	name: '小明',
+	age: 18,
+	sex: '男'
+});
+```
+[传统jsonp服务](http://127.0.0.1/ajax/48.html)
+[RequireJS的jsonp服务](http://127.0.0.1/ajax/49.html)
+
+## 插件
+### text插件
+使用text插件加载html
+
+** 插件text.js **
+用于加载文本文件的RequireJS插件
+通过ajax请求来加载文本
+```javascript
+require(['text!/user.html'], function(template) {
+	$('#userinfo').html(template);
+});
+```
+```javascript
+requirejs.config({
+    config: {
+        text: {
+            onXhr: function (xhr, url) {
+                //Called after the XHR has been created and after the
+                //xhr.open() call, but before the xhr.send() call.
+                //Useful time to set headers.
+                //xhr: the xhr object
+                //url: the url that is being used with the xhr object.
+            },
+            createXhr: function () {
+                //Overrides the creation of the XHR object. Return an XHR
+                //object from this function.
+                //Available in text.js 2.0.1 or later.
+            },
+            onXhrComplete: function (xhr, url) {
+                //Called whenever an XHR has completed its work. Useful
+                //if browser-specific xhr cleanup needs to be done.
+            }
+        }
+    }
+});
+```
+
+[text.js插件](http://127.0.0.1/ajax/50.html)
+
+### css插件
+使用css插件加载样式
+
+** css.js插件 **
+用于加载样式文件的RequireJS插件
+```javascript
+require([
+	'./app/api',
+	'backbone',
+	'jquery-ui',
+	'css!/css/jquery-ui/jquery-ui.css',
+	'css!/css/jquery-ui/jquery-ui.theme.css'
+],function(api) {});
+```
+```javascript
+map: {
+	'*': {
+		'css': './lib/require/css'
+	}
+}
+```
+
+[css.js插件](51.html)
+
+### i18n插件
+使用i48n插件支持国际化，比如同时支持英文和中文
+```javascript
+require(['i18n!./nls/message'], function(i18n) {})
+```
+
+如何指定使用哪种语言
+>浏览器的navigator.language或navigator.userLanguage
+>配置语言
+>>
+```javascript
+config: {
+	i18n: {
+		locale: 'zh'
+	}
+}
+```
+
+[i18n插件](http://127.0.0.1/ajax/52.html)
+
+## 打包压缩
+### 基本使用方法
+使用r.js工具打包
+### 打包多模块
+### 打包插件
+## 结合maven自动打包
+### npm打包
+### maven自动打包
