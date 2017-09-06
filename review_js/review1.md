@@ -4310,7 +4310,17 @@ config: {
 
 ## 打包压缩
 ### 基本使用方法
-使用r.js工具打包
+#### 使用r.js工具打包
+安装
+```
+npm install -g requirejs
+```
+打包
+```
+r.js -o baseUrl=js name=app out=bulit.js
+node r.js -o baseUrl=js name=app out=bulit.js
+```
+
 ### 打包多模块
 ### 打包插件
 ## 结合maven自动打包
