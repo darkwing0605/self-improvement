@@ -4326,3 +4326,121 @@ node r.js -o baseUrl=js name=app out=bulit.js
 ## 结合maven自动打包
 ### npm打包
 ### maven自动打包
+
+# webpack
+## 命令行
+### 安装
+安装webpack
+```
+mkdir webpack-demo && cd webpack-demo
+npm init -y
+npm install --save-dev webpack
+```
+安装打包css的loader
+```
+npm install css-loader style-loader --save-dev
+```
+### 简单使用
+直接打包
+```
+webpack hello.js hello.bundle.js
+```
+### 其他参数
+
+识别css文件需要用到css-loader，执行css文件需要用到style-loader
+```javascript
+require('./world.js');
+require('style-loader!css-loader!./style.css');
+```
+每一个css都这样写就太麻烦了，所以↓
+```javascript
+require('./world.js');
+require('./style.css');
+```
+```
+webpack hello.js hello.bundle.js --module-bind "css=style-loader!css-loader"
+```
+自动更新自动打包↓
+```
+webpack hello.js hello.bundle.js --module-bind "css=style-loader!css-loader" --watch
+```
+可以看到打包过程
+```
+webpack hello.js hello.bundle.js --module-bind "css=style-loader!css-loader" --progress
+```
+查看打包的模块
+```
+webpack hello.js hello.bundle.js --module-bind "css=style-loader!css-loader" --progress --display-modules
+```
+查看打包的原因
+```
+webpack hello.js hello.bundle.js --module-bind "css=style-loader!css-loader" --progress --display-modules --display-reasons
+```
+[webpack简单使用](53.html)
+
+## 配置文件
+默认配置文件 webpack.config.js
+```javascript
+var path = require('path');
+module.exports = {
+	// 打包入口文件
+	entry: './src/script/main.js',
+	// 打包输入
+	output: {
+		// 路径
+		path: path.resolve(__dirname, "./dist/js"),
+		// 文件名
+		filename: 'bundle.js'
+	}
+};
+```
+```
+webpack
+```
+
+如果配置文件为 webpack.dev.config.js
+```
+webpack --config webpack.dev.config.js
+```
+
+** 更改参数 **
+在根目录下package.json中的script中添加
+```
+"webpack": "webpack --config webpack.config.js --progress --display-modules --colors --display-reasons"
+```
+再执行
+```
+npm run webpack
+```
+
+## entry 和 output
+### entry
+第一种写法
+```javascript
+entry: './src/script/main.js',
+```
+
+第二种写法
+>多个js文件
+
+```javascript
+entry: ['./src/script/main.js', './src/script/a.js'],
+```
+
+第三种写法
+>多页面
+
+```javascript
+entry: {
+	page1: './page1',
+	page2: ['./entry1', './entry2']
+}
+```
+
+### output
+多个输入时
+如果指定名称，则后面生成的会覆盖前面的
+所以需要占位符
+>[name] entry对象中的key
+>[hash] 这次打包的hash
+>[chunkhash] 每个chunk的hash
