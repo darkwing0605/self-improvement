@@ -4444,3 +4444,176 @@ entry: {
 >[name] entry对象中的key
 >[hash] 这次打包的hash
 >[chunkhash] 每个chunk的hash
+```javascript
+output: {
+	path: path.resolve(__dirname, "./dist/js"),
+	filename: '[name]-[chunkhash].js'
+}
+```
+
+### 自动化生成项目中的html页面
+#### 安装
+```
+npm install html-webpack-plugin --save-dev
+```
+#### 配置文件
+```javascript
+var htmlWebpackPlugin = require('html-webpack-plugin');
+```
+```javascript
+plugins: [new htmlWebpackPlugin()]
+```
+自动生成的index.html在dist/js
+
+将自动生成的index.html与根目录下的index.html建立联系
+```javascript
+// 默认路径上下文为根目录
+plugins: [new htmlWebpackPlugin(
+	template: 'index.html'
+)]
+```
+生成的文件依然在dist/js
+更改输出路径
+```javascript
+output: {
+	path: path.resolve(__dirname, "./dist"),
+	filename: 'js/[name]-[chunkhash].js'
+}
+```
+** 其他plugin **
+```javascript
+plugins: [new htmlWebpackPlugin(
+	filename: 'index-[hash].html',
+	template: 'index.html',
+	// script标签在文件中的位置
+	inject: 'head',
+	// 在参数中传参，在模板中引用
+	title: 'webpack is good',
+	date: new Date(),
+)]
+```
+在模板中引用
+```html
+<title><%= htmlWebpackPlugin.options.title %></title>
+<body><%= htmlWebpackPlugin.options.date %></body>
+```
+遍历
+```html
+<body>
+	<% for(var key in htmlWebpackPlugin) { %>
+		<%= key %>
+	<% } %>
+
+
+	<% for(var key in htmlWebpackPlugin.files) { %>
+		<%= key %> : <%= JSON.stringify(htmlWebpackPlugin.files[key]) %>
+	<% } %>
+	<% for(var key in htmlWebpackPlugin.options) { %>
+		<%= key %> : <%= JSON.stringify(htmlWebpackPlugin.options[key]) %>
+	<% } %>
+</body>
+```
+将两个script标签放到不同位置加载
+```html
+<head>
+	<script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
+</head>
+<body>
+	<script src="<%= htmlWebpackPlugin.files.chunks.a.entry %>"></script>
+</body>
+```
+上线后路径改变，修改配置文件
+```javascript
+output:{
+	publicPath: 'http://cdn.com/'
+}
+```
+上线压缩
+```javascript
+plugins: {
+	minify: {
+		//删除注释
+		removeComments: true,
+		//删除空格
+		collapseWhitespace: true
+	}
+}
+```
+多页面生成
+>再次new htmlWebpackPlugin({})就好了
+```javascript
+plugins: [
+		new htmlWebpackPlugin({
+			filename: 'a.html',
+			template: 'index.html',
+			inject: 'body',
+			title: 'this is a.html',
+			date: new Date(),
+			excludeChunks: ['b', 'c']
+		}),
+		new htmlWebpackPlugin({
+			filename: 'b.html',
+			template: 'index.html',
+			inject: 'body',
+			title: 'this is b.html',
+			date: new Date(),
+			chunks: ['b']
+		}),
+		new htmlWebpackPlugin({
+			filename: 'c.html',
+			template: 'index.html',
+			inject: 'body',
+			title: 'this is c.html',
+			date: new Date(),
+			chunks: ['c']
+		}),
+	]
+```
+
+添加行内的JavaScript
+```html
+<head>
+	<script>
+		<%= compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
+	</script>
+</head>
+```
+同时在body中引用其他外部JavaScript
+```html
+<% for(var k in htmlWebpackPlugin.files.chunks) { %>
+	<% if(k != 'main') { %>
+		<script src="<%= htmlWebpackPlugin.files.chunks[k].entry %>"></script>
+	<% } %>
+<% } %>
+```
+
+## loader
+处理资源文件，接受资源文件为一个参数，然后返回一个新的资源
+### 使用babel-loader转换ES6代码
+安装babel
+```
+npm install --save-dev babel-loader babel-core
+
+npm install --save-dev babel-preset-env
+```
+在配置文件中使用
+```javascript
+module: {
+	loaders: [
+		{
+			// 正则匹配文件的扩展名
+			test: /\.js$/,
+			// 使用babel-loader
+			loader: 'babel-loader',
+			// 不处理某个目录
+			exclude: path.resolve(__dirname, "./node_modules/"),
+			// 只处理某个范围（减小范围提高速度）
+			include: path.resolve(__dirname, "./src/"),
+			// 版本es2015 ex2016 es2017 env
+			query: {
+				presets: ['env']
+			}
+		}
+	]
+},
+```
