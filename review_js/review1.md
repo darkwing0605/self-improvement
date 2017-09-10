@@ -4596,12 +4596,13 @@ npm install --save-dev babel-loader babel-core
 
 npm install --save-dev babel-preset-env
 ```
+
 在配置文件中使用
 ```javascript
 module: {
-	loaders: [
+	rules: [
 		{
-			// 正则匹配文件的扩展名
+			// 正则匹配文件以js结尾
 			test: /\.js$/,
 			// 使用babel-loader
 			loader: 'babel-loader',
@@ -4617,3 +4618,123 @@ module: {
 	]
 },
 ```
+
+### style-loader css-loader
+安装
+```
+npm install style-loader css-loader --save-dev
+```
+
+在app.js中引用
+```javascript
+import './css/common.css';
+```
+
+在配置文件中使用
+```javascript
+module:{
+	rules:[
+		{
+			test: /\.css$/,
+			// 先css-loader处理，再style-loader
+			// loader的处理方式使从右到左
+			loader: 'style-loader!css-loader'
+		}
+	]
+}
+```
+
+### postcss-loader
+>css后处理
+```
+npm install postcss-loader --save-dev
+```
+>解决css样式兼容问题，比如添加-webkit- -moz- 等前缀
+安装
+```
+npm install autoprefixer --save-dev
+```
+
+配置文件
+```javascript
+module:{
+	rules:[
+		{
+			test: /\.css$/,
+			// loader的处理方式使从右到左
+			loader: 'style-loader!css-loader!postcss-loader'
+			/*
+			* 上下写法均可
+			use: [
+				'style-loader',
+				'css-loader',
+				'postcss-loader'
+			]
+			*/
+		}
+	]
+},
+```
+之后新建postcss.config.js
+```javascript
+module.exports = {
+	plugins: [
+		require('autoprefixer')({
+			browsers: ['last 5 versions']
+		})
+	]
+}
+```
+
+使@import的css样式生效
+```javascript
+module:{
+	rules:[
+		{
+			test: /\.css$/,
+			use: [
+				'style-loader',
+				// css-loader之后，指定几个数量的loader来处理import资源
+				'css-loader?importLoaders=1',
+				'postcss-loader'
+			]
+		}
+	]
+},
+```
+
+## 使用less和sass
+安装
+```
+npm install less --save-dev
+npm install less-loader --save-dev
+
+cnpm install node-sass
+npm install sass-loader --save-dev
+```
+配置文件
+```javascript
+module:{
+	rules:[
+		{
+			test: /\.less$/,
+			use: [
+				'style-loader',
+				'css-loader',
+				'postcss-loader',
+				'less-loader'
+			]
+		},
+		{
+			test: /\.sass$/,
+			use: [
+				'style-loader',
+				'css-loader',
+				'postcss-loader',
+				'sass-loader'
+			]
+		}
+	]
+},
+```
+* 如果在less或者sass中使用import引入文件，不需要修改配置文件 *

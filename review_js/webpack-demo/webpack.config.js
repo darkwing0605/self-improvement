@@ -8,7 +8,7 @@ module.exports = {
 		filename: 'js/[name].bundle.js',
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.js$/,
 				loader: 'babel-loader',
@@ -17,6 +17,31 @@ module.exports = {
 				query: {
 					presets: ['env']
 				}
+			},
+			{
+				test: /\.css$/,
+				use: [
+					'style-loader',
+					'css-loader?importLoaders=1',
+					'postcss-loader'
+				]
+			},
+			{
+				test: /\.less$/,
+				use: [
+					'style-loader',
+					'css-loader',
+					'postcss-loader',
+					'less-loader'
+				]
+			},{
+				test: /\.sass$/,
+				use: [
+					'style-loader',
+					'css-loader',
+					'postcss-loader',
+					'sass-loader'
+				]
 			}
 		]
 	},

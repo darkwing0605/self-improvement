@@ -1,4 +1,5 @@
-import layer from './components/layer/layer.js'
+import './css/common.css';
+import layer from './components/layer/layer.js';
 
 const App = function() {
 	const NUM = 1;
