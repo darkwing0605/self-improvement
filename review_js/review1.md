@@ -4726,7 +4726,7 @@ module:{
 			]
 		},
 		{
-			test: /\.sass$/,
+			test: /\.scss$/,
 			use: [
 				'style-loader',
 				'css-loader',
@@ -4738,3 +4738,108 @@ module:{
 },
 ```
 * 如果在less或者sass中使用import引入文件，不需要修改配置文件 *
+
+## 处理模板文件
+### html-loader
+
+安装
+```
+npm install html-loader --save-dev
+```
+配置文件
+```javascript
+module: {
+	rules: [
+		{
+			test: /\.html$/,
+			use: [
+				'html-loader'
+			]
+		}
+	]
+}
+```
+* 这里的html-loader会把html作为字符串解析，因此之前htmlWebpackPlugin中的<% %>会失效 *
+
+### ejs-loader
+安装
+```
+npm install ejs-loader --save-dev
+```
+配置文件
+```javascript
+module: {
+	rules: [
+		{
+			test: /\.ejs$/,
+			use: [
+				'ejs-loader'
+			]
+		}
+	]
+}
+```
+
+## 处理图片文件
+### file-loader
+安装
+```
+npm install file-loader --save-dev
+```
+配置
+```javascript
+module: {
+	rules: [
+		{
+			test: /\.(png|jpg|gif|svg)$/,
+			loader: 'file-loader',
+			query: {
+				name: 'assets/[name]-[hash:5].[ext]'
+			}
+		}
+	]
+}
+```
+在css模板中可以直接使用绝对路径或相对路径
+在ejs模板中可以使用绝对路径或${ require('../../assets/bg.jpg') }
+在index.html模板中使用绝对路径
+
+### url-loader
+安装
+```
+npm install url-loader --save-dev
+```
+配置
+```
+module: {
+	rules: [
+		{
+			test: /\.(png|jpg|gif|svg)$/,
+			loader: 'url-loader',
+			query: {
+				// 限制文件大小，小于限制的文件转换为base64编码
+				limit: 15000,
+				name: 'assets/[name]-[hash:5].[ext]'
+			}
+		}
+	]
+}
+```
+
+### image-webpack-loader
+>压缩图片
+
+安装
+```
+npm install image-webpack-loader --save-dev
+```
+配置
+```javascript
+{
+	test:/\.(png|jpg|gif|svg)/,
+	use: [
+		'url-loader?limit=10&name=assets/[name]-[hash:5].[ext]',
+		'image-webpack-loader'
+	]
+}
+```

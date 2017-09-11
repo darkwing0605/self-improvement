@@ -18,6 +18,18 @@ module.exports = {
 					presets: ['env']
 				}
 			},
+			// {
+			// 	test: /\.html$/,
+			// 	use: [
+			// 		'html-loader'
+			// 	]
+			// },
+			{
+				test: /\.ejs$/,
+				use: [
+					'ejs-loader'
+				]
+			},
 			{
 				test: /\.css$/,
 				use: [
@@ -34,13 +46,36 @@ module.exports = {
 					'postcss-loader',
 					'less-loader'
 				]
-			},{
-				test: /\.sass$/,
+			},
+			{
+				test: /\.scss$/,
 				use: [
 					'style-loader',
 					'css-loader',
 					'postcss-loader',
 					'sass-loader'
+				]
+			},
+			// {
+			// 	test:/\.(png|jpg|gif|svg)/,
+			// 	loader: 'file-loader',
+			// 	query: {
+			// 		name: 'assets/[name]-[hash:5].[ext]'
+			// 	}
+			// },
+			// {
+			// 	test:/\.(png|jpg|gif|svg)/,
+			// 	loader: 'url-loader',
+			// 	query: {
+			// 		limit: 15000,
+			// 		name: 'assets/[name]-[hash:5].[ext]'
+			// 	}
+			// },
+			{
+				test:/\.(png|jpg|gif|svg)/,
+				use: [
+					'url-loader?limit=10&name=assets/[name]-[hash:5].[ext]',
+					'image-webpack-loader'
 				]
 			}
 		]

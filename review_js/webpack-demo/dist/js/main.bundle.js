@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -192,7 +192,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(6);
+var	fixUrls = __webpack_require__(7);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -508,33 +508,43 @@ function updateLink (link, options, obj) {
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__.p + "assets/bg-f68c2.jpg";
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
-__webpack_require__(3);
+__webpack_require__(4);
 
-var _layer = __webpack_require__(7);
+var _layer = __webpack_require__(8);
 
 var _layer2 = _interopRequireDefault(_layer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
-	var NUM = 1;
-	alert(NUM);
-	console.log(_layer2.default);
+	var dom = document.getElementById('app');
+	var layer = new _layer2.default();
+
+	dom.innerHTML = layer.tpl({
+		name: 'john',
+		arr: ['apple', 'xiaomi', 'oppo']
+	});
 };
 
 new App();
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(4);
+var content = __webpack_require__(5);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -559,12 +569,12 @@ if(false) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
 // imports
-exports.i(__webpack_require__(5), "");
+exports.i(__webpack_require__(6), "");
 
 // module
 exports.push([module.i, "html, body {\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\tbackground-color: red;\r\n}\r\n\r\nul, li {\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\tlist-style: none;\r\n}\r\n", ""]);
@@ -573,7 +583,7 @@ exports.push([module.i, "html, body {\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\tback
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -587,7 +597,7 @@ exports.push([module.i, ".flex-div {\r\n\tdisplay: -webkit-box;\r\n\tdisplay: -w
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 
@@ -682,7 +692,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -692,25 +702,31 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-__webpack_require__(8);
+__webpack_require__(9);
 
-function layer() {
+var _layer = __webpack_require__(11);
+
+var _layer2 = _interopRequireDefault(_layer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Layer() {
 	return {
 		name: 'layer',
-		tpl: tpl
+		tpl: _layer2.default
 	};
 }
 
-exports.default = layer;
+exports.default = Layer;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(9);
+var content = __webpack_require__(10);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -735,7 +751,7 @@ if(false) {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -743,10 +759,35 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, ".flex {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n.layer {\n  width: 600px;\n  height: 200px;\n  background-color: green;\n}\n.layer > div {\n  width: 400px;\n  height: 100px;\n  background-color: red;\n}\n", ""]);
+exports.push([module.i, ".flex {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n.layer {\n  width: 600px;\n  height: 200px;\n  background-color: green;\n}\n.layer > div {\n  width: 400px;\n  height: 100px;\n  background: url(" + __webpack_require__(2) + ");\n}\n", ""]);
 
 // exports
 
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = function (obj) {
+obj || (obj = {});
+var __t, __p = '', __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="layer">\r\n	<img src="' +
+((__t = ( __webpack_require__(2) )) == null ? '' : __t) +
+'">\r\n	<div> this is ' +
+((__t = ( name )) == null ? '' : __t) +
+' layer </div>\r\n	';
+ for(var i = 0; i < arr.length; i++) { ;
+__p += '\r\n		' +
+((__t = ( arr[i] )) == null ? '' : __t) +
+'\r\n	';
+ } ;
+__p += '\r\n</div>';
+
+}
+return __p
+}
 
 /***/ })
 /******/ ]);
