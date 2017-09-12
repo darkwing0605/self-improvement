@@ -4836,7 +4836,7 @@ npm install image-webpack-loader --save-dev
 配置
 ```javascript
 {
-	test:/\.(png|jpg|gif|svg)/,
+	test:/\.(png|jpg|gif|svg)$/,
 	use: [
 		'url-loader?limit=10&name=assets/[name]-[hash:5].[ext]',
 		'image-webpack-loader'
