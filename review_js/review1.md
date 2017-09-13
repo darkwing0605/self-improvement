@@ -4843,3 +4843,186 @@ npm install image-webpack-loader --save-dev
 	]
 }
 ```
+
+# React
+## 初识React
+1.React不是一个完整的MVC，MVVM框架
+2.React跟Web Components不冲突
+3.React的特点就是“轻”
+4.组件化的开发思路
+
+## React应用场景
+1.复杂场景下的高性能
+2.重用组件库，组件组合
+3.“懒”
+
+## React的JSX和Style
+### JSX
+JSX：JavaScript XML
+语法糖，也成为糖衣语法
+>对语言的功能没有影响
+>更方便程序员使用，减少出错几率
+>类似的有CoffeeScript  TypeScript
+>最终都会被解析为JS，但是必须引入解析库
+```html
+<script type="text/jsx">
+	ReactDOM.render(
+		<h1>Hello, world!</h1>,
+		document.getElementById('root')
+	);
+</script>
+```
+
+### Style
+代码中使用的标签包括div等，为React Components，通过ReactDOM.render实现
+div等添加样式
+>class在ES6为关键字，应使用className
+>行内样式不是字符串格式，应为样式对象
+>>key值为驼峰写法，value值为字符串
+>>两个大括号，第一个用来执行JS表达式，第二个为JS表达式即对象的大括号
+
+```html
+<style>
+	.alert-text {
+		font-size: 36px;
+	}
+</style>
+<script type="text/jsx">
+	var Hello = React.createClass({
+		render: function() {
+			return <div style={{color: 'red',paddingLeft: '50px'}} className="alert-text">Hello {this.props.title} {this.props.name}</div>;
+		}
+	});
+	ReactDOM.render(
+		<Hello name="World" title="Mr"/>,
+		document.getElementById('root')
+	);
+</script>
+```
+
+## React Components生命周期
+
+每一个状态React都封装了对应的hook函数
+
+Mounted
+>React Components被render解析生成对应的DOM节点并被插入浏览器的DOM结构的一个过程
+>>getDefaultProps()
+>>getInitialState()：初始化React Component State
+>>>state：state是React中组件的一个对象，更新组件的state，会导致重新渲染用户的界面
+>>>>props是组件调用方在调用组件时候指定的，我们认为props一旦指定，一般是不会变的
+>>>>state是私处于当前组件的，state值时可变的
+>>>>>常用的通知React数据变化的方法是调用setState
+
+>>componentWillMount：Mounting前被调用
+>>render
+>>componentDidMount：Mounting后被调用
+
+>
+```JSX
+var Hello = React.createClass({
+	getInitialState: function() {
+		alert('init');
+	 	return {
+			opacity: 1.0,
+			fontSize: '12px'
+	 	};
+	},
+	render: function() {
+		return <div style={this.state}>Hello {this.props.name}</div>;
+	},
+	componentWillMount: function() {
+		alert('will');
+	},
+	componentDidMount: function() {
+		alert('did');
+
+		var _self = this;
+		window.setTimeout(function() {
+			_self.setState({
+				opacity: 0.5,
+				fontSize: '44px'
+			});
+		}, 1000);
+	}
+});
+ReactDOM.render(
+	<Hello name="World" />,
+	document.getElementById('root')
+);
+```
+
+Update
+>一个mounted的React Components被重新render的过程，但不一定所有的都会重新渲染
+>>componentWillReceiveProps
+>>>当一个Mounted的component将要接收props时调用，参数为新的props对象，在函数体内比较这个参数和this.props，从而执行类如修改state的操作
+
+>>shouldComponentUpdate
+>>>在一个Mounted的component接收到props后，判断是否有必要去更新DOM结构，有两个参数（新的props对象，新的state对象），分别对比，来决定是否更新DOM结构，返回true或false
+
+>>componentWillUpdate
+>>render
+>>componentDidUpdate
+
+Unmounted
+>一个mounted的React Components对应的DOM节点被从DOM结构中移出的这样一个过程
+>>componentWillUnmount
+>>>可以在这个函数中执行一些cleanup的操作，比如释放内存、图片资源，（一般来说用的比较少）
+
+## React event listener
+最新版本
+```JSX
+var TestClickComponent = React.createClass({
+	handleClick: function(event) {
+		var tipE = ReactDOM.findDOMNode(this.refs.tip);
+
+		if (tipE.style.display === 'none') {
+			tipE.style.display = 'inline';
+		}else{
+			tipE.style.display = 'none';
+		}
+
+		event.stopPropagation();
+		event.preventDefault();
+	},
+	render: function() {
+		return (
+			<div>
+				<button onClick={this.handleClick}>显示|隐藏</button>
+				<span ref="tip">测试点击</span>
+			</div>
+		);
+	}
+});
+var TestInputComponent = React.createClass({
+	getInitialState: function() {
+		return {
+			inputContent: ''
+		};
+	},
+	changeHandler: function(event) {
+		this.setState({
+			inputContent: event.target.value
+		});
+
+		event.preventDefault();
+		event.stopPropagation();
+	},
+	render: function() {
+		return (
+			<div>
+				<input type="text" onChange={this.changeHandler}/>
+				<span>{this.state.inputContent}</span>
+			</div>
+		);
+	}
+});
+ReactDOM.render( 
+	<div>
+		<TestClickComponent />
+		<br />
+		<TestInputComponent />
+	</div>,
+	document.getElementById('container')
+);
+```
+[稍旧一点版本](55.html)
