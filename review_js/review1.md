@@ -4836,14 +4836,13 @@ npm install image-webpack-loader --save-dev
 配置
 ```javascript
 {
-	test:/\.(png|jpg|gif|svg)$/,
+	test:/\.(png|jpg|gif|svg)/,
 	use: [
 		'url-loader?limit=10&name=assets/[name]-[hash:5].[ext]',
 		'image-webpack-loader'
 	]
 }
 ```
-<<<<<<< HEAD
 
 # React
 ## 初识React
@@ -5027,5 +5026,22 @@ ReactDOM.render(
 );
 ```
 [稍旧一点版本](55.html)
-=======
->>>>>>> origin/master
+
+## 实战
+### 环境
+```
+npm install yo -g
+npm install generator-react-webpack -g
+npm ls -g --depth=1 2>/dev/null | grep generator-
+
+/*
+*npm ls -g  查看所有全局安装的npm包
+*--depth=1  树状结构最多向下一层
+*1  标准输出  2  标准错误
+*/dev/null  空设备文件
+*|  通道，将上一个文件的输出内容作为下一个文件的输入内容
+*grep generator-  检索以generator关键字开头的内容
+*/
+
+npm start
+```
