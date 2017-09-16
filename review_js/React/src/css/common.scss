@@ -5,6 +5,7 @@
 html, body {
 	width: 100%;
 	height: 100%;
+
 	background: #222222;
 }
 .content {
@@ -15,6 +16,7 @@ html, body {
 /* stage -- start */
 .stage{
 	position: relative;
+
 	width: 100%;
 	height: 680px;
 }
@@ -23,10 +25,68 @@ html, body {
 /* image -- start */
 .img-sec {
 	padding: relative;
+
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
+
 	background: #dddddd;
+
+	perspective: 1800px;
+
+	@at-root {
+		.img-figure {
+			position: absolute;
+
+			width: 320px;
+			height: 360px;
+			padding: 40px;
+
+			background: #ffffff;
+
+			box-sizing: border-box;
+			cursor: pointer;
+			transform-origin: 0 50% 0;
+			transform-style: preserve-3d;
+			transition: transform .6s ease-in-out, left .6s ease-in-out, top .6s ease-in-out;
+
+			&.is-inverse {
+				transform: translate(320px) rotateY(180deg);
+			}
+		}
+		figcaption {
+			text-align: center;
+
+			.img-title {
+				margin: 20px 0 0 0;
+
+				color: #a7a0a2;
+				font-size: 16px;
+			}
+
+			.img-back{
+				position: absolute;
+				left: 0;
+				top: 0;
+
+				width: 100%;
+				height: 100%;
+				padding: 50px 40px;
+				overflow: auto;
+
+				color: #a7a0a2;
+				font-size: 22px;
+				line-height: 1.25;
+				text-align: left;
+
+				background: #ffffff;
+
+				box-sizing: border-box;
+				transform: rotateY(180deg) translateZ(1px);
+				backface-visibility: hidden;
+			}
+		}
+	}
 }
 /* image -- end */
 
@@ -36,7 +96,9 @@ html, body {
 	left: 0;
 	bottom: 30px;
 	z-index: 101;
+
 	width: 100%;
-	text-align: center
+
+	text-align: center;
 }
 /* controller -- end */
