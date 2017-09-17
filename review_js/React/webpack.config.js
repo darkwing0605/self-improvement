@@ -36,9 +36,15 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.(png|jpg|woff|woff2)$/,
+				test: /\.(png|jpg)$/,
 				use: [
-					'url-loader?limit=8192'
+					'url-loader?limit=8192&name=images/[name]-[hash:5].[ext]'
+				]			
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|svg)$/,
+				use: [
+					'url-loader?limit=8192&name=fonts/icons/[name].[ext]'
 				]
 			},
 			{

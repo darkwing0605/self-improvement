@@ -1,3 +1,17 @@
+@font-face {
+	font-family: 'iconfont';
+	/* IE9 */
+	src: url('../fonts/icons/iconfont.eot');
+	/* IE6-IE8 */
+	src: url('../fonts/icons/iconfont.eot?#iefix') format('embedded-opentype'),
+	/* chrome, firefox */
+	url('../fonts/icons/iconfont.woff') format('woff'),
+	/* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+	url('../fonts/icons/iconfont.ttf') format('truetype'),
+	/* iOS 4.1- */
+	url('../fonts/icons/iconfont.svg#iconfont') format('svg');
+}
+
 *{
 	margin: 0;
 	padding: 0;
@@ -82,6 +96,7 @@ html, body {
 				background: #ffffff;
 
 				box-sizing: border-box;
+				// translateZ(1px) 为了解决Safari的bug
 				transform: rotateY(180deg) translateZ(1px);
 				backface-visibility: hidden;
 			}
@@ -100,5 +115,48 @@ html, body {
 	width: 100%;
 
 	text-align: center;
+
+	@at-root {
+		.controller-unit {
+			display: inline-block;
+			margin: 0 5px;
+			width: 30px;
+			height: 30px;
+			
+			text-align: center;
+			vertical-align: middle;
+
+			cursor: pointer;
+			background: #aaaaaa;
+			border-radius: 50%;
+
+			transform: scale(.5);
+			transition: transform .6s ease-in-out, background-color .3s;
+
+			&.is-center {
+				background: #888888;
+
+				transform: scale(1);
+
+				&::after {
+					color: #ffffff;
+					font-size: 18px;
+					font-family: 'iconfont';
+					line-height: 30px;
+
+					content: '\e699';
+
+					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
+				}
+
+				&.is-inverse {
+					background: #555555;
+
+					transform: rotateY(180deg);
+				}
+			}
+		}
+	}
 }
 /* controller -- end */
