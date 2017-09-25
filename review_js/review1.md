@@ -5028,20 +5028,36 @@ ReactDOM.render(
 [稍旧一点版本](55.html)
 
 ## 实战
-### 环境
+
+测试
+Firefox 15
+safari
+
+[gallery-by-react](http://www.dark-wing.com/gallery-by-react)
+[MusicPlayer-by-React](http://www.dark-wing.com/MusicPlayer-by-React)
+
+# Git
 ```
-npm install yo -g
-npm install generator-react-webpack -g
-npm ls -g --depth=1 2>/dev/null | grep generator-
-
-/*
-*npm ls -g  查看所有全局安装的npm包
-*--depth=1  树状结构最多向下一层
-*1  标准输出  2  标准错误
-*/dev/null  空设备文件
-*|  通道，将上一个文件的输出内容作为下一个文件的输入内容
-*grep generator-  检索以generator关键字开头的内容
-*/
-
-npm start
+// 初始化版本库
+git init
+git remote add origin <你的项目地址>
+// 克隆一个项目
+git clone <项目地址>
+// pull
+git pull origin master
+// 添加到提交清单
+git add <文件>
+// 查看文件状态
+git status
+// 提交
+git commit -m "提交原因"
+// push
+git push origin master
+```
+代码冲突时
+```
+// 舍弃线上版本
+git push origin master -f
+// 保留线上版本
+git push origin master
 ```
