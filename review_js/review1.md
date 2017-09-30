@@ -5036,6 +5036,97 @@ safari
 [gallery-by-react](http://www.dark-wing.com/gallery-by-react)
 [MusicPlayer-by-React](http://www.dark-wing.com/MusicPlayer-by-React)
 
+# React Native
+## 为什么要用React Native
+### 传统开发的痛点
+人员稀缺
+开发成本高
+代码复用率低
+无法动态更新
+
+### React Native的优点
+跨平台
+低投入高回报
+性能高
+支持动态更新
+>一才两用
+>开发成本低
+>代码复用率高
+>支持动态更新
+
+## 开发环境搭建
+### 需要安装的工具
+Node.js
+React Native Command Line
+Android Studio/XCode
+
+### 搭建React Native开发环境
+#### Windows
+安装React Native
+安装Android Studio
+创建项目
+>```
+react-native init FirstApp
+```
+>得到
+>```
+To run your app on iOS:
+   cd E:\双\0000\review_js\React Native\FirstApp
+   react-native run-ios
+   - or -
+   Open ios\FirstApp.xcodeproj in Xcode
+   Hit the Run button
+To run your app on Android:
+   cd E:\双\0000\review_js\React Native\FirstApp
+   Have an Android emulator running (quickest way to get started), or a device connected
+   react-native run-android
+```
+
+运行，启动安卓模拟器
+
+#### Mac
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Git
 ```
 // 初始化版本库
