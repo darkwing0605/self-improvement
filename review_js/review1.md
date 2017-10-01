@@ -5061,6 +5061,7 @@ React Native Command Line
 Android Studio/XCode
 
 ### 搭建React Native开发环境
+
 #### Windows
 安装React Native
 安装Android Studio
