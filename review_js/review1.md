@@ -5084,6 +5084,11 @@ To run your app on Android:
 ```
 
 运行，启动安卓模拟器
+```
+npm start
+```
+
+Ctrl + M + 双击
 
 #### Mac
 
