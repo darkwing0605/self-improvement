@@ -5061,16 +5061,17 @@ React Native Command Line
 Android Studio/XCode
 
 ### 搭建React Native开发环境
-
 #### Windows
 安装React Native
 安装Android Studio
 创建项目
->```
+>
+```
 react-native init FirstApp
 ```
 >得到
->```
+>
+```
 To run your app on iOS:
    cd E:\双\0000\review_js\React Native\FirstApp
    react-native run-ios
@@ -5084,13 +5085,36 @@ To run your app on Android:
 ```
 
 运行，启动安卓模拟器
+
 ```
 npm start
 ```
 
-Ctrl + M + 双击
+##组件
+NavigationBar
+react-native-scrollable-tab-view
+RepositoryCell
+react-native-tab-navigator
 
-#### Mac
+### 生命周期
+| ES5 | ES6 |
+|:---:|:---:|
+|**Mounting**|
+| getDefaultProps | static defaultProps |
+| getInitialState | construtor(props) |
+| componentWillMount |
+| render |
+| componentDidMount |
+|**Updating**|
+| componentWillReceiveProps |
+| shouldComponentUpdate |
+| componentWillUpdate |
+| render |
+| componentDidUpdate |
+|**Unmounting**|
+| componentWillUnmount |
+
+
 
 
 
