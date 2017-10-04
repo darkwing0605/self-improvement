@@ -5115,7 +5115,29 @@ react-native-tab-navigator
 | componentWillUnmount |
 
 
+### 小技巧
+延展操作符
+```
+let params = {name:'小红',age:80,sex:'女'};
 
+render() {
+	<View>
+		<PropsTest {...params}/>
+	</View>
+}
+```
+
+解构赋值
+```
+let params = {name:'小红',age:80,sex:'女'};
+let {name, sex} = params;
+
+render() {
+	<View>
+		<PropsTest name={name} sex={sex} />
+	</View>
+}
+```
 
 
 
