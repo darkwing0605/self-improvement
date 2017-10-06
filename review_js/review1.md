@@ -5139,8 +5139,14 @@ render() {
 }
 ```
 
-
-
+### 布局
+#### 像素无关
+在RN中尺寸是没有单位的，它代表了设备独立像素
+```
+<View style={{width:100,height:100,margin:40,backgroundColor:'gray'}}>
+	<Text style={{fontSize:16,margin:20}}>尺寸</Text>
+</View>
+```
 
 
 
