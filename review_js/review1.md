@@ -5148,11 +5148,119 @@ render() {
 </View>
 ```
 
+#### FlexBox不同之处
+>flexDirection: React Native中默认为flexDirection:'column'，在Web CSS中默认为flex-direction:'row'
+>alignItems: React Native中默认为alignItems:'stretch'，在Web CSS中默认align-items:'flex-start'
+>flex: 相比Web CSS的flex接受多参数，如:flex: 2 2 10%;，但在 React Native中flex只接受一个参数
+>不支持属性：align-content，flex-basis，order，flex-basis，flex-flow，flex-grow，flex-shrink
+
+其余完全相同
+
+#### 父视图属性(容器属性)
+##### flexWrap
+flexWrap属性定义了子元素在父视图内是否允许多行排列，默认为nowrap。
+>nowrap flex的元素只排列在一行上，可能导致溢出。
+>wrap flex的元素在一行排列不下时，就进行多行排列。
+
+##### justifyContent
+justifyContent属性定义了浏览器如何分配顺着父容器主轴的弹性（flex）元素之间及其周围的空间，默认为flex-start。
+>flex-start(default) 从行首开始排列。每行第一个弹性元素与行首对齐，同时所有后续的弹性元素与前一个对齐。
+>flex-end 从行尾开始排列。每行最后一个弹性元素与行尾对齐，其他元素将与后一个对齐。
+>center 伸缩元素向每行中点排列。每行第一个元素到行首的距离将与每行最后一个元素到行尾的距离相同。
+>space-between 在每行上均匀分配弹性元素。相邻元素间距离相同。每行第一个元素与行首对齐，每行最后一个元素与行尾对齐。
+>space-around 在每行上均匀分配弹性元素。相邻元素间距离相同。每行第一个元素到行首的距离和每行最后一个元素到行尾的距离将会是相邻元素之间距离的一半。
+
+##### alignItems
+alignItems属性以与justify-content相同的方式在侧轴方向上将当前行上的弹性元素对齐，默认为stretch。
+>flex-start 元素向侧轴起点对齐。
+>flex-end 元素向侧轴终点对齐。
+>center 元素在侧轴居中。如果元素在侧轴上的高度高于其容器，那么在两个方向上溢出距离相同。
+>stretch 弹性元素被在侧轴方向被拉伸到与容器相同的高度或宽度。
+
+#### 子视图属性
+##### alignSelf
+lignSelf属性以属性定义了flex容器内被选中项目的对齐方式。注意：alignSelf 属性可重写灵活容器的 alignItems 属性。
+>auto(default) 元素继承了它的父容器的 align-items 属性。如果没有父容器则为 “stretch”。
+>stretch	元素被拉伸以适应容器。
+>center	元素位于容器的中心。
+>flex-start	元素位于容器的开头。
+>flex-end	元素位于容器的结尾。
+
+##### flex
+flex 属性定义了一个可伸缩元素的能力，默认为0。
+
+### 按钮
+#### TouchableWithoutFeedback
+onPress
+onLongPress
+disabled
+onPressIn
+onPressOut
+TouchableHighlight
+>当手指按下的时候，该视图的不透明度会降低，同时会看到相应的颜色(视图变暗或者变亮)
+>>activeOpacity
+>>>我们可以通过activeOpacity来设置TouchableHighlight 被按下时的不透明度，默认不透明度为0.85
+
+>>underlayColor 
+>>>通过underlayColor 属性来设置TouchableHighlight 被按下去的颜色，默认状态下为balck黑色。
+
+>>onHideUnderlay 
+>>>当衬底(也就是上文讲到的最外层的View)被隐藏的时候调用。
+
+>>onShowUnderlay 
+>>>当衬底(也就是上文讲到的最外层的View)显示的时候调用。
+
+TouchableNativeFeedback
+>当按钮被按下时产生一个涟漪状的背景，你可以通过color参数来指定颜色，如果参数borderless是true，那么涟漪还会渲染到视图的范围之外。（参见原生的actionbar buttons作为该效果的一个例子）。**这个背景类型只在Android API level 21+适用也就是Android5.0或以上设备。**
 
 
+### 图片
+#### 使用本地图片
+不添加宽高会以默认大小出现
+```
+<Image
+	style={{width:500,height:100,borderWidth:1}}
+	source={require('./qiqiu.png')}
+	/*
+	resizeMode={'cover'}  //默认
+	resizeMode={'contain'}  //缩放至合适
+	resizeMode={'stretch'}  //拉伸
+	resizeMode={'repeat'}  //平铺 只适用于IOS
+	resizeMode={'center'}  //居中
+	*/
+/>
+```
 
+#### 使用网络图片
+不添加宽高RN无法渲染
+```
+<Image
+	style={{width:100,height:100,borderWidth:1}}
+	source={{uri:'https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=fd307e4fdd54564ee565e33f8be5fbbf/10dfa9ec8a136327d6b4806f918fa0ec08fac715.jpg'}}
+/>
+```
+**注意：这是uri!!!**
 
+#### 使用原生图片
+不添加宽高RN无法渲染
+```
+<Image
+	style={{width:100,height:100,tintColor:'red'}}
+	source={{uri:'icon_1'}}
+/>
+```
+tintColor改变图片颜色（png）
 
+#### 使用本地图片
+
+#### 使用不同分辨率的图片
+图片命名为@2x @3x，使用时使用原始图片，RN根据用户分辨率加载不同的图片
+```
+<Image
+	style={{width:100,height:100,borderWidth:1}}
+	source={require('./icon_launcher.png')}
+/>
+```
 
 
 
