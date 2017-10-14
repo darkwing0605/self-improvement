@@ -1,7 +1,6 @@
 <div style="width:50px;height:50px;border-radius:50%;background-color:cyan;position:fixed;right:100px;bottom:100px;line-height:50px;text-align:center;font-size:30px;color:white;cursor:pointer;">↑</div><script>var div=document.querySelector('div');div.onclick=function(eve){var timer=setInterval(function(){var scrollDistance=document.body.scrollTop||document.documentElement.scrollTop;scrollDistance=scrollDistance*0.8;document.body.scrollTop=scrollDistance;document.documentElement.scrollTop=scrollDistance;if(scrollDistance==0){clearInterval(timer)}},30)}</script>
 [TOC]
 
-
 # JavaScript
 
 ## 1.js组成
@@ -5091,6 +5090,8 @@ To run your app on Android:
 npm start
 ```
 
+#### Mac
+
 ##组件
 NavigationBar
 react-native-scrollable-tab-view
@@ -5263,25 +5264,80 @@ tintColor改变图片颜色（png）
 />
 ```
 
+## 实战
+### 软件开发流程
+需求分析 → UI界面设计 → 编码开发 → 测试 → 上线
 
+### 流程结构
+App启动 → 启动页（读取预配置文件） → 状态初始化（从服务器获取配置，更新本地数据状态） → 首页
 
+最热
+>搜索
+>>添加搜索标签、收藏、查看、搜索开源项目
 
+>菜单
+>>标签排序、自定义标签、删除标签、自定义主题、分享、反馈、关于
 
+详情
+>查看
+>分享
 
+趋势
+>时间
+>>本月、本周、本日
 
+>菜单
+>>语言排序、自定义语言、自定义主题、分享、反馈、关于
 
+列表
+>离线缓存下拉刷新
+>收藏项目
 
+收藏
+>最热与趋势的收藏
+>自定义主题、分享、反馈、关于
 
+我的
+>标签排序、自定义标签、删除标签、语言排序、自定义语言
+>自定义主题、分享、反馈、关于App、关于作者
 
+| 最热 | 趋势 | 列表 | 收藏 | 我的 |
+|:----:|:----:|:----:|:----:|:----:|
+| | | 详情 | | |
 
+高级功能
+>多彩主题之谜、启动白屏、Native组件的封装
+>统计、分享、CodePush热更新
 
+### 技术栈
+JavaScript、ES6、React、Flexbox、AsyncStorage、Fetch、Native Modules、Android&iOS
 
+第三方库
+>@react-native-check-box(复选框)
+>@react-native-easy-toast(提示框)
+>@react-native-splash-screen(启动屏)
+>@react-native-htmlview(Html渲染)
+>@react-native-scrollable-tab-view(标签切换)
+>@react-native-sortable-listview(列表排序)
+>@react-native-tab-navigator(底部导航)
+>@react-native-parallax-scroll-view(视差滚动)
+>分享SDK
 
+自定义组件
+>自定义NavigationBar
+>自定义MoreMenu
+>自定义启动屏
+>自定义复选框
+>自定义提示框
 
-
-
-
-
+高层封装
+>Native模块封装
+>BaseCommon封装
+>网络操作封装
+>数据库操作封装
+>数据解析封装
+>Promise封装
+>其他工具封装
 
 
 
