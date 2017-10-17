@@ -11,7 +11,6 @@
 
 ### 1.变量
 
-
 >变量在使用前需要定义
 
 >定义变量和使用变量
@@ -124,7 +123,6 @@ var str = '3.14';
 >输出到浏览器：alert();
 
 >输入方式：prompt();能在浏览器窗口弹出一个对话框，让用户输入东西，js能得到用户输入的东西，得到的是一个字符串
-
 
 ### 5.运算符
 
@@ -5343,6 +5341,36 @@ JavaScript、ES6、React、Flexbox、AsyncStorage、Fetch、Native Modules、And
 
 
 
+# Angular
+## Angular CLI
+简明框架
+>Amber CLI → Angular CLI ← Webpack
+
+## Hello Angular CLI
+```
+ng new my-first-AngularApp
+
+cd my-first-AngularApp
+
+ng serve
+```
+
+## 重要指令
+ng help
+### ng new
+开发辅助  --dry-run
+> 只是将流程走一遍，并不实际创建项目
+
+修改项目默认值  --prefix
+
+### ng serve
+--port 4201
+>更改端口号
+
+--open
+>自动打开浏览器
+
+### ng generate
 
 
 
@@ -5354,7 +5382,9 @@ JavaScript、ES6、React、Flexbox、AsyncStorage、Fetch、Native Modules、And
 
 
 
-#ES6
+
+
+# ES6
 
 # Git
 ```
