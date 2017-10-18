@@ -5342,11 +5342,281 @@ JavaScript、ES6、React、Flexbox、AsyncStorage、Fetch、Native Modules、And
 
 
 # Angular
+## Angular 2
+### 重要特性
+新特性
+>移除controller+$scope设计，改用组建式开发（更容易上手）
+>性能更好（渲染更快，变化检测效率更高）
+>优先为移动应用设计（Angular Mobile Toolkit）
+>更加贴合未来的标准（如ES6/7、WebComponent）
+
+无缝升级方案
+>UpgradeAdapter
+
+### 核心概念
+Component(组件)、Metadata(元数据)、Templates(模板)、Data binding(数据绑定)、Services(服务)、Directives(指令)、Dependency Injection(依赖注入)、Modules(模块)
+
+#### 组件
+| 全生命周期支持 |  |
+|:---:|:---:|
+|Constructor|构造器初始化|
+|OnChanges|第一次触发数据变化钩子|
+|OnInit|组件初始化|
+|OnChanges|运行期间触发数据变化钩子|
+|OnDestroy|组建销毁前|
+
+```Angular
+@Component({ // 装饰器
+	/*
+	 * 元数据
+	 */
+	selector: 'hello',
+	template: '<p>{{greeting}}</p>' // 模板
+})
+
+export class HelloComponent { //组件类
+	private greeting: string;
+	constructor() {
+		this.greeting = 'Hello, Angular 2!'
+	}
+}
+```
+
+||元数据↓||
+|:---:|:---:|:---:|
+|普通类→|装饰器@Component|→组件|
+
+模板
+>内部模板
+>> ```template: '<p>{{greeting}}</p>'```
+
+>外部模板
+>> ```templateUrI: "path/to/hello.html"```
+
+>数据绑定
+>>插值（interpolation）
+>>> ```{{greeting}}```
+
+>>属性绑定-[value]
+>>>把组件类的数据传递到组件模板上
+>>> ```<input [value]="myData" />```
+
+>>事件绑定-(keyup)
+>>> 把模板产生的数据通过函数调用的方式传递到组件类
+>>>```<input (keyup)="handle($event)" />```
+
+>>双向绑定-[(ngModel)]
+>>> 数据双向流动
+>>>```<input [(ngModel)]="myData" />```
+
+组件渲染
+> ```<hello></hello>```
+> ```selector: 'hello'```
+>
+```
+<hello>
+	<p>Hello, Angular 2!</p>
+</hello>
+```
+
+组件树
+>子组件
+>>
+```
+@Component({
+	selector: 'contact',
+	template: '...'
+})
+export class ContactComponent {
+	@Input() data: IContact;
+}
+```
+
+>父组件
+>>
+```
+@Component({
+	selector: 'contact-list',
+	template: `
+		<ul>
+			<li *ngFor="let item of datas">
+				<contact [data]="item"></contact>
+			</li>
+		</ul>
+	`,
+})
+export class ContactListComponent {
+	private datas: IContact[];
+	//...
+}
+```
+
+>数据流向
+>> ```{父组件-组件类} →属性绑定→ <父组件-模板> →属性绑定@Input→ {子组件-组件类} →属性绑定→ <子组件-模板>```
+>> ```{父组件-组件类} ←事件绑定← <父组件-模板> ←事件绑定@Output← {子组件-组件类} ←事件绑定← <子组件-模板>```
+
+#### 指令
+组件继承自指令，组件是自身带有模板的指令
+
+指令
+>属性指令
+>> 改变组件模板的外管或者行为，如样式等
+
+>结构指令
+>>改变组件模板的DOM结构，如ngIf用来插入或者移除DOM节点
+
+示例
+>>
+```
+// textColor = "red"
+template: "<p [style.color]="textColor">{{greeting}}</p>"
+```
+
+>↓
+>>
+```
+<hello>
+	<p style="color:red">Hello, Angular 2!</p>
+</hello>
+```
+
+自定义指令
+>
+```
+// import ElementRef, Renderer
+
+@Directive({
+	selector: '[highlight]'
+})
+export class HighlightDirective {
+	constructor(el: ElementRef, renderer: Renderer) {
+		renderer.setElementStyle(el.nativeElement, 'backgroundColor', 'yellow');
+	}
+}
+```
+>
+```
+template: '<p highlight>{{greeting}}</p>'
+```
+
+#### 服务和依赖注入
+##### 服务
+服务是实现专一目的的逻辑单元，如日志服务
+```
+export class LoggerService {
+	constructor() {}
+
+	debug(msg: string) {
+		console.log(msg);
+	}
+	error(msg: string) {
+		console.log(msg);
+	}
+}
+```
+
+##### 依赖注入
+组件引入外部构建（如服务）的一种机制
+> LoggerService →实例化→ **依赖注入** →注入→ 组件
+```
+// import LoggerService
+
+@Component({
+	selector: 'hello',
+	template: '<p>{{greeting}}</p>'
+	providers: [LoggerService]  //依赖注入配置
+})
+export class HelloComponent {
+	private greeting: string;
+	constructor(logger: LoggerService) {  // 自动传入LoggerService实例
+		this.greeting = 'Hello, Angular 2!';
+		logger.debug('构造函数执行完毕');
+	}
+}
+```
+
+分层注入（hierarchical dependency injection）
+>可以在适当的位置重新创建一个新的实例
+>>根组件  注入LoggerService( warn )
+>>子组件B  重新注入LoggerService( debug )
+
+>分层注入不会影响到组件树中的其他分支
+>>所以子组件A依然使用原来的warn级别的服务
+
+#### 模块
+模块由两层含义
+>代码框架以模块形式组织（文件模块）
+>功能单元以模块形式组织（应用模块）
+
+##### 文件模块
+Angular 2
+>@Angular/core 核心模块
+>>变化检测、依赖注入、渲染
+
+>@Angular/common 通用模块
+>> 常用的内置指令
+
+>@Angular/forms 表单模块
+>> 表单相关的组件和指令
+
+>@Angular/http 网络模块
+>> 处理网络请求相关的服务
+
+>... ...
+
+文件模块使用
+```
+import { Http } from "@angular/http"
+
+// @Component装饰器
+import { Component } from "@angular/core"
+// @Directive装饰器
+import { Directive } from "@angular/core"
+
+import { ELementRef, Renderer } from "@angular/core"
+```
+
+##### 应用模块
+应用模块就是对应用内零散的组件、服务、指令等按功能进行分类包装
+一个组件可以任意使用本模块的指令，但是不能跨模块使用别的模块的指令，若要实现跨模块的使用，则需要使用导入导出功能
+
+>declaration: 包装组件或指令等
+>providers: 依赖注入
+>>使用方法大致相同，区别在于作用域，注入在模块中的服务可以在应用全局使用；而注入在组件中的仅能在该组件以及它的子组件使用
+
+>imports: 导入其他模块
+>>导入之后就能继承其他模块暴露出的组件和指令等
+
+>bootstrap: 设置根组件
+>>指定Angular2应用组件树中的根组件，这个属性只在跟模块中使用
+
+>exports: 导出组件或指令等
+>>用来设置该模块对外暴露的组件或指令
+
+```
+@NgModule({
+	declaration: [
+		AppComponent,
+		SomeDirective
+	],
+	providers: [ LoggerService ],
+	imports: [ OtherModule ],
+	bootstrap: [ AppComponent ],
+	exports: [ SomeDirective ]
+})
+export class AppModule {}
+```
+
+** 服务不在导入导出的范围 **
+** 应用模块支持懒加载 **
+
+
+
 ## Angular CLI
 简明框架
 >Amber CLI → Angular CLI ← Webpack
 
-## Hello Angular CLI
+### Hello Angular CLI
 ```
 ng new my-first-AngularApp
 
@@ -5355,26 +5625,45 @@ cd my-first-AngularApp
 ng serve
 ```
 
-## 重要指令
+### 重要指令
 ng help
-### ng new
+#### ng new
 开发辅助  --dry-run
 > 只是将流程走一遍，并不实际创建项目
 
 修改项目默认值  --prefix
 
-### ng serve
+#### ng serve
 --port 4201
 >更改端口号
 
 --open
 >自动打开浏览器
 
-### ng generate
+#### ng generate
+```
+ng generate component test
+```
 
+```
+ng g service test -m app.module
+```
 
+#### ng test
+```
+ng test
+```
 
+#### ng build
+```
+ng build
+```
 
+--aot
+>优化，Angular预编译
+
+-prod
+>生产模式
 
 
 
