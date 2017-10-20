@@ -5365,7 +5365,7 @@ Component(组件)、Metadata(元数据)、Templates(模板)、Data binding(数�
 |OnChanges|运行期间触发数据变化钩子|
 |OnDestroy|组建销毁前|
 
-```Angular
+```TypeScript
 @Component({ // 装饰器
 	/*
 	 * 元数据
@@ -5413,7 +5413,7 @@ export class HelloComponent { //组件类
 > ```<hello></hello>```
 > ```selector: 'hello'```
 >
-```
+```TypeScript
 <hello>
 	<p>Hello, Angular 2!</p>
 </hello>
@@ -5422,7 +5422,7 @@ export class HelloComponent { //组件类
 组件树
 >子组件
 >>
-```
+```TypeScript
 @Component({
 	selector: 'contact',
 	template: '...'
@@ -5434,7 +5434,7 @@ export class ContactComponent {
 
 >父组件
 >>
-```
+```TypeScript
 @Component({
 	selector: 'contact-list',
 	template: `
@@ -5467,14 +5467,14 @@ export class ContactListComponent {
 
 示例
 >>
-```
+```TypeScript
 // textColor = "red"
 template: "<p [style.color]="textColor">{{greeting}}</p>"
 ```
 
 >↓
 >>
-```
+```TypeScript
 <hello>
 	<p style="color:red">Hello, Angular 2!</p>
 </hello>
@@ -5482,7 +5482,7 @@ template: "<p [style.color]="textColor">{{greeting}}</p>"
 
 自定义指令
 >
-```
+```TypeScript
 // import ElementRef, Renderer
 
 @Directive({
@@ -5495,14 +5495,14 @@ export class HighlightDirective {
 }
 ```
 >
-```
+```TypeScript
 template: '<p highlight>{{greeting}}</p>'
 ```
 
 #### 服务和依赖注入
 ##### 服务
 服务是实现专一目的的逻辑单元，如日志服务
-```
+```TypeScript
 export class LoggerService {
 	constructor() {}
 
@@ -5518,7 +5518,7 @@ export class LoggerService {
 ##### 依赖注入
 组件引入外部构建（如服务）的一种机制
 > LoggerService →实例化→ **依赖注入** →注入→ 组件
-```
+```TypeScript
 // import LoggerService
 
 @Component({
@@ -5565,7 +5565,7 @@ Angular 2
 >... ...
 
 文件模块使用
-```
+```TypeScript
 import { Http } from "@angular/http"
 
 // @Component装饰器
@@ -5593,7 +5593,7 @@ import { ELementRef, Renderer } from "@angular/core"
 >exports: 导出组件或指令等
 >>用来设置该模块对外暴露的组件或指令
 
-```
+```TypeScript
 @NgModule({
 	declaration: [
 		AppComponent,
@@ -5609,6 +5609,66 @@ export class AppModule {}
 
 ** 服务不在导入导出的范围 **
 ** 应用模块支持懒加载 **
+
+## 快速上手
+### TypeScript
+TypeScript是微软开发的编程语言
+>是JavaScript的超集，完全兼容JavaScript
+>运行前需要预编译生成JavaScript代码
+>加入类型判断，编译时进行类型检查
+>文件扩展名为.ts
+
+TypeScript = Type + JavaScript
+>简单语法
+>>
+```TypeScript
+var book: string = "Angular 2";
+var num: number = 123;
+
+function log(msg: string): void {
+	console.log(msg);
+}
+```
+
+>类和接口
+>>
+```TypeScript
+// 接口
+interface Shape {
+	area(): number;
+}
+// 类
+class Rectangle implements Shape {
+	constructor(
+		private width: number,
+		private length: number
+	) {}
+	// 实现接口的方法
+	area() {
+		return this.width * this.length;
+	}
+}
+```
+
+>装饰器
+>>一种特殊类型的声明
+>>能够被附加到类，方法，访问符，属性或参数上
+>>>
+```TypeScript
+@SomeDecorator({
+	// 配置
+})
+class SomeClass {}
+```
+>>>
+```
+function SomeDecorator(config: any) {
+	return function(cls: any) { // cls为类的构造函数
+		cls.isSealed = true;
+		return cls;
+	}
+}
+```
 
 
 
@@ -5664,6 +5724,8 @@ ng build
 
 -prod
 >生产模式
+
+
 
 
 
