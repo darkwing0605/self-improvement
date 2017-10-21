@@ -5671,7 +5671,6 @@ function SomeDecorator(config: any) {
 ```
 
 
-
 ## Angular CLI
 简明框架
 >Amber CLI → Angular CLI ← Webpack
