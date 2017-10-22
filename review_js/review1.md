@@ -5671,6 +5671,7 @@ function SomeDecorator(config: any) {
 ```
 
 
+
 ## Angular CLI
 简明框架
 >Amber CLI → Angular CLI ← Webpack
@@ -5686,7 +5687,6 @@ ng serve
 
 ### 重要指令
 ng help
-
 #### ng new
 开发辅助  --dry-run
 > 只是将流程走一遍，并不实际创建项目
@@ -5726,6 +5726,36 @@ ng build
 >生产模式
 
 
+## Angular 4.0
+### Angular 新特性
+全新命令行工具AngularCLI
+服务器端渲染
+移动和桌面兼容
+
+### 开发
+安装jquery、bootstrap、类型描述文件
+```
+npm install jquery --save-dev
+npm install bootstrap --save-dev
+npm install @types/jquery --save-dev
+npm install @types/bootstrap --save-dev
+```
+
+生成组件
+```
+// 导航栏
+ng g component navbar 
+// 底部
+ng g component footer 
+// 搜索
+ng g component search 
+// 轮播图
+ng g component carousel 
+// 产品
+ng g component product 
+// 星级评价
+ng g component stars 
+```
 
 
 
@@ -5734,8 +5764,6 @@ ng build
 
 
 
-
-# ES6
 
 # Git
 ```
