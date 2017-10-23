@@ -5744,7 +5744,7 @@ npm install @types/bootstrap --save-dev
 生成组件
 ```
 // 导航栏
-ng g component navbar 
+ng generate component navbar 
 // 底部
 ng g component footer 
 // 搜索
