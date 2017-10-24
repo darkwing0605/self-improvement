@@ -5757,12 +5757,91 @@ ng g component product
 ng g component stars 
 ```
 
+指令
+>>
+```TypeScript
+<div *ngFor="let product of products"></div>
+```
+>>> products与后台的products绑定在一起
+>>> ```*ngFor```是循环product的属性
+>>> 每次循环的元素放在product这个变量中
+>>> 之后就可以使用插值表达式例如`{{product.price}}`
+>>>> 数据绑定，用后台数据来驱动页面
 
+>属性绑定
+>>
+```TypeScript
+private imgUrl = "https://placekitten.com/320/150";
+```
+>>
+```TypeScript
+<img [src]="imgUrl">
+```
 
+### 路由
+>Routes
+>> 路由配置，保存着哪个URL对应展示哪个组件，以及在哪个RouterOutlet中展示组件
 
+>RouterOutler
+>> 在HTML中标记路由内容呈现位置的占位符指令
 
+>Router
+>>负责在运行时执行路由的对象，可以通过调用其navigate()和navigateByUrl()方法来导航到一个指定的路由
 
+>RouterLink
+>> 在HTML中声明路由导航用的指令
 
+>ActivatedRouter
+>>当前激活的路由对象，保存着当前路由的信息，如路由地址，路由参数等
+
+```
+ng new router --routing
+
+ng g component home
+ng g component product
+ng g component code404
+```
+在app-routing.module.ts
+```TypeScript
+import {HomeComponent} from "./home/home.component"
+import {ProductComponent} from "./product/product.component"
+import {Code404Component} from './code404/code404.component'
+
+const routes: Routes = [
+	{path: '', component: HomeComponent},
+	{path: 'product', component: ProductComponent},
+	{path: '**', component: Code404Component}
+];
+// 注意，path中不加斜杠
+```
+在app.component.html
+```TypeScript
+<a [routerLink]="['/']">主页</a>
+<a [routerLink]="['/product']">商品详情</a>
+// 注意，这里的路径一定要加斜杠
+// 参数是数组，可以传递一些参数
+
+<input type="button" value="商品详情" (click)="toProductDetails()">
+// 事件绑定
+
+<router-outlet></router-outlet> //组件显示在这个插座后面
+```
+在app.component.ts
+```TypeScript
+export class AppComponent {
+	title = 'app works';
+
+	constructor(private router: Router){}
+
+	toProductDetails() {
+		this.router.navigate(['./product']);
+	}
+}
+```
+在code404.component.html
+```
+<p>页面不存在</p>
+```
 
 
 # Git
