@@ -5791,7 +5791,7 @@ private imgUrl = "https://placekitten.com/320/150";
 >RouterLink
 >> 在HTML中声明路由导航用的指令
 
->ActivatedRouter
+>ActivatedRoute
 >>当前激活的路由对象，保存着当前路由的信息，如路由地址，路由参数等
 
 ```
@@ -5842,6 +5842,127 @@ export class AppComponent {
 ```
 <p>页面不存在</p>
 ```
+
+### 传递数据
+在路由时传递数据
+>在查询参数中传递数据
+>>
+```
+/product?id=1&name=2  =>  ActivatedRoute.queryParam[id]
+```
+>>app.component.html
+>>>
+```TypeScript
+<a [routerLink]="['/product']" [queryParams]="{id:1}"></a>
+```
+
+>>在product.component.ts获取
+>>>
+```TypeScript
+export class ProductComponent implements OnInit {
+	private productId: number;
+	constructor(private routeInfo: ActivatedRoute) {}
+	ngOnInit() {
+		this.productId = this.routeInfo.snapshot.queryParams["id"];
+	}
+}
+```
+
+>>在product.component.html
+>>>
+```HTML
+<p>
+	商品ID是：{{productId}}
+</p>
+```
+
+> 在路由路径中传递数据
+>>
+```
+{{path:/product/:id}} => /product/1 => ActivatedRoute.queryParam[id]
+```
+>>在app.component.ts
+>>>
+```TypeScript
+const routes: Routes = [
+	{path: 'product/:id', component: ProductComponent}
+]
+```
+
+>>在app.component.html
+>>>
+```HTML
+<a [routerLink]="['/product', 1]"></a>
+```
+
+>>在product.component.ts获取
+>>>
+```TypeScript
+export class ProductComponent implements OnInit {
+	private productId: number;
+	constructor(private routeInfo: ActivatedRoute) {}
+	ngOnInit() {
+		this.productId = this.routeInfo.snapshot.params["id"];
+		// snapshot 参数快照
+	}
+}
+```
+
+> 在路由配置中传递数据
+>>
+```
+{path:/product, component: ProductComponent, data:[{isProd: true}]} => ActivatedRoute.data[0][isProd]
+```
+
+参数快照、参数订阅
+>app.component.ts
+>
+```TypeScript
+toProductDetails() {
+	// 参数订阅
+	this.routeInfo.params.subscribe((params: Params) => this.productId = params["id"]);
+	this.router.navigate(['./product', 2]);
+}
+```
+
+重定向路由
+>用户在访问一个特定的地址时，将其重定向到另一个指定的地址
+>> `www.aaa.com => www.aaa.com/products`
+>> `www.aaa.com/x => www.aaa.com/y`
+
+>app-routing.module.ts
+>>
+```TypeScript
+const routes: Routes = [
+	{path: 'home', component: HomeComponent}
+]
+```
+
+>app.component.html
+>>
+```html
+<a [routerLink]="['/home']">主页</a>
+```
+
+>app-routing.module.ts
+>>
+```TypeScript
+const routes: Routes = [
+	{path: '', redirectTo: '/home', pathMatch: 'full'},
+	{path: 'home', component: HomeComponent}
+]
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Git
