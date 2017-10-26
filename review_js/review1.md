@@ -5843,7 +5843,8 @@ export class AppComponent {
 <p>页面不存在</p>
 ```
 
-### 传递数据
+### 路由
+#### 传递数据
 在路由时传递数据
 >在查询参数中传递数据
 >>
@@ -5925,7 +5926,7 @@ toProductDetails() {
 }
 ```
 
-重定向路由
+#### 重定向路由
 >用户在访问一个特定的地址时，将其重定向到另一个指定的地址
 >> `www.aaa.com => www.aaa.com/products`
 >> `www.aaa.com/x => www.aaa.com/y`
@@ -5953,8 +5954,62 @@ const routes: Routes = [
 ]
 ```
 
+#### 子路由
+```
+{path: 'home', component: HomeComponent, 
+	children: [
+		{
+			path: '', component: XxxComponent
+		},
+		{
+			path: '/yyy', component: YyyComponent
+		}
+	]
+}
+```
+↓
+新建组件
+```
+ng g component productDesc
+ng g component sellerInfo
+```
 
-
+product-desc.component.html
+```HTML
+<p>这是一个牛X的商品</p>
+```
+seller-info.componnent.html
+```HTML
+<p>销售员ID是{{sellerId}}.</p>
+```
+seller-info.component.ts
+```TypeScript
+export class SellerInfoComponent implement OnInit {
+	private sellerId: number;
+	constructor(private routeInfo: ActivatedRoute) {}
+	ngOnInit(){
+		this.sellerId = this.routeInfo.snapshot.params["id"];
+	}
+}
+```
+app.component.moudle.ts
+```TypeScript
+const routes: Routes = [
+	{path: '', redirectTo: '/home', pathMatch: 'full'},
+	{path: 'home', component: HomeComponent},
+	{path: 'product/:id', component: ProductComponent, children: [
+		{path: '', component: ProductDescComponent},
+		{path: 'seller/:id', component: SellerInfoComponent}
+	]},
+	{path: '**', component: Code404Component}
+];
+```
+product.component.html
+```HTML
+<a [routerLink]="['./']">商品描述</a>
+<a [routerLink]="['./seller', 99]">销售员信息</a>
+<router-outlet></router-outlet>
+```
 
 
 
