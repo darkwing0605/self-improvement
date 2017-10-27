@@ -6011,10 +6011,215 @@ product.component.html
 <router-outlet></router-outlet>
 ```
 
+#### 辅助路由
+```
+<router-outlet></router-outlet>
+<router-outlet name="aux"></router-outlet>
+
+{path: 'xxx', component: XxxComponent, outlet: "aux"}
+{path: 'yyy', component: YyyComponent, outlet: "aux"}
+
+<a [routerLink]="{'/home', {outlet: {aux: 'xxx'}}}">Xxx</a>
+<a [routerLink]="{'/product', {outlet: {aux: 'yyy'}}}">Yyy</a>
+```
+↓
+app.component.html
+```html
+<a [routerLink]="[{outlets: {primary: 'home', aux: 'chat'}}]">开始聊天</a>
+<a [routerLink]="[{outlets: {aux: null}}]">结束聊天</a>
+
+<router-outlet></router-outlet>
+<router-outlet name="aux"></router-outlet>
+```
+
+```
+ng g component chat
+```
+
+chat.component.html
+```html
+<textarea placeholder="请输入聊天内容" class="chat"></textarea>
+```
+
+chat.component.css
+```css
+.chat {
+	background: green;
+	height: 100px;
+	width: 30%;
+	float: left;
+	box-sizing: border-box;
+}
+```
+
+product 和 home 组件分别占其余的70%
 
 
+app-routing.module.ts
+```TypeScript
+{path: 'chat', component: ChatComponent, outlet: 'aux'}
+```
+
+#### 路由守卫（钩子）
+只有当用户已经登录并拥有某些权限时才能进入某些路由
+一个由多个表单组件组成的向导，例如注册流程，用户只有在当前路由的组件中填写了满足要求的信息才可以导航到下一个路由
+当用户未执行保存操作而试图离开当前导航时提醒用户
+
+> CanActivate: 处理导航到某路由的情况
+> CanDeactivate: 处理从当前路由离开的情况
+> Resolve: 在路由激活之前获取路由数据
+
+guard > login.guard.ts
+```TypeScript
+import { CanActivate } from "@angular/router";
+
+export class LoginGuard implements CanActivate {
+	canActivate() {
+		
+		let loggedIn: boolean = Math.random() < 0.5;
+
+		if(!loggedIn) {
+			console.log("用户未登录")
+		}
+
+		return loggedIn;
+	}
+}
+```
+
+app-routing.module.ts
+```TypeScript
+const routes: Routes = [
+	{path: '', redirectTo: '/home', pathMatch: 'full'},
+	{path: 'home', component: HomeComponent},
+	{path: 'product/:id', component: ProductComponent, children: [
+		{path: '', component: ProductDescComponent},
+		{path: 'seller/:id', component: SellerInfoComponent}
+	], canActivate: [LoginGuard]},
+	{path: '**', component: Code404Component}
+];
+
+@NgModule({
+	providers: [LoginGuard]
+})
+```
 
 
+guard > unsaved.guard.ts
+```
+import { CanDeactivate } from '@angular/router';
+import { ProductComponent } from '../product/product.component';
+
+export class UnsaveGuard implements CanDeactivate<ProductComponent> {
+	canDeactivate(component: ProductComponent) {
+		return window.confirm('你还没有保存，确定要离开么？')
+	}
+}
+```
+
+app-routing.module.ts
+```TypeScript
+const routes: Routes = [
+	{path: '', redirectTo: '/home', pathMatch: 'full'},
+	{path: 'home', component: HomeComponent},
+	{path: 'product/:id', component: ProductComponent, children: [
+		{path: '', component: ProductDescComponent},
+		{path: 'seller/:id', component: SellerInfoComponent}
+	], canActivate: [LoginGuard], canDeactivate: [UnsaveGuard]},
+	{path: '**', component: Code404Component}
+];
+
+@NgModule({
+	providers: [LoginGuard, UnsaveGuard]
+})
+```
+
+guard > product.resolve.ts
+
+product.component.ts
+```TypeScript
+export class ProductComponent implements OnInit{
+	private productId: number;
+
+	private productName: string;
+
+	constructor(private routeInfo: ActivatedRoute){
+
+	}
+	ngOnInit() {
+
+
+		this.routeInfo.data.subscribe((data: {product: Product}) => {
+			this.productId = data.product.id;
+			this.productName = data.product.name;
+		});
+	}
+}
+
+export class Product {
+	constructor(public id: number, public name: string){
+
+	}
+}
+```
+
+product.resolve.ts
+```TypeScript
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Product } from '../product/product.component'
+import { Observable } from 'rxjs'
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export calss ProductResolve implements Resolve <Product> {
+
+	private productId: number;
+
+	private productName: string;
+	
+	constructor(private router: Router){
+
+	}
+
+	resolve(route: ActivatedRouteSnapshot, state: RouteStateSnapshot): Observable<Product>|Promise<Product>|Product {
+		
+		let productId: number = route.param["id"];
+
+		// 这里认为产品ID为1时正确
+		if(productId == 1){
+			return new Product(1, "iPhone 7");
+		} else {
+			this.router.navigate(['/home']);
+			return undefined;
+		}
+
+	}
+}
+```
+
+app-routing.module.ts
+```TypeScript
+const routes: Routes = [
+	{path: '', redirectTo: '/home', pathMatch: 'full'},
+	{path: 'home', component: HomeComponent},
+	{path: 'product/:id', component: ProductComponent, children: [
+		{path: '', component: ProductDescComponent},
+		{path: 'seller/:id', component: SellerInfoComponent}
+	], resolve: {product: ProductResolve}},
+	{path: '**', component: Code404Component}
+];
+
+@NgModule({
+	providers: [LoginGuard, UnsaveGuard, ProductResolve]
+})
+```
+
+product.component.html
+```html
+<p>商品名称是：{{productName}}</p>
+```
+
+#### 改造auction
 
 
 
