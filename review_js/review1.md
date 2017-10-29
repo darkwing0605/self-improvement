@@ -6219,9 +6219,362 @@ product.component.html
 <p>商品名称是：{{productName}}</p>
 ```
 
-#### 改造auction
+### 依赖注入
+依赖注入：Dependency Injection 简称 DI
+>侧重于描述手段，如何实现控制反转，使用的手段叫作依赖注入
+>
+```
+var product = new Product();
+creatShipment(product);
+```
+>
+```
+var product = new MockProduct();
+creatShipment(product);
+```
+>
+```
+var product = new Product();
+var shipCompany = new shipCompany();
+var address = new Address();
+var order = new Order();
+order.setAddress(address);
+createShipment(product, shipCompany, order);
+```
+
+控制反转：Inversion of Control 简称IOC
+>侧重于描述目的，代码的控制权由内部转移至外部，实现的框架叫作IOC容器
+
+#### 使用依赖注入模式的好处
+##### 松耦合，可重用
+```TypeScript
+@NgModule({
+	providers: [ProductService]
+	// 相当于 providers: [{provide:ProductService, useClass: ProductService}]
+
+	...
+})
+export class AppModule{ }
+
+@Component({
+	...
+})
+export class ProductComponent {
+	product: Product;
+	constructor(productService: ProductService) {
+		this.product = productService.getProduct();
+	}
+}
+```
+
+```
+@NgModule({
+	providers: [{provide:ProductService, useClass: AnotherProductService}]
+
+	...
+})
+export class AppModule{ }
+
+@Component({
+	...
+})
+export class ProductComponent {
+	product: Product;
+	constructor(productService: ProductService) {
+		this.product = productService.getProduct();
+	}
+}
+```
+
+##### 可测试性
+
+#### 注入器和提供器
+##### 注入器
+```
+constructor(private productService: ProductService){...}
+```
+
+##### 提供器
+```
+providers: [ProductService]
+
+providers: [{provide: ProductService, useClass: ProductService}]
+
+providers: [{provide: ProductService, useFactory: () => {...}}]
+```
 
 
+##### 例
+```
+ng g component product1
+ng g service shared/product
+```
+
+product.service.ts
+```TypeScript
+export class ProductService {
+	constructor() { }
+
+	getProduct(): Product {
+		return new Product(0, "iPhone X", 123456, "最新款")
+	}
+}
+
+export class Product {
+	constructor(
+		public id: number,
+		public title: string,
+		public price: number,
+		public desc: string
+	){
+
+	}
+}
+```
+
+app.module.ts
+```
+import { ProductService } from "./shared/product.service"
+
+@NgModule({
+	providers: [ProductService]
+})
+```
+
+product1.component.ts
+```TypeScript
+export class Product1Component implement OnInit {
+	product: Product;
+
+	constructor(private productService: ProductService) {}
+
+	ngOnInit() {
+		this.product = this.productService.getProduct();
+	}
+}
+```
+
+product1.component.html
+```HTML
+<div>
+	<h1>商品详情</h1>
+	<h2>名称：{{product.title}}</h2>
+	<h2>价格：{{product.price}}</h2>
+	<h2>描述：{{product.desc}}</h2>
+</div>
+```
+
+app.component.html
+```HTML
+<div>
+	<div>
+		<h1>基本的依赖注入样例</h1>
+	</div>
+	<div>
+		<app-product1></app-product1>
+	</div>
+</div>
+```
+↓↓↓
+```
+ng g component product2
+ng g service shared/anotherProduct
+```
+
+another-product.service.ts
+```TypeScript
+export class AnotherProductService implements ProductService {
+
+	getProduct(): Product {
+		return new Product(1, "iPhone XXX", 654321, "最最新款")
+	}
+
+	constructor() {}
+}
+```
+
+product2.component.ts (和上面几乎一毛一样)
+```TypeScript
+@Component({
+	providers: [{
+		provider:ProductService, useClass: AnotherProductService
+	}]
+})
+
+export class Product1Component implement OnInit {
+	product: Product;
+
+	constructor(private productService: ProductService) {}
+
+	ngOnInit() {
+		this.product = this.productService.getProduct();
+	}
+}
+```
+
+product.component.html (和上面真的一毛一样)
+```HTML
+<div>
+	<h1>商品详情</h1>
+	<h2>名称：{{product.title}}</h2>
+	<h2>价格：{{product.price}}</h2>
+	<h2>描述：{{product.desc}}</h2>
+</div>
+```
+
+app.component.html
+```HTML
+<div>
+	<div>
+		<h1>基本的依赖注入样例</h1>
+	</div>
+	<div>
+		<app-product1></app-product1>
+		<app-product2></app-product2>
+	</div>
+</div>
+```
+↓↓↓
+```
+ng g service shared/logger
+```
+
+logger.service.ts
+```TypeScript
+export class LoggerService {
+ 	constructor() {}
+
+ 	log(message: string) {
+		console.log(message);
+ 	}
+}
+```
+
+product.service.ts
+```TypeScript
+import { Injectable } from '@angular/core';
+import { LoggerService } form "./shared/logger.service";
+
+@Injectable()
+export class ProductService {
+	constructor(private logger LoggerService) {}
+
+	getProduct(): Product {
+		this.logger.log("getProduct方法被调用");
+		//...
+	}
+}
+```
+
+app.module.ts
+```TypeScript
+@NgModule({
+	providers: [ProductService, LoggerService]
+})
+```
+
+#### 使用工厂和值声明提供器
+首先删除product2.component.ts中的providers
+此时product1和product2一样
+
+app.module.ts
+```TypeScript
+@NgModule({
+	providers: [{
+		provide: ProductService,
+		useFactory: () => {
+			let logger = new LoggerService();
+			let dev = Math.random() > 0.5;
+			if(dev) {
+				return new ProductService(logger);
+			} else {
+				return new AnotherProductService(logger);
+			}
+		}
+	}, LoggerService]
+})
+```
+
+another-product.service.ts
+```TypeScript
+constructor(public logger: LoggerService) {}
+```
+
+product.service.ts
+```TypeScript
+constructor(public logger: LoggerService) {}
+```
+↓↓↓
+app.module.ts
+```TypeScript
+@NgModule({
+	providers: [
+		{
+			provide: ProductService,
+			useFactory: (logger: LoggerService, isDev) => {
+				if(isDev) {
+					return new ProductService(logger);
+				} else {
+					return new AnotherProductService(logger);
+				}
+			},
+			deps:[LoggerService, "IS_DEV_ENV"]
+		}, 
+		LoggerService, 
+		{
+			provide: "IS_DEV_ENV", useValue: false
+			/*
+			 * provide: "APP_CONFIG", useValue: {isDev: false}
+			 */
+		}
+	]
+})
+```
+或者
+```TypeScript
+@NgModule({
+	providers: [
+		{
+			provide: ProductService,
+			useFactory: (logger: LoggerService, appConfig) => {
+				if(appConfig.isDev) {
+					return new ProductService(logger);
+				} else {
+					return new AnotherProductService(logger);
+				}
+			},
+			deps:[LoggerService, "APP_CONFIG"]
+		}, 
+		LoggerService, 
+		{
+			provide: "APP_CONFIG", useValue: {isDev: false}
+		}
+	]
+})
+```
+#### 注入器的层级关系
+应用级注入器
+> 主组件注入器
+>> 子组件注入器
+>>> ...
+↓↓↓ 只是一个例子，实际中尽量不要用这种方法，用上面那个，除非你在写框架
+```
+@import { Injector } from '@angular/core';
+
+export class Product2Component implements OnInit {
+	product: Product;
+
+	private productService: ProductService;
+
+	constructor(private injector: Injector) {
+		this.productService = injector.get(ProductService)
+	}
+
+	ngOnInit() {
+		this.product = this.productService.getProduct();
+	}
+}
+```
 
 
 
