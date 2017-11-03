@@ -6589,6 +6589,7 @@ export class Product2Component implements OnInit {
 <button (click)="toProductDetials()">商品详情</button>
 // 使用小括号将组件控制器的一个方法绑定为模板上一个事件的处理器
 ```
+
 ##### 事件绑定
 ```
 <input (input)="onInputEvent($event)">
@@ -6603,12 +6604,283 @@ export class Product2Component implements OnInit {
 >绑定的时间既可以是标准的DOM事件，也可以是自定义事件
 
 ##### DOM属性绑定
+插值表达式和属性绑定
+>插值表达式和属性绑定是一个东西
+>>component.html
+```HTML 
+<img [src]="imgUrl"><br>
+<img src="{{imgUrl}}">
+
+// 在渲染这个视图之前，Angular会把所有的插值表达式翻译成相应的属性绑定
+// 从技术的角度是一毛一样的，用哪个都可以，但是要尽量统一风格
+```
+
+HTML属性和DOM属性的区别
+>HTML属性指定了初始值，DOM属性表示当前值，HTML属性初始化DOM属性，然后它的任务就完成了。DOM属性的值可以改变，但是HTML属性的值不可以改变
+>>component.html
+```HTML
+<input value="Tom" (input)="doOnInput($event)">
+<button disabled>点我</button>
+```
+>>component.ts
+```TypeScript
+doOnInput(event: any) {
+	// DOM属性
+	console.log(event.target.value);
+	// HTML属性
+	console.log(event.target.getAttribute('value'))
+}
+```
+
+HTML属性和DOM属性的关系
+> 少量HTML属性和DOM属性之间有着一对一的映射，如id
+> 有些HTML属性没有对应的DOM属性，如colspan
+> 有些DOM属性没有对应的HTML属性，如textContent
+> 就算是名字相同，HTML属性和DOM属性也不是同一样东西
+> HTML属性的值指定了初始值；ODM属性的值表示当前值。DOM属性的值可以改变；HTML属性的值不能改变
+> 模板绑定是通过DOM属性和事件来工作的，而不是HTML属性
+
+##### HTML属性绑定
+基本HTML属性绑定
+>
+```HTML
+<td [attr.colspan="tableColspan"]>Something</td>
+```
+
+CSS类绑定
+>
+```HTML
+<div class="aaa bbb" [class]="someExpression">something</div>
+<div [class.special]="isSpecial">something</div>
+<div [ngClass]="{aaa: isA, bbb: isB}"></div>
+```
+
+样式绑定
+>
+```HTML
+<button [style.color]="isSpecial ? 'red' : 'green">Red</button>
+<div [ngStyle]="{'font-style':this.canSave ? 'italic' : 'normal'}"></div>
+```
+
+例↓
+基本HTML属性绑定
+>component.html
+```HTML
+<table>
+	/*
+	 * 这样会报错
+	 * <tr><td colspan="{{1+1}}">慕课网</td></tr>
+	 */
+
+	 <tr><td [attr.colspan]="size">慕课网</td></tr>
+	 // 这样好了
+</table>
+```
+
+CSS类绑定
+>component.html
+```HTML
+<div class="a b c">慕课网</div>
+```
+component.css
+```CSS
+.a {
+	background: yellow;
+}
+.b {
+	color: red;
+}
+.c {
+	font-size: 60px;
+}
+```
+>> 替换一下↓
+
+>component.html
+```HTML
+<div [class]="divClass">慕课网</div>
+```
+component.ts
+```TypeScript
+divClass: string;
+
+constructor() {
+	setTimeout(() => {
+		this.divClass = "a b c";
+	}, 3000)
+}
+```
+>> 再替换下
+
+>component.html
+```HTML
+<div class="a b" [class.c]="isBig">慕课网</div>
+```
+component.ts
+```TypeScript
+isBig: boolean = false;
+
+constructor() {
+	setTimeout(() => {
+		this.isBig = true;
+	}, 3000)
+}
+```
+>> 继续替换
+
+> component.html
+```HTML
+<div [ngClass]="divClass">慕课网</div>
+```
+component.ts
+```TypeScript
+divClass: any = {
+	a: false,
+	b: false,
+	c: false
+}
+constructor() {
+	setTimeout(() => {
+		this.divClass={
+			a: true,
+			b: true,
+			c: true
+		};
+	}, 3000)
+}
+```
+
+样式绑定
+>component.html
+```HTML
+<div [style.color]="idDev ? 'red' : 'blue">慕课网</div><hr>
+<div [style.font-size.em]="idDev ? 3 : 1>慕课网</div>
+```
+component.ts
+```TypeScript
+idDev: boolean = true;
+constructor() {
+	setTimeout(() => {
+		this.isDev = false;
+	}, 3000)
+}
+```
+>> 设置多个内联样式
+
+>component.html
+```HTML
+<div [ngStyle]="divStyle">慕课网</div>
+```
+component.ts
+```TypeScript
+divStyle: any = {
+	color: 'red',
+	background: 'yellow'
+}
+constructor() {
+	setTimeout(() => {
+		this.divStyle = {
+			color: 'yellow',
+			background: 'red'
+		}
+	}, 3000)
+}
+```
+
+##### 双向绑定
+可以使视图和模型保持同步，无论视图和模型哪一方进行改变，另一方都会立即同步
+>component.html
+```HTML
+<input [value]="name" (input)="doOnInput($event)">
+{{name}}
+```
+component.ts
+```TypeScript
+name: string;
+constructor() {
+	setInterval(() => {
+		this.name = "Tom";
+	}, 3000)
+}
+
+doOnInput(event) {
+	this.name = event.target.value;
+}
+```
+>> 简化
+
+>component.html
+```HTML
+<input [(ngModel)]="name">
+// 注意：方括号在外面，小括号在里面
+{{name}}
+```
 
 #### 响应式编程
 
 #### 管道
+管道负责原始值到显示值的转换
+管道把数据作为输入，然后转换它，给出期望的输出
+component.html
+```HTML
+<p>我的生日是{{birthday}}</p>
+<p>我的生日是{{birthday | date}}</p>
 
+<p>我的生日是{{birthday | date | uppercase}}</p>
+<p>我的生日是{{birthday | date | lowercase}}</p>
 
+<p>我的生日是{{birthday | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+<p>我的生日是{{birthday | date:'yyyy-MM-dd hh:mm:ss'}}</p>
+// 严格注意大小写，H为24小时制，h为12小时制
+
+<p>圆周率是{{pi}}</p>
+<p>圆周率是{{pi | number:'2.1-4'}}</p>
+// 第一个2是两位整数；1-4是最少一位小数，最多四位小数
+
+<p>圆周率是{{pi | async}}</p>
+// 异步管道，处理异步的流
+```
+component.ts
+```TypeScript
+birthday: Date = new Date();
+pi: number = 3.1415926;
+```
+
+自定义管道
+```
+ng g pipe pipe/multiple
+```
+**管道和组件一样，需要声明在app.module.ts的@NgModule的declarations中**
+pipe/mutiple.pipt.ts
+```TypeScript
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+	name: 'multiple'
+})
+export class MultiplePipe implements PipeTransform{
+	transform(value: number, args?: number): any {
+		if(!args) {
+			args = 1;
+		}
+		return value * args;
+	}
+}
+```
+
+bind/bind.component.html
+```HTML
+<p>试试我自己写的管道{{size | multiple}}</p>
+// 输出 7
+
+<p>试试我自己写的管道{{size | multiple:'2'}}</p>
+// 输出14
+```
+
+bind/bind.component.ts
+```TypeScript
+size: number = 7;
+```
 
 
 
