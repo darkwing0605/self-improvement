@@ -6882,12 +6882,132 @@ bind/bind.component.ts
 size: number = 7;
 ```
 
+### 组件间通讯
+#### 输出属性
+通过输出属性来向组件外发射事件，并通过事件携带数据
 
+模拟股票报价
+```
+ng g component priceQuote
+```
 
+price-quote.component.ts
+```TypeScript
+export class PriceQuoteComponent implements OnInit {
+	stockCode: string = "IBM";
 
+	price: number;
 
+	constructor() {}
 
+	ngOnInit() {}
+}
+export class PriceQuote {
+	constructor(
+		public stockCode: string,
+		public lastPrice: number
+	){}
+}
+```
 
+price-quote.component.html
+```HTML
+<div>
+	这里是报价组件
+</div>
+<div>
+	股票代码是{{stockCode}}，股票价格是{{price | number: '2.2-2'}}
+</div>
+```
+
+app.component.html
+```HTML
+<app-price-quote></app-price-quote>
+```
+
+通过定时器模拟股票价格变化
+price-quote.component.ts
+```TypeScript
+export class PriceQuoteComponent implements OnInit {
+	stockCode: string = "IBM";
+
+	price: number;
+
+	constructor() {
+		setInterval(() => {
+			let priceQuote: PriceQuote = new PriceQuote(this.stockCode, 100*Math.random());
+
+			this.price = priceQuote.lastPrice;
+		}, 1000)
+	}
+
+	ngOnInit() {}
+}
+```
+
+输出出去
+price-quote.component.ts
+```TypeScript
+import { EventEmitter } from "@angular/core";
+
+export class PriceQuoteComponent implements OnInit {
+	stockCode: string = "IBM";
+
+	price: number;
+
+	@Output()
+	/*
+	 * 如果需要改名字，直接在Output中添加就可以
+	 * @Output('priceChange')
+	 * 之后捕捉事件时也需要同步修改
+	 */
+	lastPrice: EventEmitter<PriceQuote> = new EventEmitter();
+
+	constructor() {
+		setInterval(() => {
+			let priceQuote: PriceQuote = new PriceQuote(this.stockCode, 100*Math.random());
+
+			this.price = priceQuote.lastPrice;
+
+			this.lastPrice.emit(priceQuote);
+		}, 1000)
+	}
+
+	ngOnInit() {}
+}
+```
+
+父组件接收
+app.component.ts
+```TypeScript
+export class AppComponent {
+	stock = "";
+
+	priceQuote:PriceQuote = new PriceQuote("", 0);
+
+	priceQuoteHandler(event: PriceQuote) {
+		this.priceQuote = event;
+	}
+}
+```
+
+捕捉事件
+app.component.html
+```HTML
+<app-price-quote (lastPrice)="priceQuoteHandler($event)"></app-price-quote>
+/*
+ * 就是这里
+ * <app-price-quote (priceChange)="priceQuoteHandler($event)"></app-price-quote>
+ */
+<div>
+	这是在报价组件外部
+</div>
+<div>
+	股票代码是{{priceQuote.stockCode}}，股票价格是{{priceQuote.lastPrice | number: '2.2-2'}}
+</div>
+```
+
+#### 中间人模式
 
 
 
