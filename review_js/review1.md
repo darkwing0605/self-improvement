@@ -5977,7 +5977,7 @@ product-desc.component.html
 ```HTML
 <p>这是一个牛X的商品</p>
 ```
-seller-info.componnent.html
+seller-info.component.html
 ```HTML
 <p>销售员ID是{{sellerId}}.</p>
 ```
@@ -5991,7 +5991,7 @@ export class SellerInfoComponent implement OnInit {
 	}
 }
 ```
-app.component.moudle.ts
+app.component.module.ts
 ```TypeScript
 const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -7008,14 +7008,322 @@ app.component.html
 ```
 
 #### 中间人模式
+中间人负责从一个组件接收数据，并发送给另一个组件
+
+股票添加下单功能
+price-quote.component.html
+```HTML
+<div>
+	我是报价组件
+</div>
+<div>
+	股票代码是{{stockCode}}，股票价格是{{price | number: '2.2-2'}}
+</div>
+<div>
+	<input type="button" value="立即购买" (click)="buyStock($event)">
+</div>
+```
+
+price-quote.component.ts
+```TypeScript
+import { EventEmitter } from "@angular/core";
+
+export class PriceQuoteComponent implements OnInit {
+	stockCode: string = "IBM";
+
+	price: number;
+
+	@Output()
+	lastPrice: EventEmitter<PriceQuote> = new EventEmitter();
+
+	@Output()
+	buy: EventEmitter<PriceQuote> = new EventEmitter();
+
+	constructor() {
+		setInterval(() => {
+			let priceQuote: PriceQuote = new PriceQuote(this.stockCode, 100*Math.random());
+
+			this.price = priceQuote.lastPrice;
+
+			this.lastPrice.emit(priceQuote);
+		}, 1000)
+	}
+
+	buyStock(event) {
+		this.buy.emit(new PriceQuote(this.stockCode, this.price));
+	}
+
+	ngOnInit() {}
+}
+```
+
+app.component.html
+```HTML
+<app-price-quote (buy)="buyHandler($event)"></app-price-quote>
+<app-order [priceQuote]="priceQuote"></app-order>
+```
+
+app.component.ts
+```TypeScript
+export class AppComponent {
+	stock = "";
+
+	priceQuote:PriceQuote = new PriceQuote("", 0);
+
+	buyHandler(event: PriceQuote) {
+		this.priceQuote = event;
+	}
+}
+```
+
+order/order.component.ts
+```TypeScript
+export class OrderComponent implements OnInit {
+	@Input()
+	priceQuote: PriceQuote;
+
+	constructor() {}
+
+	ngOnInit() {}
+}
+```
+
+order/order.component.html
+```HTML
+<div>
+	我是下单组件
+</div>
+<div>
+	买100手{{priceQuote.stockCode}}股票，买入价格是{{priceQuote.lastPrice | number: '2.2-2'}}
+</div>
+```
+
+#### 组件生命周期钩子
+组件初始化
+> constructor
+>> ngOnChanges
+
+> ngOnInit
+>> ngDoCheck
+
+> ngAfterContentInit
+>> ngAfterConentChecked
+
+> ngAfterViewInit
+>> ngAfterViewChecked
+
+↓ ↓ ↓
+组件检测
+>> ngOnChanges
+>> ngDoCheck
+>> ngAfterConentChecked
+>> ngAfterViewChecked
+
+↓ ↓ ↓
+组件销毁
+> ngOnDestroy
 
 
+*一级只会调用一次，二级可以多次调用，其中组件初始化和变更检测的钩子是一样的，所以一共九个钩子*
 
+```
+ng g component life
+```
+life.component.ts
+```TypeScript
+import { Component, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewCheck, OnDestroy, SimpleChanges } from '@angular/core'
 
+let logIndex:number = 1;
 
+export class LifeComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewCheck, OnDestroy {
 
+	@Input()
+	name: string;
+	
+	logIt(msg:string) {
+		console.log(`#${logIndex++} ${msg}`);
+	}
 
+	constructor() {
+		this.logIt("name属性在constructor里的值是："+name);
+	}
 
+	ngOnInit() {
+		this.logIt("ngOnInit");
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		let name = changes['name'].currentValue;
+		this.logIt("name属性在ngOnChanges里的值是："+name);
+	}
+
+	ngDoCheck(): void{
+		this.logIt("ngDoCheck");
+	}
+
+	ngAfterContentInit(): void{
+		this.logIt("ngAfterContentInit");
+	}
+
+	ngAfterContentChecked(): void{
+		this.logIt("ngAfterContentChecked");
+	}
+
+	ngAfterViewInit(): void{
+		this.logIt("ngAfterViewInit");
+	}
+
+	ngAfterViewChecked(): void{
+		this.logIt("ngAfterViewChecked");
+	}
+
+	ngOnDestroy(): void{
+		this.logIt("ngOnDestroy");
+	}
+
+}
+```
+
+*本案例只观察钩子调用顺序*
+
+app.component.ts
+```TypeScript
+export class AppComponent {
+	title = 'Tom';
+}
+```
+
+app.component.html
+```HTML
+<app-life [name]="title"></app-life>
+```
+
+最终得到
+> `#1 name属性在constructor里的值是：`
+>> 当一个组件被创建时，它的构造函数首先会被调用，构造函数一定存在，所以一定会被调用
+
+> `#2 name属性在ngOnChanges里的值是：Tom`
+>> 当一个父组件修改或初始化一个子组件的输入属性的时候被调用的，如果没有输入属性，ngOnChanges永远不会被调用，并且首次调用一定在ngOnInit之前，可以被多次调用，每次输入属性变化都会被调用
+>> 输入属性name在构造函数中是未赋值的，它是在第一次调用ngOnChanges时被调用初始化的
+>> 如果你的组件的初始化逻辑需要依赖输入属性的值，这些初始化逻辑要写在ngOnInit中而不是constructor中
+
+> `#3 ngOnInit`
+>> 如果有输入属性，则在ngOnChanges首次被调用之后被调用，用来初始化组件或指令
+
+> `#4 ngDoCheck`
+>> 用来检测，是在Angular变更检测周期中被调用
+
+> `#5 ngAfterContentInit`
+> `#6 ngAfterContentChecked`
+>> 与组件的内容投影相关
+
+> `#7 ngAfterViewInit`
+> `#8 ngAfterViewChecked`
+>> 与组件模板View视图的初始化和检查相关
+
+> `#9 ngOnInit`
+> `#10 ngOnInit`
+> `#11 ngOnInit`
+
+#### OnChanges钩子
+##### 可变对象和不可变对象
+
+字符串是不可变的
+> "Hello"和"Hello World"是不变的，greeting的值是可变的，它指向的内存地址从第一个字符串的地址，变为了第二个字符串的地址
+
+对象是可变的
+> 改的是user这个内存地址的对象的内容，而user指向的内存地址并没有变
+
+app.component.ts
+```TypeScript
+export class AppComponent {
+	title = 'Tom';
+
+	constructor() {
+		var greeting = "Hello"; 
+		greeting = "Hello World";
+
+		var user = {name: "Tom"}
+		user.name = "Jerry";
+	}
+}
+```
+
+##### OnChanges
+```
+ng g component child
+```
+
+child.component.ts
+```TypeScript
+export class ChildComponent implements OnInit, OnChanges {
+	@Input()
+	greeting: string;
+
+	@Input()
+	user: {name: string};
+
+	message: string = "初始化消息";
+
+	constructor() {}
+
+	ngOnInit() {}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		console.log(JSON.stringify(changes, null, 2));
+	}
+}
+```
+
+child.component.html
+```HTML
+<div class="child">
+	<h2>我是子组件</h2>
+	<div>问候语：{{greeting}}</div>
+	<div>姓名：{{user.name}}</div>
+	<div>消息：<input [(ngModel)]="message"></div>
+</div>
+```
+
+child.component.css
+```CSS
+.child {
+	background: lightgreen;
+}
+```
+
+app.component.ts
+```TypeScript
+export class AppComponent {
+	greeting:string = "Hello";
+
+	user: {name: string} = {name: "Tom"};
+
+	constructor() {}
+}
+```
+
+app.component.html
+```HTML
+<div class="parent">
+	<h2>我是父组件</h2>
+	<div>问候语：<input type="text" [(ngModel)]="greeting"></div>
+	<div>姓名：<input type="text" [(ngModel)]="user.name"></div>
+	<app-child [greeting]="greeting" [user]="user"></app-child>
+</div>
+```
+
+app.component.css
+```CSS
+.parent {
+	background: cyan;
+}
+```
+
+最后，只有更改greeting时，控制台才会打印出日志
+
+#### 变更检测机制
+由zone.js实现
 
 
 
