@@ -7131,11 +7131,11 @@ ng g component life
 ```
 life.component.ts
 ```TypeScript
-import { Component, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewCheck, OnDestroy, SimpleChanges } from '@angular/core'
+import { Component, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy, SimpleChanges } from '@angular/core'
 
 let logIndex:number = 1;
 
-export class LifeComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewCheck, OnDestroy {
+export class LifeComponent implements OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
 
 	@Input()
 	name: string;
@@ -7324,6 +7324,180 @@ app.component.css
 
 #### 变更检测机制
 由zone.js实现
+> 主要目的是保证组件的属性的变化和页面的变化是同步的，浏览器中发生的任何异步事件都会触发变更检测，比如点击按钮、输入数据、数据从服务器返回、调用setTimeout方法
+> 只是将组件属性的改变反映到模板上，变更检测机制本身永远不会改变组件属性的值
+
+改一下之前的案例
+child.component.ts
+```TypeScript
+export class ChildComponent implements OnInit, OnChanges, DoCheck {
+	@Input()
+	greeting: string;
+
+	@Input()
+	user: {name: string};
+
+	message: string = "初始化消息";
+
+	oldUsername:string;
+
+	/* 检测是否变化 */
+	changeDetected: boolean = false;
+
+	/* 没变化计数器 */
+	noChangeCount: number = 0;
+
+	constructor() {}
+
+	ngOnInit() {}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		console.log(JSON.stringify(changes, null, 2));
+	}
+
+	ngDoCheck(): void {
+		if(this.user.name !== this.oldUsername) {
+			this.changeDetected = true;
+			console.log("DoCheck: user.name" + this.oldUsername + "变为" +  this.user.name);
+			this. oldUsername = this.user.name;
+		}
+
+		if(this.changeDetected) {
+			this.noChangeCount = 0；
+		} else {
+			this.noChangeCount++;
+			console.log("DoCheck:user.name没变化时ngDoCheck已经被调用"+ this.noChangeCount +"次")
+		}
+
+		this.changeDetected = false;
+	}
+}
+```
+
+*因为DoCheck会有很多不必要的渲染页面，所以谨慎使用，很容易引起性能问题*
+
+#### View钩子
+##### 在父组件中调用子组件
+```
+ng g component child
+```
+
+child.component.ts
+```TypeScript
+greeting(name: string) {
+	console.log("hello " + name);
+}
+```
+
+app.component.html
+```HTML
+<app-child #child1></app-child>
+```
+
+在父组件中调用
+app.component.ts
+```TypeScript
+@ViewChild("child1")
+child: ChildComponent;
+
+constructor() {}
+
+ngOnInit(): void {
+	this.child1.greeting("Tom");
+}
+```
+
+在父组件的模板中调用
+app.component.html
+```HTML
+<app-child #child1></app-child>
+<app-child #child2></app-child>
+<button (click)="child2.greeting('Jerry')">调用child2的greeting方法</button>
+```
+
+##### ngAfterViewInit ngAfterViewChecked
+这两个钩子是在组件的模板所有的内容都被组装完成以后，组件的模板已经呈现给用户看了，这个动作完成之后，这两个钩子才会被调用
+app.component.ts
+```TypeScript
+export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
+	ngAfterViewInit(): void {
+		console.log("父组件的视图初始化完毕");
+	}
+
+	ngAfterViewChecked(): void {
+		console.log("父组件的视图变更检测完毕");
+	}
+
+	ngOnInit(): void {
+		setInterval(() => {
+			this.child1.greeting("Tom")
+		}, 5000);
+	}
+}
+```
+
+child.component.ts
+```TypeScript
+export class ChildComponent implements OnInit, AfterViewChecked, AfterViewInit {
+	ngAfterViewInit(): void {
+		console.log("子组件的视图初始化完毕");
+	}
+
+	ngAfterViewChecked(): void {
+		console.log("子组件的视图变更检测完毕");
+	}
+}
+```
+
+> 先所所有的子组件初始化、变更检测，再父组件初始化、变更检测
+> 初始化只触发一次
+> 变更检测(ngAfterViewChecked)会被多次触发，即使在视图没有发生改变时，因此在使用这个钩子时，代码一定要精简，防止性能问题
+
+app.component.html
+```HTML
+
+```
+
+app.component.ts
+```TypeScript
+export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
+
+	/*
+	 *  message: string;
+	 * 
+	 *  ngAfterViewInit(): void {
+	 * 	  console.log("父组件的视图初始化完毕");
+	 *		this.message = "Hello"
+	 *  }
+	 *
+	 *	这样写Angular会抛出异常
+	 *	在变更检测周期中，Angular禁止在一个视图已经组装好之后再更新组件中一个被绑定的属性
+	 *	ngAfterViewInit这个钩子就是在组件的视图已经被组合好之后触发的
+	 *	ngAfterViewChecked也一样会触发异常
+	 *	解决方法：只要将这个改变放到另一个时间循环中去，让他在另一个JavaScript运行周期中运行就好了
+	 */
+
+	message: string;
+
+	ngAfterViewInit(): void {
+		console.log("父组件的视图初始化完毕");
+		setTimeout(() => {
+			this.message = "Hello";
+		}, 0)
+	}
+
+	ngAfterViewChecked(): void {
+		console.log("父组件的视图变更检测完毕");
+	}
+
+	ngOnInit(): void {
+		setInterval(() => {
+			this.child1.greeting("Tom")
+		}, 5000);
+	}
+}
+```
+
 
 
 
