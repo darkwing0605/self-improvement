@@ -7107,7 +7107,7 @@ order/order.component.html
 >> ngDoCheck
 
 > ngAfterContentInit
->> ngAfterConentChecked
+>> ngAfterContentChecked
 
 > ngAfterViewInit
 >> ngAfterViewChecked
@@ -7116,7 +7116,7 @@ order/order.component.html
 组件检测
 >> ngOnChanges
 >> ngDoCheck
->> ngAfterConentChecked
+>> ngAfterContentChecked
 >> ngAfterViewChecked
 
 ↓ ↓ ↓
@@ -7497,6 +7497,217 @@ export class AppComponent implements OnInit, AfterViewChecked, AfterViewInit {
 	}
 }
 ```
+
+#### 投影
+##### ngContent指令
+使用ngContent指令将父组件模板中的任意片段投影到它的子组件上
+
+```
+ng g component child
+```
+
+child.component.html
+```HTML
+<div class="wrapper">
+	<h2>我是子组件</h2>
+	<div>这个div定义在子组件中</div>
+	<ng-content></ng-content>
+	<!-- 这里使用ng-content标记一个投影点 -->
+</div>
+```
+
+app.component.html
+```HTML
+<div class="wrapper">
+	<h2>我是父组件</h2>
+	<div>这个div定义在父组件中</div>
+	<app-child>
+		<div>这个div是父组件投影到子组件中的</div>
+	</app-child>
+</div>
+```
+
+child.component.css
+```CSS
+.wrapper {
+	background: lightgreen;
+}
+```
+
+app.component.css
+```CSS
+.wrapper {
+	background: cyan;
+}
+```
+*这里样式虽然都是wrapper，但是样式并不会冲突*
+
+增加子组件页头页脚
+child.component.html
+```HTML
+<div class="wrapper">
+	<h2>我是子组件</h2>
+	<ng-content select=".header"></ng-content>
+	<div>这个div定义在子组件中</div>
+	<ng-content select=".footer"></ng-content>
+	<!-- 这里使用ng-content标记一个投影点 -->
+</div>
+```
+
+app.component.html
+```HTML
+<div class="wrapper">
+	<h2>我是父组件</h2>
+	<div>这个div定义在父组件中</div>
+	<app-child>
+		<div class="header">这是页头，这个div是父组件投影到子组件中的，title是{{title}}</div>
+		<div class="footer">这是页脚，这个div是父组件投影到子组件中的</div>
+	</app-child>
+</div>
+```
+
+##### innerHTML
+还可以通过属性绑定的方法插入一段自定义的HTML
+app.component.html
+```HTML
+<div class="wrapper">
+	<h2>我是父组件</h2>
+	<div>这个div定义在父组件中</div>
+	<app-child>
+		<div class="header">这是页头，这个div是父组件投影到子组件中的，title是{{title}}</div>
+		<div class="footer">这是页脚，这个div是父组件投影到子组件中的</div>
+	</app-child>
+</div>
+
+<div [innerHTML]="divContent"></div>
+```
+
+app.component.ts
+```TypeScript
+export class AppComponent {
+	title = 'app works!';
+
+	divContent = "<div>慕课网</div>"
+}
+```
+
+> 在这两种方法中，innerHTML只能在浏览器中使用，而ngContent是平台无关的，在转化为app时，ngContent会有更好的移植性
+> 使用ngContent可以定义多个投影点，而innerHTML只能插一段
+> ngContent只能绑定父组件中的属性，而innerHTML只能绑定当前组件的内容
+>> 还是优先考虑ngContent
+
+#### ngAfterContentInit ngAfterContentChecked
+在投影进来的内容组装完之后调用的
+app.component.ts
+```TypeScript
+export class AppComponent implements AfterContentInit, AfterContentChecked, AfterViewInit {
+	ngAfterContentInit(): void {
+		console.log("父组件投影内容初始化完毕");
+	}
+
+	ngAfterContentChecked(): void {
+		console.log("父组件投影内容变更检测完毕");
+	}
+
+	ngAfterViewInit(): void {
+		console.log("父组件视图内容初始化完毕");
+	}
+
+	title = 'app works!';
+}
+```
+
+child.component.ts
+```TypeScript
+export class ChildComponent implements OnInit, AfterContentInit, AfterContentChecked {
+	ngAfterContentInit(): void {
+		console.log("子组件投影内容初始化完毕");
+	}
+
+	ngAfterContentChecked(): void {
+		console.log("子组件投影内容变更检测完毕");
+	}
+
+	constructor() {}
+	ngOnInit() {}
+}
+```
+
+**说明**
+> 当一个组件在组装它的视图时，首先组装的是投影进来的内容，然后组装的是子组件中视图的内容，这些总共是父组件视图内容初始化完毕
+
+AfterViewInit无法改变已经绑定的属性，但是AfterContentInit可以，因为AfterContentInit被调用时，整个视图还没有被组装完毕，只是投影进来的内容被组装完毕了
+
+#### ngOnDestroy
+在路由中，从一个路由地址跳往另一个路由地址时，前一个路由地址对应的组件会被销毁
+
+```
+ng g component child2
+```
+
+app.component.ts
+```TypeScript
+var routeConfig: Routes = [
+	{path: '', component: ChildComponent},
+	{path: 'child2', component: Child2Component}
+]
+@NgModule({
+	imports: [
+		RouterModule.forRoot(routeConfig);
+	]
+})
+```
+
+app.component.html
+```HTML
+<a [routerLink]="['/']">child</a>
+<a [routerLink]="['/child2']">child2</a>
+<router-outlet></router-outlet>
+```
+
+child.component.html
+```HTML
+<div>child1</div>
+```
+
+child.component.ts
+```TypeScript
+export class ChildComponent implements OnInit, OnDestroy {
+	ngOnDestroy(): void {}
+	console.log("child组件被销毁");
+}
+```
+
+child2.component.ts
+```TypeScript
+export class Child2Component implements OnInit, OnDestroy {
+	ngOnDestroy(): void {}
+	console.log("child2组件被销毁");
+}
+```
+
+*我们一般使用这个钩子去销毁一些引用的资源，比如反订阅一个流，或者清除定时器之类*
+
+#### 小结
+- 父子组件之间应该避免直接访问彼此的内部，而应该通过输入输出属性来通讯
+- 组件可以通过输出属性发射自定义事件，这些事件可以携带任何你想携带的数据
+- 在没有父子关系的组件之间，尽量使用中间人模式进行通讯
+- 父组件可以在运行时投影一个或多个模板片段到子组件中
+- 每个Angular组件都提供了一组生命周期钩子，供你在某些特定的事件发生时执行相应的逻辑
+- Angular的变更检测机制会监控组件属性的变化并自动更新视图，这个检测非常频繁并且默认是针对整个组件树的，所以实现相关钩子时要谨慎
+- 你可以标记你的组件树中的一个分支，使其被排除在变更检测机制之外
+
+### 表单处理
+
+
+
+
+
+
+
+
+
+
 
 
 
