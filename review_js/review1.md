@@ -7377,6 +7377,7 @@ export class ChildComponent implements OnInit, OnChanges, DoCheck {
 *因为DoCheck会有很多不必要的渲染页面，所以谨慎使用，很容易引起性能问题*
 
 #### View钩子
+
 ##### 在父组件中调用子组件
 ```
 ng g component child
