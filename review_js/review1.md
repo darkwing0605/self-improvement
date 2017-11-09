@@ -7377,7 +7377,6 @@ export class ChildComponent implements OnInit, OnChanges, DoCheck {
 *因为DoCheck会有很多不必要的渲染页面，所以谨慎使用，很容易引起性能问题*
 
 #### View钩子
-
 ##### 在父组件中调用子组件
 ```
 ng g component child
@@ -7699,12 +7698,59 @@ export class Child2Component implements OnInit, OnDestroy {
 - 你可以标记你的组件树中的一个分支，使其被排除在变更检测机制之外
 
 ### 表单处理
+#### 表单简介
+纯HTML表单
+> 显示表单项
+> 校验用户输入
+> 提交表单数据
+>
+```
+<form action="/regist" method="post">
+	<div>用户名：<input type="text" required pattern="[a-zA-Z0-9]+"></div>
+	<div>手机号：<input type="text"></div>
+	<div>密码：<input type="password"></div>
+	<div>确认密码：<input type="password"></div>
+	<button type="submit">注册</button>
+</form>
+```
+
+Angular表单
+> 模板式表单
+>> 表单的数据模型是通过组件模板中的相关指令来定义的，因为使用这种方式定义表单的数据模型时，我们会受限于HTML的语法，所以，模板驱动方式只适合用于一些简单的场景
+
+> 响应式表单
+>> 使用响应式表单时，你通过编写TypeScript代码而不是HTML代码来创建一个底层的数据模型，在这个模型定义好以后，你使用一些特定的指令，将模板上的HTML元素与底层的数据模型连接在一起
+
+> 对比
+>> 不管是哪种表单，都有一个对应的数据模型来储存表单的数据。在模板式表单中，数据模型是由angular基于你组件模板中的指令隐式创建的。而在响应式表单中，你通过编码明确的创建数据模型然后将模板上的HTML元素与底层的数据模型连接在一起
+>> 数据模型并不是一个任意的对象，它是一个由angular/forms模块中的一些特定的类，如FormControl、FormGroup、FormArray等组成的。在模板式表单中，你是不能直接访问到这些类的
+>> 相应式表单并不会替你生成HTML，模板仍然需要你自己来编写
+
+使用
+> 在app.module.ts中引用，使用模板式表单引入FormsModule，使用响应式表单引入ReactiveFormModule
+
+#### 模板式表单
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### 相应式表单
 
 
 
