@@ -7704,7 +7704,7 @@ export class Child2Component implements OnInit, OnDestroy {
 > 校验用户输入
 > 提交表单数据
 >
-```
+```HTML
 <form action="/regist" method="post">
 	<div>用户名：<input type="text" required pattern="[a-zA-Z0-9]+"></div>
 	<div>手机号：<input type="text"></div>
@@ -7730,27 +7730,238 @@ Angular表单
 > 在app.module.ts中引用，使用模板式表单引入FormsModule，使用响应式表单引入ReactiveFormModule
 
 #### 模板式表单
+只能使用指令来定义数据模型
+> FormsModule
+>> NgForm
+>>> 用来代表整个表单，在angular应用中，它会被**自动的**添加到每个form标签上
+>>> 隐式创建FormGroup类的实例，这个类用来代表表单的数据模型，并且存储表单的数据
+>>> 可以被一个模板本地变量引用，以便在模板中访问ngForm对象实例
+>>> *注意*
+>>>> NgForm可以在form标签之外使用，比如div
+>>>> 如果你不希望angular接管这个form，你需要明确的在form标签上添加ngNoForm
 
+>> NgModel
+>>> 标有NgForm指令的HTML标签会自动发现其标有NgModel这个指令的子元素，并将它们的值添加到表单的数据模型中
+>>> 代表表单中的一个字段
+>>> 这个指令会隐式的创建一个FormControl的实例，来代表字段的数据模型，并用这个FormControl类型的对象来存储字段的值
+>>> 使用时不需要方括号和小括号，但是需要指定一个name属性
+>>> 与NgForm指令类似，NgModel指令创建的对象也可以一个模板对象来引用，并通过这个模板变量的value属性来访问字段的值
 
+>> NgModelGroup
+>>> 代表的表单的一部分，它允许你将一些表单字段组织在一起，形成更清晰的层次关系
+>>> 与NgForm指令类似，NgModelGroup也会创建一个FormGroup类的实例，这个实例会在NgForm对象的value属性中表现为一个嵌套的对象，所有NgModelGroup的子属性都会变成这个嵌套对象的子属性
 
+template-form.component.html
+```HTML
+<form #myForm="ngForm" (ngSubmit)="onSubmit(myForm.value)">
+	<div ngModelGroup="userInfo">
+		<div>用户名：<input #username="ngModel" ngModel name="username" type="text"></div>
+		<div>手机号：<input type="text"></div>
+	</div>
+	<div>密码：<input type="password"></div>
+	<div>确认密码：<input type="password"></div>
+	<button type="submit">注册</button>
+</form>
 
+<div>{{myForm.value | json}}</div>
+<div>{{username.value}}</div>
+```
 
+template-form.component.ts
+```TypeScript
+onSubmit(value: any) {
+	console.log(value);
+}
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+重构上一个表单
+template-form.component.html
+```HTML
+<form #mgForm="ngForm" (ngSubmit)="onSubmit(myForm.value)">
+	<div>用户名：<input ngModel name="username" type="text"></div>
+	<div>手机号：<input ngModel name="tel" type="number"></div>
+	<div ngModelGroup="passwordGroup">
+		<div>密码：<input ngModel name="password" type="password"></div>
+		<div>确认密码：<input ngModel name="passwordConfirm" type="password"></div>
+	</div>
+	<button type="submit">注册</button>
+</form>
+```
 
 #### 相应式表单
+- 编码创建一个数据模型
+- 使用一些指令将模板中的HTML元素连接到数据模型上
+
+数据模型是指一个用来保存表单数据的数据结构，简称模型，它由定义在 angular/forms 模块的三个类组成
+> FormControl
+>> 通常情况下它用来代表一个input元素，但是它也可以代表一个更复杂的UI组件，如日历，下拉选择框
+>> 保存着与其关联的HTML元素当前的值以及元素的校验状态和元素是否被修改过等信息
+
+> FormGroup
+>> 既可以代表表单的一部分，也可以用来代表整个表单
+>> 它是多个FormControl的集合，FormGroup将多个FormControl的值和状态聚合在一起，如果一个FormControl是无效的，则整个FormGroup都是无效的
+>> 在管理表单中相关联的字段时，FormGroup是很方便的
+>>> 比如一个日期范围在表单上一般会表现为两个input字段，一个起始日期一个截止日期，这两个input就可以被放到一个FormGroup里，这样，当这两个值中的任意一个无效时都会显示错误信息
+
+> FormArray
+>> 与FormGroup类似，但是它有一个额外的长度属性
+>> 一般来说，FormGroup用来代表整个表单或者表单字段的一个固定的子集，而FormArray通常代表一个可以增长的字段集合
+>>> 比如表单中的email，用户可能有多个email，使用FormArray让用户可以输入任意数量的email地址
+
+>> FormArray与FormGroup不同，没有key，需要使用序号来访问FormArray中的元素
+
+reactive-form.component.ts
+```TypeScript
+export class ReactiveFormComponent implements OnInit {
+	// 定义初始值
+	username: FormControl = new FormControl('aaa');
+
+	// 创建FormGroup
+	formModel：FormGroup = new FormGroup({
+		from: new FormControl(),
+		to: new FormControl()
+	});
+	
+	// FormArray
+	emails: FormArray = new FormArray([
+		new FormControl('a@a.com'),
+		new FormControl('b@b.com')
+	]);
+}
+```
+
+相应式表单指令
+> 这些指令全部来源于ReactiveFormsModule这个模块
+> 相应式表单的指令是不可引用的，不能创建一个模板本地变量来引用这个指令的实例（这个angular故意的，为了区分这两种方式）
+
+| 类名 | 指令 | 指令 |
+|:---:|:---:|:---:|
+| FormGroup | formGroup | formGroupName|
+| FormControl | formControl | formControlName |
+| FormArray |  | formArrayName |
+
+reactive-form.component.html
+```HTML
+<input [formControl]="username">
+
+// formGroup是后台的值是后台的一个属性，所以要用属性绑定方括号的语法
+<form [formGroup]="formModel" (submit)="onSubmit()">
+	
+	<input formControlName="username">
+
+	// formGroupName指令的值是一个字符串，所以不用属性绑定
+	<div formGroupName="dateRange">
+		// formControlName指令的值也是一个字符串
+		起始日期<input type="date" formControlName="from">
+		截止日期<input type="date" formControlName="to">
+	</div>
+	<div>
+		<ul formArrayName="emails">
+			<li *ngFor="let e of this.formModel.get('emails').controls; let i = index;">
+				// 这里需要使用属性绑定的语法
+				<input type="text" [formControlName]="i">
+			</li>
+		</ul>
+		<button type="button" (click)="addEmail()">增加Email</button>
+	</div>
+	<div>
+		<button type="submit">保存</button>
+	</div>
+</form>
+```
+
+reactive-form.component.ts
+```TypeScript
+export class ReactiveFormComponent implements OnInit {
+	formModel：FormGroup = new FormGroup({
+
+		username: new FormControl("aaa"),
+
+		dateRange: new FormGroup({
+			from: new FormControl(),
+			to: new FormControl()
+		}),
+		emails: new FormArray([
+			new FormControl('a@a.com'),
+			new FormControl('b@b.com')
+		])
+	});
+
+	username: FormControl = new FormControl("aaa");
+
+	onSubmit() {
+		console.log(this.formModel.value);
+	}
+
+	addEmail() {
+		let emails = this.formModel.get('emails') as FormArray;
+		emails.push(new FormControl());
+	}
+}
+```
+
+重构之前的注册表单
+
+reactive-regist.component.ts
+```TypeScript
+export class ReactiveRegistComponent implements OnInit {
+	formModel: FormGroup;
+
+	constructor() {
+		this.formModel = new FormGroup({
+			username: new FormControl(),
+			tel: new FormControl(),
+			passwordsGroup: new FormsGroup({
+				password: new FormControl(),
+				passwordConfirm: new FormControl()
+			})
+		})
+	}
+
+	onSubmit() {
+		console.log(this.formModel.value);
+	}
+
+	ngOnInit() {}
+}
+```
+
+reactive-regist.component.html
+```HTML
+<form [formGroup]="formModel" (submit)="onSubmit()">
+	<div>用户名：<input type="text" formControlName="username"></div>
+	<div>手机号：<input type="text" formControlName="tel"></div>
+	<div formGroupName="passwordsGroup">
+		<div>密码：<input type="password" formControlName="password"></div>
+		<div>确认密码：<input type="password" formControlName="passwordConfirm"></div>
+	</div>
+	<button type="submit">注册</button>
+</form>
+```
+
+使用FormBuilder重构代码
+reactive-regist.component.ts
+```TypeScript
+constructor(fb: FormBuilder) {
+	this.formModel = fb.group({
+		username: [''],
+		tel: [''],
+		passwordsGroup: fb.group({
+			password: [''],
+			passwordConfirm: ['']
+		})
+	})
+}
+```
+
+FormBuilder
+> 调用group方法相当于new了一个Group
+> FormBuilder中的group可以接受一个额外的参数，可以用来校验FormGroup
+> FormBuilder还允许使用一个数组来实例化一个FormControl的实例，数组的第一个元素是FormControl的初始值，第二个元素是一个校验方法，第三个元素是一个异步的校验方法，当元素多余三个时，其余的会被忽略掉
+
+#### 表单校验
+
+
 
 
 
