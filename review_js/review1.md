@@ -7960,6 +7960,375 @@ FormBuilder
 > FormBuilder还允许使用一个数组来实例化一个FormControl的实例，数组的第一个元素是FormControl的初始值，第二个元素是一个校验方法，第三个元素是一个异步的校验方法，当元素多余三个时，其余的会被忽略掉
 
 #### 表单校验
+##### 普通校验器
+reactive-regist.component.ts
+```TypeScript
+export class ReactiveRegistComponent implements OnInit {
+	// 校验电话号码
+	telValidator(control: FormControl):any {
+		var myreg = /^(((13[0-9]{1})|(15[0-9{1}])|(18[0-9]{1}))+\d{8})$/;
+		let vaild = myreg.test(control.value);
+		console.log("tel的校验结果是：" + valid);
+		return valid ? null : {tel: true};
+	}
+	// 校验密码
+	equalValidator(group: FormGroup): any {
+		let password: FormGroup = group.get("password") as FormControl;
+		let passwordConfirm: FormGroup = group.get("passwordConfirm") as FormControl;
+		let valid: boolean = (password.value === passwordConfirm.value);
+		console.log("密码校验结果：" + valid);
+		return valid ? null : {equal: true};
+	}
+
+formModel：FormGroup;
+
+	constructor(fb: FormBuilder) {
+		this.formModel = fb.group({
+			// 添加校验器：必需，最小长度6
+			username: ['', [Validators.required, Validators.minLength(6)]],
+			tel: ['', this.telValidator],
+			passwordsGroup: fb.group({
+				password: ['', Validators.minLength(6)],
+				passwordConfirm: ['']
+			}, {validator: this.equalValidator})
+		})
+	}
+	
+	onSubmit() {
+		let isValid:boolean = this.formModel.get("username").valid;
+		console.log("username的校验结果：" + isValid);
+		let errors: any = this.formModel.get("username").errors;
+		console.log("username的错误信息是：" + JSON.stringify(errors));
+	
+		console.log(this.formModel.value);
+	}
+	
+	ngOnInit() {}
+}
+```
+
+校验器不一定要写在组建中，可以写在一个单独的js文件中，并通过export关键字暴露出来
+
+↓↓↓改造一下
+
+新建validator/validatators.ts
+```TypeScript
+import {FormControl, FormGroup} from "@angular/forms";
+
+export function telValidator(control: FormControl):any {
+	var myreg = /^(((13[0-9]{1})|(15[0-9{1}])|(18[0-9]{1}))+\d{8})$/;
+	let vaild = myreg.test(control.value);
+	console.log("tel的校验结果是：" + valid);
+	return valid ? null : {tel: true};
+}
+export function equalValidator(group: FormGroup): any {
+	let password: FormGroup = group.get("password") as FormControl;
+	let passwordConfirm: FormGroup = group.get("passwordConfirm") as FormControl;
+	let valid: boolean = (password.value === passwordConfirm.value);
+	console.log("密码校验结果：" + valid);
+	return valid ? null : {equal: true};
+}
+```
+
+组件中直接import然后使用即可
+reactive-regist.component.ts
+```TypeScript
+import {telValidator, equalValidator} from  '../validator/validatators'
+
+onSubmit() {
+	if(this.formModel.valid) {
+		console.log(this.formModel.value);
+	}
+}
+```
+
+添加给用户看的提示信息
+reactive-regist.component.html
+```HTML
+<form [formGroup]="formModel" (submit)="onSubmit()">
+	<div>用户名：<input type="text" formControlName="username"></div>
+	<div [hidden]="!formModel.hasError('required', 'username')">用户名是必填项</div>
+	<div [hidden]="!formModel.hasError('minlength', 'username')">用户名最小程度是6</div>
+	<div>手机号：<input type="text" formControlName="tel"></div>
+	<div [hidden]="!formModel.hasError('tel', 'tel')">请输入正确的手机号</div>
+	<div formGroupName="passwordsGroup">
+		<div>密码：<input type="password" formControlName="password"></div>
+		<div [hidden]="!formModel.hasError('minlength', ['passwordsGroup','password'])">密码的最小长度是6</div>
+		<div>确认密码：<input type="password" formControlName="passwordConfirm"></div>
+		<div [hidden]="!formModel.hasError('equal', 'passwordsGroup')">密码和确认密码不一致</div>
+	</div>
+	<button type="submit">注册</button>
+</form>
+```
+
+这是直接写在模板上的，也可以写在JavaScript
+validatators.ts
+```TypeScript
+import {FormControl, FormGroup} from "@angular/forms";
+
+export function telValidator(control: FormControl):any {
+	var myreg = /^(((13[0-9]{1})|(15[0-9{1}])|(18[0-9]{1}))+\d{8})$/;
+	let vaild = myreg.test(control.value);
+	console.log("tel的校验结果是：" + valid);
+	return valid ? null : {tel: true};
+}
+export function equalValidator(group: FormGroup): any {
+	let password: FormGroup = group.get("password") as FormControl;
+	let passwordConfirm: FormGroup = group.get("passwordConfirm") as FormControl;
+	let valid: boolean = (password.value === passwordConfirm.value);
+	console.log("密码校验结果：" + valid);
+	/*
+	 *	注意，改的是这里
+	 *	desc是关键字，不能用
+	 */
+	return valid ? null : {equal: {descxxx:"密码和确认密码不匹配"}};
+}
+```
+
+然后加到模板上
+reactive-regist.component.html
+```HTML
+<form [formGroup]="formModel" (submit)="onSubmit()">
+	<div>用户名：<input type="text" formControlName="username"></div>
+	<div [hidden]="!formModel.hasError('required', 'username')">用户名是必填项</div>
+	<div [hidden]="!formModel.hasError('minlength', 'username')">用户名最小程度是6</div>
+	<div>手机号：<input type="text" formControlName="tel"></div>
+	<div [hidden]="!formModel.hasError('tel', 'tel')">请输入正确的手机号</div>
+	<div formGroupName="passwordsGroup">
+		<div>密码：<input type="password" formControlName="password"></div>
+		<div [hidden]="!formModel.hasError('minlength', ['passwordsGroup','password'])">密码的最小长度是6</div>
+		<div>确认密码：<input type="password" formControlName="passwordConfirm"></div>
+		/*
+		 *	注意，改的是这里
+		 */
+		{{formModel.getError('equal', 'passwordsGroup')?.descxxx}}
+	</div>
+	<button type="submit">注册</button>
+</form>
+```
+
+##### 异步校验器
+validatators.ts
+```TypeScript
+import {FormControl, FormGroup} from "@angular/forms";
+
+export function telValidator(control: FormControl):any {
+	var myreg = /^(((13[0-9]{1})|(15[0-9{1}])|(18[0-9]{1}))+\d{8})$/;
+	let vaild = myreg.test(control.value);
+	console.log("tel的校验结果是：" + valid);
+	return valid ? null : {tel: true};
+}
+export function telAsyncValidator(control: FormControl):any {
+	var myreg = /^(((13[0-9]{1})|(15[0-9{1}])|(18[0-9]{1}))+\d{8})$/;
+	let vaild = myreg.test(control.value);
+	console.log("tel的校验结果是：" + valid);
+	// 这里延迟5秒只是为了模拟服务器处理了5秒钟返回结果
+	return Observable.of(valid ? null : {tel: true}).delay(5000);
+}
+export function equalValidator(group: FormGroup): any {
+	let password: FormGroup = group.get("password") as FormControl;
+	let passwordConfirm: FormGroup = group.get("passwordConfirm") as FormControl;
+	let valid: boolean = (password.value === passwordConfirm.value);
+	console.log("密码校验结果：" + valid);
+	return valid ? null : {equal: {descxxx:"密码和确认密码不匹配"}};
+}
+```
+
+reactive-regist.component.ts
+```TypeScript
+	constructor(fb: FormBuilder) {
+		this.formModel = fb.group({
+			// 添加校验器：必需，最小长度6
+			username: ['', [Validators.required, Validators.minLength(6)]],
+			tel: ['', this.telValidator, telAsyncValidator],
+			passwordsGroup: fb.group({
+				password: ['', Validators.minLength(6)],
+				passwordConfirm: ['']
+			}, {validator: this.equalValidator})
+		})
+	}
+```
+
+reactive-regist.component.html
+```
+<form [formGroup]="formModel" (submit)="onSubmit()">
+	<div>用户名：<input type="text" formControlName="username"></div>
+	<div [hidden]="!formModel.hasError('required', 'username')">用户名是必填项</div>
+	<div [hidden]="!formModel.hasError('minlength', 'username')">用户名最小程度是6</div>
+	<div>手机号：<input type="text" formControlName="tel"></div>
+	<div [hidden]="!formModel.hasError('tel', 'tel')">请输入正确的手机号</div>
+	<div formGroupName="passwordsGroup">
+		<div>密码：<input type="password" formControlName="password"></div>
+		<div [hidden]="!formModel.hasError('minlength', ['passwordsGroup','password'])">密码的最小长度是6</div>
+		<div>确认密码：<input type="password" formControlName="passwordConfirm"></div>
+		<div [hidden]="!formModel.hasError('equal', 'passwordGroup')">{{formModel.getError('equal', 'passwordsGroup')?.descxxx}}</div>
+	</div>
+	<button type="submit">注册</button>
+</form>
+
+<div>
+	{{formModel.status}}
+</div>
+```
+
+这个最后显示
+INVALID → PENDING(5s) → VALID
+
+##### 状态字段
+touched和untouched
+> 这两个字段用来判断用户是否访问过字段，也就是这个字段是否获取过焦点
+>>reactive-regist.component.html
+```HTML
+<div>用户名：<input type="text" formControlName="username"></div>
+	<div [hidden]="formModel.get('username').valid || formModel.get('username').untouched">
+		<div [hidden]="!formModel.hasError('required', 'username')">用户名是必填项</div>
+		<div [hidden]="!formModel.hasError('minlength', 'username')">用户名最小程度是6</div>
+	</div>
+```
+
+pristine和dirty
+> 如果一个字段的值从来没有改变过，它的pristine为true，dirty为false
+>>reactive-regist.component.html
+```HTML
+<div>手机号：<input type="text" formControlName="tel"></div>
+	<div [hidden]="formModel.get('tel').valid || formModel.get('tel').pristine">
+		<div [hidden]="!formModel.hasError('tel', 'tel')">请输入正确的手机号</div>
+	</div>
+```
+
+pending
+> 当一个字段处于异步校验时，pending属性为true，这时候可以显示图片或文字提示用户正在校验
+>>reactive-regist.component.html
+```HTML
+<div>手机号：<input type="text" formControlName="tel"></div>
+	<div [hidden]="formModel.get('tel').valid || formModel.get('tel').pristine">
+		<div [hidden]="!formModel.hasError('tel', 'tel')">请输入正确的手机号</div>
+	</div>
+	<div [hidden]="!formModel.get("tel").pending">正在校验手机号合法性</div>
+```
+
+这些是可以改变样式的，举个栗子
+reactive-regist.component.css
+```CSS
+/*
+ *	.ng-invalid {
+ *		border: 1px solid red;
+ *	}
+ *
+ *	这样虽然是可以，但是误伤范围有点大，所以要自定义一下
+ */
+.usernameHasError {
+	border: 1px solid red;
+}
+```
+
+reactive-regist.component.html
+```HTML
+<div>用户名：<input [class.usernameHasError]="formModel.get('username').invalid && formModel.get('username').touched" type="text" formControlName="username"></div>
+	<div [hidden]="formModel.get('username').valid || formModel.get('username').untouched">
+		<div [hidden]="!formModel.hasError('required', 'username')">用户名是必填项</div>
+		<div [hidden]="!formModel.hasError('minlength', 'username')">用户名最小程度是6</div>
+	</div>
+```
+
+##### 模板式表单校验
+在响应式表单中，我们在后台有一个编码的数据模型，只需要把校验器的方法挂接到指定的字段上就可以了，但是在模板式表单中，后台是没有这样一个数据模型的，在模板式表单中，指令是为一个能用的东西，所以需要将我们需要的校验器方法包装成一个指令，然后才能在模板中使用
+
+新建指令
+> 指令简单理解为就是一个没有模板的组件
+```
+ng g directive directives/telValidator
+ng g directive directives/equalValidator
+```
+
+tel-validator.component.ts
+```TypeScript
+import { Directive } from '@angular/core';
+import { NG_VALIDATORS } from '@angular/forms';
+import {telValidator} from '../validator/validatators';
+
+@Directive({
+	selector: '[tel]',
+	providers: [{provide:NG_VALIDATORS, useValue: telValidator, multi: true}]
+})
+
+export class MobileValidatorDirective {
+	constructor() {}
+}
+```
+
+equal-validator.component.ts
+```TypeScript
+import { Directive } from '@angular/core';
+import { NG_VALIDATORS } from '@angular/forms';
+import {equalValidator} from '../validator/validatators';
+
+@Directive({
+	selector: '[equal]',
+	providers: [{provide:NG_VALIDATORS, useValue: equalValidator, multi: true}]
+})
+
+export class MobileValidatorDirective {
+	constructor() {}
+}
+```
+
+template-form.component.html
+```HTML
+<form #mgForm="ngForm" (ngSubmit)="onSubmit(myForm.value, myForm.valid)" novalidate>
+	<div>用户名：<input required minLength="6" ngModel name="username" type="text" (input)="onUsernameInput(myform)"></div>
+	<div [hidden]="usernameValid || usernameUntouched">
+		<div [hidden]="!myform.form.hasError('required', 'username')">用户名是必填项</div>
+		<div [hidden]="!myform.form.hasError('minlength', 'username')">用户名最小程度是6</div>
+	</div>
+	<div>手机号：<input tel ngModel name="tel" type="number"></div>
+	<div [hidden]="!myform.form.hasError('tel', 'tel')">请输入正确的手机号</div>
+	<div ngModelGroup="passwordGroup" equal>
+		<div>密码：<input minLength="6" ngModel name="password" type="password"></div>
+		<div [hidden]="!myform.form.hasError('minlength', ['passwordsGroup','password'])">密码的最小长度是6</div>
+		<div>确认密码：<input ngModel name="passwordConfirm" type="password"></div>
+		<div [hidden]="!myform.form.hasError('equal', 'passwordGroup')">{{myform.form.getError('equal', 'passwordsGroup')?.descxxx}}</div>
+	</div>
+	<button type="submit">注册</button>
+</form>
+```
+
+template-form.component.ts
+```TypeScript
+onSubmit(value: any, valid: boolean) {
+	console.log(valid);
+	console.log(value);
+}
+
+usernameValid:boolean = true;
+usernameUntouched:boolean = true;
+
+onUsernameInput(form: NgForm) {
+	if(form) {
+		this.usernameValid = form.form.get('username').valid;
+		this.usernameUntouched = form.form.get('username').untouched;
+	}
+}
+```
+
+##### 小结
+模板式表单相对来说更容易使用，配置也更简单，开发速度更快，但是它只适用于一些简单的场景
+
+相应式表单更容易来测试，有更多的灵活性，而且能为你的表单提供更多的控制，并且可以适配多个渲染器的（PC 移动）
+
+表单验证
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
