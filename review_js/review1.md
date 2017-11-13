@@ -7788,7 +7788,7 @@ template-form.component.html
 </form>
 ```
 
-#### 相应式表单
+#### 响应式表单
 - 编码创建一个数据模型
 - 使用一些指令将模板中的HTML元素连接到数据模型上
 
@@ -8311,36 +8311,204 @@ onUsernameInput(form: NgForm) {
 }
 ```
 
-##### 小结
+#### 小结
 模板式表单相对来说更容易使用，配置也更简单，开发速度更快，但是它只适用于一些简单的场景
 
 相应式表单更容易来测试，有更多的灵活性，而且能为你的表单提供更多的控制，并且可以适配多个渲染器的（PC 移动）
 
 表单验证
 
+### 与服务器通讯
+angular可以和任何支持HTTP协议和WebSocket协议的服务器通讯
 
+#### 创建web服务器
+创建server文件夹
+```
+npm init -y
+```
 
+引入node的类型文件
+```
+npm i @types/node --save
+```
 
+node本身是不人TypeScript的，所以我们需要将TypeScript变异成JavaScript
+新建编译文件tsconfig.json
+```JSON
+{
+	// 编译器的配置
+	"compilerOptions": {
+		// 目标是编译成es5规范的脚本
+		"target": "es5",
+		// 模块的规范是commonjs
+		"module": "commonjs",
+		// 保留装饰器的原数据
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		// 编译完的js文件放到build目录
+		"outDir": "build",
+		// 开发时的语法
+		"lib": ["es6"]
+	},
+	// 编译时排除的目录
+	"exclude": [
+		"node_modules"
+	]
+}
+```
 
+编译（需要全局安装typescript）
+```
+tsc
+```
 
+运行服务器
+```
+node build/hello_server.js
+```
 
+安装express
+```
+npm install express --save
+```
 
+安装编译文件
+```
+npm install @types/express --save
+```
 
+再次运行服务器
+```
+node build/auction_server.js
+```
 
+在这里服务器文件发生变化是，node是不会加载变化的文件的，只能重新启动node服务器
+所以安装一个工具
+```
+npm install -g nodemon
+```
 
+然后使用nodemon启动服务器
+```
+nodemon build/auction_server.js
+```
 
+#### HTTP通讯
+新建一个新的angular项目
 
+```
+ng g component product
+```
 
+product.component.ts
+```TypeScript
+import 'rsjx/Rx'
 
+export class ProductComponent implements OnInit {
+	dataSource: Observable<any>;
 
+	products: Array<any> = [];
 
+	constructor(private http: Http) {
+		this.dataSource = this.http.get('./products')
+			.map((res) => res.json());
+	}
 
+	ngOnInit() {
+		this.dataSource.subscribe(
+			(data) => this.products = data
+		)
+	}
+}
+```
 
+product.component.html
+```HTML
+<div>商品信息</div>
+<div>
+	<li *ngFor="let product of products">
+		{{product.title}}
+	</li>
+</div>
+```
 
+app.component.html
+```HTML
+<app-product></app-product>
+```
 
+为了能显示其他路径的数据，新建配置文件proxy.conf.json
+```JSON
+{
+	"/api": {
+		"target": "http://127.0.0.1:8000"
+	}
+}
+```
 
+再修改package.json
+```JSON
+"start": "ng serve --proxy-config proxy.conf.json"
+```
 
+所以product.component.ts
+```TypeScript
+constructor(private http: Http) {
+	this.dataSource = this.http.get('/api/products')
+		.map((res) => res.json());
+}
+```
+同样auction_server.ts也要改
+**注意：这里发送HTTP请求并不是get，而是subscribe**
+> get方法只是定义了一个HTTP请求，只有当subscribe订阅了这个方法的时候，这个请求才真正的发送出去
 
+还可以在模板上使用管道（async）来处理这个流，异步管道可以接受一个流来作为它的输入，然后自动的去订阅这个流
+product.component.html
+```HTML
+<div>商品信息</div>
+<div>
+	<li *ngFor="let product of products | async">
+		{{product.title}}
+	</li>
+</div>
+```
+
+product.component.ts
+```TypeScript
+export class ProductComponent implements OnInit {
+
+	products: Observable<any>;
+
+	constructor(private http: Http) {
+		this.products = this.http.get('./products')
+			.map((res) => res.json());
+	}
+
+	ngOnInit() {
+	}
+}
+```
+
+在发送HTTP请求的时候带上请求头
+product.component.ts
+```TypeScript
+import {Http, Headers} from '@angular/http';
+
+export class ProductComponent implements OnInit {
+	products: Observable<any>;
+
+	constructor(private http: Http) {
+		let myHeaders: Headers = new Headers();
+		myHeaders.append("Authorization", "Basic 123456")
+
+		this.products = this.http.get('./products', {headers: myHeaders})
+			.map((res) => res.json());
+	}
+
+	ngOnInit() {
+	}
+}
+```
 
 
 
