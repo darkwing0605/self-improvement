@@ -8511,7 +8511,6 @@ export class ProductComponent implements OnInit {
 ```
 
 #### WebSocket通讯
-
 WebSocket协议是一种低负载的二进制协议，目前主流的浏览器都已经内置了对WebSocket的支持
 WebSocket允许在同一个连接中，同时进行双方向的数据传递，也就是说在发送请求的时候同时还能接受数据（区别http协议）
 WebSocket是一个长连接协议，不需要在每次发送和接受数据时重新建立连接，所以WebSocket协议比http协议的延迟要低，且不需要每次连接时都携带一些与连接相关的信息
