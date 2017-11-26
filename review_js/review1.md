@@ -3870,7 +3870,7 @@ console.log(typeof str1);
 匹配验证字符串，常用在表单验证
 
 ### 2.基本语法
-它是由基本符号（数字、字母、下划线）和特殊符号（  ^$\()*.[]  ）组成的
+它是由基本符号（数字、字母、下划线）和特殊符号`（  ^$\()*.[]  ）`组成的
 
 ### 3.自己具备的方法
 test() 测试的作用，返回布尔值
@@ -8522,13 +8522,10 @@ npm install ws --save
 npm install @types/ws --save-dev
 ```
 
-
-
-
-
-
-
-
+#### 本章小结
+Http服务，它来字HttpModule，只有在调subscribe时才发请求
+WebSocket协议，它更加简洁和高效，它是双向的
+使用NodeJS和Express创建web服务器时是非常简单的
 
 
 
