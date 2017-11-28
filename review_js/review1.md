@@ -8527,11 +8527,62 @@ Http服务，它来字HttpModule，只有在调subscribe时才发请求
 WebSocket协议，它更加简洁和高效，它是双向的
 使用NodeJS和Express创建web服务器时是非常简单的
 
+### 构建和部署
+####构建：编译和合并
+```
+ng build
+```
 
+####部署：与服务器整合
+部署到 nodeJS 服务器上
 
+- 在 server 文件夹中新建 client 
+- 将之前生成的内容复制粘贴
 
+####多环境：一套代码支持多种环境
+开发、测试、生产
+环境文件environments
 
+在 angular-cli.json 中声明自己的配置文件
+```
+"environments": {
+	"source": "environments/environments.ts",
+	"dev": "environments/environments.ts",
+	"test": "environments/environments.test.ts",
+	"prod": "environments/environments.prod.ts"
+}
+```
 
+默认情况下使用 dev 配置
+
+启动生产模式
+package.json
+```
+"start": "ng serve --env=prod --proxy-config proxy.conf.json --open"
+```
+
+构建时也可以使用
+```
+ng build --env=prod
+```
+
+### 总结
+#### 开发流程
+设计！设计！！设计！！！
+先画一个组件树，根据组件树指定开发计划
+
+- 使用 Angular-CLI工具创建一个新的项目
+- 按照之前设计的组件关系开始从下往上编写组件
+- 按照父子关系组装组件并配置路由
+- 在开发环境上测试应用
+- 构建应用并部署到测试/生产环境
+
+#### 后续学习
+> 高级特性：动画、指令、安全等
+> 周边生态：
+>> angular CLI，angular marterial(官方的一个 marterial 风格的一个控件库)，angular universal(官方的一个服务器端渲染的项目)
+>> 第三方的组件，UI库，框架等
+>>> ionic, native script
 
 
 
