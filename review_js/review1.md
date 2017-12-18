@@ -5339,6 +5339,21 @@ JavaScript、ES6、React、Flexbox、AsyncStorage、Fetch、Native Modules、And
 >Promise封装
 >其他工具封装
 
+### 项目结构
+react-native项目结构
+
+- index.ios.js
+- index.android.js
+- android  Android native 项目
+- ios  ios native 项目
+- res  全局资源（图片，音视频等）
+- doc  文档说明
+- js
+	- common  可复用的组件（非完整页面）
+	- expand  扩展
+	- page		完整页面
+	- config	配置项（常量、接口地址、路由、多语言化等预制数据）
+	- util		工具类（非UI组件）
 
 
 # Angular
@@ -8583,24 +8598,6 @@ ng build --env=prod
 >> angular CLI，angular marterial(官方的一个 marterial 风格的一个控件库)，angular universal(官方的一个服务器端渲染的项目)
 >> 第三方的组件，UI库，框架等
 >>> ionic, native script
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
