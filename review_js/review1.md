@@ -5355,6 +5355,16 @@ react-native项目结构
 	- config	配置项（常量、接口地址、路由、多语言化等预制数据）
 	- util		工具类（非UI组件）
 
+### 实战
+```
+react-native init GitHubApp
+react-native run-android
+npm start
+```
+
+```
+npm install react-native-tab-navigator
+```
 
 # Angular
 ## Angular 2
@@ -8598,7 +8608,6 @@ ng build --env=prod
 >> angular CLI，angular marterial(官方的一个 marterial 风格的一个控件库)，angular universal(官方的一个服务器端渲染的项目)
 >> 第三方的组件，UI库，框架等
 >>> ionic, native script
-
 
 
 
