@@ -5366,6 +5366,27 @@ npm start
 npm install react-native-tab-navigator
 ```
 
+####  官方组件 Navigator
+##### 什么是 Navigator
+Navigator 是一个导航组件
+> 进入下一个界面，返回上一个界面
+> 传递数据给下一个界面，返回数据给上一个界面
+
+##### Navigator 的基本使用
+- 导入 Navigator
+- render 中返回 Navigator 
+- 调用 Navigator 的相应方法
+
+
+
+
+
+
+
+
+
+
+
 # Angular
 ## Angular 2
 ### 重要特性
