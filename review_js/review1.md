@@ -1,4 +1,4 @@
-<div style="width:50px;height:50px;border-radius:50%;background-color:cyan;position:fixed;right:100px;bottom:100px;line-height:50px;text-align:center;font-size:30px;color:white;cursor:pointer;">↑</div><script>var div=document.querySelector('div');div.onclick=function(eve){var timer=setInterval(function(){var scrollDistance=document.body.scrollTop||document.documentElement.scrollTop;scrollDistance=scrollDistance* .8;document.body.scrollTop=scrollDistance;document.documentElement.scrollTop=scrollDistance;if(scrollDistance==0){clearInterval(timer)}},30)}</script>
+<div style="width:50px;height:50px;border-radius:50%;background-color:cyan;position:fixed;right:100px;bottom:100px;line-height:50px;text-align:center;font-size:30px;color:white;cursor:pointer;">↑</div><script>var div=document.querySelector('div');div.onclick=function(eve){var timer=setInterval(function(){var scrollDistance=document.body.scrollTop||document.documentElement.scrollTop;scrollDistance=scrollDistance* 0.8;document.body.scrollTop=scrollDistance;document.documentElement.scrollTop=scrollDistance;if(scrollDistance==0){clearInterval(timer)}},30)}</script>
 [TOC]
 
 # JavaScript
@@ -261,7 +261,7 @@ var e = event || window.event;
 var a = b;//这时肯定会去找b的值
 ```
 >复合赋值：
-> `+=  -=  *=  /=  %=`
+>+=  -=  *=  /=  %=
 >这几个的运算规则是一样的：
 >运算规则：把复合赋值左边的变量值拿到右边进行运算，最终把结果再重新赋值给右边的变量
 ```javascript
@@ -3403,7 +3403,7 @@ $(window).scroll(function(){
 原理：大图的ul动，里面的li都不动
 要实现无缝滚动：就是在正常轮播图后面添加第一张图片，“欺骗”用户的视觉效果
 >右键：用户能点击到第六张图，看第六张的时候，快捷导航应该显示到第一个，再点击时，通过css()瞬间把ul的margin-left=0，然后再展示第二张
->左键：用户到第一张时，再点击左按钮，通过css()瞬间把ul的margin-left=-5* li的宽度，然后再ul从最后一张动画到倒数第二张
+>左键：用户到第一张时，再点击左按钮，通过css()瞬间把ul的margin-left=-5*li的宽度，然后再ul从最后一张动画到倒数第二张
 
 [无缝滚动轮播图-火车法](37.html)
 
@@ -8651,15 +8651,33 @@ ng build --env=prod
 
 
 
+# Canvas
+## Canvas 是什么
+Canvas是HTML5新增的脚本化的图形，用于实时生成图像的图片
 
+Canvas本身没有行为，我们通过它的API用JavaScript来控制它显示什么，怎么显示
 
+Canvas的绘图使用矢量图的逻辑，但是它渲染到画布上是以位图的形式
 
+Canvas作为载体在游戏，2D/3D动画展示上有了越来越多的应用
 
+## Canvas 与 HTML 和 CSS
 
+```
+<canvas></canvas>
+```
 
+```
+<canvas>
+	不支持canvas可以看到这句话
+</canvas>
+```
 
-
-
+```
+<canvas>
+	<video> src=""></video>
+</canvas>
+```
 
 
 
