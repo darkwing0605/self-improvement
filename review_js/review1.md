@@ -8631,6 +8631,61 @@ ng build --env=prod
 >>> ionic, native script
 
 
+# Vue.js
+> 模板渲染
+> 模块化
+> 扩展功能
+>> 路由
+>> Ajax
+
+## 前置知识
+数据渲染 / 数据同步
+组件化 / 模块化
+其他功能：路由，ajax，数据流
+
+```HTML
+<div id="app">
+	{{ message }}
+</div>
+```
+
+```JavaScript
+new Vue({
+	el: '#app',
+	data: {
+		message: 'Hello Vue.js!'
+	}
+})
+```
+
+组件
+```HTML
+<div id="example">
+	<my-component></my-component>
+</div>
+```
+
+```JavaScript
+// 定义
+var MyComponent = Vue.extend({
+	template: '<div>A custom component!</div>'
+})
+// 注册
+Vue.component('my-component', MyComponent)
+// 创建根实例
+new Vue({
+	el: '#example'
+})
+```
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8692,33 +8747,6 @@ Canvas作为载体在游戏，2D/3D动画展示上有了越来越多的应用
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Git
 ```
 // 初始化版本库
@@ -8744,4 +8772,3 @@ git push origin master -f
 // 保留线上版本
 git push origin master
 ```
-
