@@ -8723,6 +8723,7 @@ new Vue({
 
 
 
+
 # Canvas
 ## Canvas 是什么
 Canvas是HTML5新增的脚本化的图形，用于实时生成图像的图片
